@@ -1,0 +1,167 @@
+{extend name="base/base" /}
+
+{block name="title"}首页{/block}
+
+{block name="header"}
+{include file="base/header"}
+{/block}
+
+{block name="main"}
+<div class="fenge"></div>
+<div class="gg-z">
+    <div class="gg-z-f">
+        <i class="iconfont icon-gonggao_active"></i>
+    </div>
+    <div class="gd-g">
+
+        <marquee direction="left" scrollamount="3" onmouseover="this.stop()" onmouseout="this.start()">
+            <a href="javascript:;">重庆时时彩，每10分钟开奖一次，可百度开奖结果对照数据，商品升级商城，最公平、公正、公开、的赚钱购物平台！</a>
+        </marquee>
+    </div>
+</div>
+<div class="gg-zhong">
+    <p>第{$lastTermNum}期</p>
+    <div class="gg-shu">
+        <ul>
+            {foreach $result as $vo}
+                <li><p>{$vo}</p></li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+
+<div class="kj-zh" style="margin-top: 0px; background-color: #fff; padding: 0px;">
+    <div class="kj-zh-nei">
+        <div class="kj-zh-nei1">
+            <img src="/static/index/images/k6.png">
+            <p>距离第<span>{$lastTermNum+1}</span>期结束：</p>
+        </div>
+        <div class="time-item">
+            <strong id="minute_show">0分</strong>
+            <strong id="second_show">0秒</strong>
+        </div>
+    </div>
+</div>
+<div class="shou-zhong">
+    <p class="h3"><span>半价抢购规则：</span>根据当期"重庆时时彩"的最后一位数字，为奇则<span>"瑞雪"</span>升级成功，反之<span>"丰年"</span>升级成功。</p>
+</div>
+<div class="shou-b">
+    <i class="iconfont icon-product"></i>
+    <span>实物商品</span>
+</div>
+<div class="shou-shp">
+    <ul>
+        {volist name="goodsInfo" id="vo"}
+            <li class="shou-shp1">
+                <img src="{$vo.pic_url}">
+                <div class="p-5">
+                    <h3>{$vo.name}</h3>
+                    <p>价格：<span class="span1">¥{$vo.price}</span>
+                        升级：<span class="span2">¥{$vo.success_price}</span></p>
+                </div>
+                <div class="text-centeer">
+                    <button class="shou-shp2 buy" type="button" value="{$vo.id}">
+                        立即抢购
+                    </button>
+                </div>
+            </li>
+        {/volist}
+    </ul>
+</div>
+<!--分割线-->
+<div class="fgx"></div>
+<div id="wrap2">
+    <div id="tit2">
+        <span class="select2">最新参与记录</span>
+        <span>开奖记录</span>
+    </div>
+    <div id="login2">
+        <div class="login2 show2">
+            <div class="shou-q">
+                <ul>
+                    {volist name="orderInfo" id="vo"}
+                        <li>
+                            <div class="shou-q1">
+                                <img src="/static/index/images/touxiang.png">
+                            </div>
+                            <div class="shou-q2">
+                                <h3>{$name}</h3>
+                                <p>抢购 {$vo.goods_num} 件 {$vo.goods_name},总价{$vo.amount}</p>
+                            </div>
+                            <div class="shou-q3">
+                                <p>{:date('Y-m-d H:i', $vo.created_date)}</p>
+                            </div>
+                        </li>
+                    {/volist}
+
+                    <div class="kj-jz">
+                        <a href="huojiangjilu.html">查看全部</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="login2">
+            <div class="kj-xia">
+                <div class="kj-xia-b">
+                    <p class="kj-p1">时时彩期号</p>
+                    <p class="kj-p2">开奖号码</p>
+                    <p class="kj-p3">获胜</p>
+                </div>
+                <ul>
+                    {volist name="award" id="vo"}
+                        <li>
+                            <p class="kj-p4">第{$vo.term_num}期</p>
+                            <p class="kj-p5">{$vo.result}</p>
+                            {if($vo.win == 1)}
+                                <p class="kj-p7">丰年</p>
+                            {else /}
+                                <p class="kj-p6">瑞雪</p>
+                            {/if}
+                        </li>
+                    {/volist}
+                    <div class="kj-jz">
+                        <a href="{:url('/index/reward/index')}">查看全部</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/index/js/timeCount.js"></script>
+{/block}
+
+{block name="nav"}
+{include file="base/nav"}
+{/block}
+
+{block name="script"}
+<script>
+    $(function(){
+        $('.daohang ul li:eq(0)').addClass('active').siblings().removeClass('active');
+
+        var h3_height = $(".shou-b").offset().top;
+        $(window).scroll(function () {
+            var this_scrollTop = $(this).scrollTop();
+            if (this_scrollTop - 80 >= h3_height) {
+                $(".kj-zh1").show();
+            } else {
+                $(".kj-zh1").hide();
+            }
+        });
+
+        $('.gb-tan').click(function () {
+            $('.tanch').hide()
+        });
+
+        $('#tit2 span').click(function () {
+            var i = $(this).index();//下标第一种写法
+            $(this).addClass('select2').siblings().removeClass('select2');
+            $('.login2').eq(i).show().siblings().hide();
+        });
+
+        $('.buy').on('click',function () {
+            $(location).prop('href', '/index/goods/index?goods_id='+$(this).val());
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,104 @@
+{extend name="layout/layout"}
+{block name="title"}提现申请{/block}
+{block name="body"}
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>提现申请</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table id="extractApply"  data-mobile-responsive="true"  data-pagination="true" data-page-list=[10]>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Basic -->
+</div>
+
+</body>
+{/block}
+{block name="my-js"}
+<script>
+    $(function () {
+        var btt_data = [{
+            "extract_id": "1",
+            "name": "奔波儿灞",
+            "amount": "300",
+            "way": "支付宝",
+            "status": "成功",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "extract_id": "1",
+            "name": "奔波儿灞",
+            "amount": "300",
+            "way": "支付宝",
+            "status": "成功",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "extract_id": "1",
+            "name": "奔波儿灞",
+            "amount": "300",
+            "way": "支付宝",
+            "status": "失败",
+            "created_date" : "2018-09-07 17:20"
+        }];
+        $('#extractApply').bootstrapTable({
+            data: btt_data,
+            columns: [{
+                field:"extract_id",
+                title:"编号"
+            }, {
+                field:"name",
+                title:"用户帐号"
+            },{
+                field:"amount",
+                title:"提现金额"
+            }, {
+                field:"real_amount",
+                title:"到账金额"
+            }, {
+                field:"way",
+                title:"提现方式"
+            }, {
+                field:"status",
+                title:"状态"
+            }, {
+                field:"created_date",
+                title:"提现时间"
+            }, {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            }]
+        });
+    });
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="agree btn btn-info btn-xs" href="javascript:void(0)" style="margin-right:10px;" title="Agree">',
+            '同意',
+            '</a>',
+            '<a class="refuse btn btn-danger btn-xs" href="javascript:void(0)" title="Refuse">',
+            '拒绝',
+            '</a>'
+        ].join('');
+    }
+    window.operateEvents = {
+        'click .agree': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        'click .refuse': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        }
+    };
+</script>
+{/block}

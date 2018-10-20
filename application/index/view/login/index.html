@@ -1,0 +1,82 @@
+{extend name="base/base" /}
+
+{block name="title"}登录{/block}
+
+{block name="main"}
+<style>
+    html,body{
+       background: #f7f7f7;
+    }
+</style>
+<body>
+<!--内容-->
+<div class="content">
+    <header class="bg-login"><img src="/static/index/images/logo.png"></header>
+    <div class="box login-form">
+        <form class="input-group">
+            <div class="input-row ">
+                <span class="iconfont icon-ICON-user"></span>
+                <input type="text" name="user_account" placeholder="账号/手机号" >
+            </div>
+            <div class="input-row ">
+                <span class="iconfont icon-mima"></span>
+                <input type="password" name="user_pwd" placeholder="密码">
+            </div>
+            <div class="login-line">
+                <a href="{:url('login/register')}">注册帐号</a> | <a href="{:url('login/findpw')}">忘记密码</a>
+            </div>
+            <footer class="footer-bar">
+                <button type="button" class="btn btn-danger submit_btn">
+                    立即登录
+                </button>
+            </footer>
+        </form>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $("input[name='user_account']").keydown(function(){
+            this.value = this.value.replace(/[^A-Za-z0-9]/i,'');
+        });
+        $('.submit_btn').click(function () {
+            var user_name = $('input[name="user_account"]').val();
+            var user_pwd = $('input[name="user_pwd"]').val();
+            if(user_name == ''){
+                layer.msg('请填写用户名',{time: 1000});
+                return false;
+            }
+            if(user_pwd == ''){
+                layer.msg('请填写密码',{time: 1000});
+                return false;
+            }
+            $.ajax({
+                url : '/service/login/index',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    username : user_name,
+                    userpwd : user_pwd
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function(){
+                            location.href='/index/index';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+{/block}

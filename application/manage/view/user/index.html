@@ -1,0 +1,101 @@
+{extend name="layout/layout"}
+{block name="title"}成员列表{/block}
+{block name="body"}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>成员列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <table id="usersTableFromData"  data-mobile-responsive="true"  data-pagination="true" data-page-list=[10]>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Basic -->
+    </div>
+
+    <!-- Peity -->
+    <!--<script src="/static/manage/js/demo/bootstrap-table-demo.js"></script>-->
+    <script src="/static/manage/js/common.js"></script>
+
+</body>
+{/block}
+{block name="my-js"}
+<script>
+    $(function () {
+        var btt_data = [{
+            "uid": "1",
+            "name": "奔波儿灞",
+            "tel": "积分",
+            "email": "300",
+            "status": "启用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "uid": "2",
+            "name": "灞波儿奔",
+            "tel": "充值",
+            "email": "218",
+            "status": "启用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "uid": "3",
+            "name": "作家崔成浩",
+            "tel": "充值",
+            "email": "436",
+            "status": "停用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "uid": "3",
+            "name": "作家崔成浩",
+            "tel": "充值",
+            "email": "436",
+            "status": "停用",
+            "created_date" : "2018-09-07 17:20"
+        }];
+        $('#usersTableFromData').bootstrapTable({
+            data: btt_data,
+            columns: [{
+                field:"uid",
+                title:"用户ID"
+            }, {
+                field:"name",
+                title:"用户帐号"
+            },{
+                field:"tel",
+                title:"绑定手机"
+            },{
+                field:"email",
+                title:"绑定邮箱"
+            },{
+                field:"status",
+                title:"状态"
+            }, {
+                field:"created_date",
+                title:"创建时间"
+            }, {
+                field: 'operate',
+                title: '操作',
+                align: 'center',
+                formatter: operateFormatter()
+            }]
+        });
+    });
+    function operateFormatter() {
+        return [
+            // '<a href="" class="btn btn-xs btn-info">查看</a>',
+            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">详情</>',
+            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">抢购记录</a>',
+            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">竞猜记录</a>',
+        ].join('');
+    }
+</script>
+{/block}

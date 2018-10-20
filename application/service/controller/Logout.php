@@ -1,0 +1,23 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2018-8-11
+ * Time: 10:48
+ */
+
+namespace app\service\controller;
+
+use app\tools\M3result;
+
+
+class Logout extends Base
+{
+    public function index(){
+        session(null);
+        $m3_result = new M3result();
+        $m3_result->status = 1;
+        $m3_result->msg = '注销成功';
+        return $m3_result->toJson();
+    }
+}

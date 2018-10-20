@@ -1,0 +1,179 @@
+{extend name="base/base" /}
+
+{block name="title"}首页{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/index/images/zuo.png" alt=""></a>
+    <p>我的订单</p>
+    <a class="shoucang" href="{:url('index/excharge/index')}">我要兑换</a>
+</div>
+
+<div class="b_order_box">
+    <ul class="b_myorder2 show">
+        {volist name="orderInfo" id="vo"}
+            <li>
+                <input type="hidden" class="order_id" value="{$vo.id}">
+                <div class="b_order_detail clearfix">
+                    <div class="b_good_img">
+                        <img src="{$vo.pic_url}"/>
+                    </div>
+                    <div class="b_good_name">
+                        <p>{$vo.name}</p>
+                        <span>升级选择：{$vo.guessing==0 ? '瑞雪' : '丰年'}</span>
+                    </div>
+                    <div class="b_good_price">
+                        {if($vo.guessing === $vo.win)}
+                            <p style="color: #07cda5">￥{$vo.success_price}</p>
+                            <span>成功</span>
+                        {else/}
+                            <p>￥{$vo.price}</p>
+                        {/if}
+
+                    </div>
+                </div>
+                <div class="b_order_total">
+                    {if($vo.guessing==$vo.win)}
+                        <p>共<span class="b_good_num">{$vo.goods_num}</span>件商品 合计：￥<span class="b_good_tprice">{$vo.goods_num*$vo.success_price}</span><span class="b_trans_fee">(运费:￥10.00)</span></p>
+                    {else/}
+                        <p>共<span class="b_good_num">{$vo.goods_num}</span>件商品 合计：￥<span class="b_good_tprice">{$vo.amount}</span><span class="b_trans_fee">(运费:￥10.00)</span></p>
+                    {/if}
+                </div>
+                <div class="b_order_after clearfix">
+                    {if($vo.status)}
+                        {switch $vo.status }
+                            {case 1 }
+                                <a class="b_buy_again take" href="javascript:;">退货中</a>
+                            {/case}
+                            {case 2}
+                                <a class="b_buy_again take" href="javascript:;">提货中</a>
+                            {/case}
+                            {case 3}
+                                <a class="b_buy_again take" href="javascript:;">已退货</a>
+                            {/case}
+                            {case 4}
+                                <a class="b_buy_again take" href="javascript:;">已提货</a>
+                            {/case}
+                            {case 5}
+                                <a class="b_buy_again take" href="javascript:;">已转为金币</a>
+                            {/case}
+                        {/switch}
+                    {else/}
+                        {if(is_null($vo.win))}
+                            <a class="b_buy_again" href="javascript:;">未开奖</a>
+                        {else/}
+                            <a class="b_buy_again take_goods" href="#">提货</a>
+                            <a class="b_buy_again to_gold" href="#">转为金币</a>
+                            {if($vo.guessing==$vo.win)}
+                                <a class="b_buy_again back_goods" href="#">退货</a>
+                            {/if}
+                        {/if}
+                    {/if}
+
+                </div>
+            </li>
+        {/volist}
+
+    </ul>
+</div>
+
+<script src="/static/index/js/common.js"></script>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.to_gold').click(function () {
+            var order_id = $(this).parents('li').find('.order_id').val();
+            if(order_id == ''){
+                layer.msg('未知错误，请刷新',{time: 1000});
+                return false;
+            }
+            $.ajax({
+                url : 'toGold',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    order_id : order_id
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function(){
+                            location.href='/index/user';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+        
+        $('.take_goods').click(function () {
+            var order_id = $(this).parents('li').find('.order_id').val();
+            if(order_id == ''){
+                layer.msg('未知错误，请刷新',{time: 1000});
+                return false;
+            }
+            $.ajax({
+                url : 'takeGoods',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    order_id : order_id,
+                    purpose : 2
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function(){
+                            location.href='/index/user';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+
+        $('.back_goods').click(function () {
+            var order_id = $(this).parents('li').find('.order_id').val();
+            if(order_id == ''){
+                layer.msg('未知错误，请刷新',{time: 1000});
+                return false;
+            }
+            $.ajax({
+                url : 'takeGoods',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    order_id : order_id,
+                    purpose : 1
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function(){
+                            location.href='/index/user';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+{/block}

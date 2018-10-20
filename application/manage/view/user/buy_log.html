@@ -1,0 +1,105 @@
+{extend name="layout/layout"}
+{block name="title"}抢购列表{/block}
+{block name="body"}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>抢购列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <table id="buyLog"  data-mobile-responsive="true"  data-pagination="true" data-page-list=[10]>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Basic -->
+    </div>
+
+</body>
+{/block}
+{block name="my-js"}
+<script>
+    $(function () {
+        var btt_data = [{
+            "order_id": "1",
+            "name": "奔波儿灞",
+            "good_name": "积分",
+            "good_num": "300",
+            "amount": "300",
+            "guessing": "300",
+            "term": "436",
+            "status": "启用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "order_id": "2",
+            "name": "灞波儿奔",
+            "good_name": "充值",
+            "good_num": "218",
+            "amount": "218",
+            "guessing": "218",
+            "term": "436",
+            "status": "启用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "order_id": "3",
+            "name": "作家崔成浩",
+            "good_name": "充值",
+            "good_num": "436",
+            "amount": "436",
+            "guessing": "436",
+            "term": "436",
+            "status": "停用",
+            "created_date" : "2018-09-07 17:20"
+        }, {
+            "order_id": "3",
+            "name": "作家崔成浩",
+            "good_name": "充值",
+            "good_num": "436",
+            "amount": "436",
+            "term": "436",
+            "guessing": "436",
+            "status": "停用",
+            "created_date" : "2018-09-07 17:20"
+        }];
+        $('#buyLog').bootstrapTable({
+            data: btt_data,
+            columns: [{
+                field:"order_id",
+                title:"编号"
+            }, {
+                field:"name",
+                title:"用户帐号"
+            },{
+                field:"good_name",
+                title:"购买商品名称"
+            },{
+                field:"good_num",
+                title:"数量"
+            },{
+                field:"amount",
+                title:"金额"
+            }, {
+                field:"guessing",
+                title:"升级选择"
+            }, {
+                field:"term",
+                title:"升级期号"
+            }, {
+                field:"status",
+                title:"状态"
+            }, {
+                field:"created_date",
+                title:"抢购时间"
+            }]
+        });
+    });
+</script>
+{/block}

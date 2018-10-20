@@ -1,0 +1,228 @@
+{extend name="base/base" /}
+
+{block name="title"}商品详情{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/index/images/zuo.png" alt=""></a>
+    <p>商品详情</p>
+</div>
+<input type="hidden" id="goods_id" value="{$goods_id}">
+<input type="hidden" id="award_id" value="{$award_id}">
+<div class="sh-x">
+    <!--<img src="/static/index/images/sh1.png">-->
+    <img src="{$goods_info.pic_url}">
+</div>
+<div class="sh-z">
+    <div class="sh-zuo">
+        <p>¥<span>{$goods_info.price}</span>.00</p>
+        <div class="sh-zuo1">
+            <img src="/static/index/images/sh2.png">
+            <p>¥{$goods_info.success_price}.00</p>
+        </div>
+    </div>
+    <div class="sh-you">
+        <p>距<span>{$lastTermNum+1}</span>期结束</p>
+        <div class="time-item1">
+            <strong id="minute_show">00分</strong>
+            <strong id="second_show">00秒</strong>
+        </div>
+    </div>
+</div>
+<div class="sh-z zh-y" style="top: 1rem;">
+    <div class="sh-zuo">
+        <p>¥<span>{$goods_info.price}</span>.00</p>
+        <div class="sh-zuo1">
+            <img src="/static/index/images/sh2.png">
+            <p>¥{$goods_info.success_price}.00</p>
+        </div>
+    </div>
+    <div class="sh-you">
+        <p>距<span>{$lastTermNum+1}</span>期结束</p>
+        <div class="time-item1">
+            <strong id="minute_show5">00分</strong>
+            <strong id="second_show5">00秒</strong>
+        </div>
+    </div>
+</div>
+<div class="sh-p">
+    <h3>{$goods_info.name}</h3>
+    <p>一品好茶，尚为佳品。</p>
+</div>
+<div class="fgx"></div>
+
+<div id="wrap1">
+    <div id="tit1">
+        <span class="select1">商品介绍</span>
+    </div>
+    <div id="login1">
+        <div class="login1 show1">
+            <img src="/static/index/images/xq.jpg">
+        </div>
+    </div>
+</div>
+<div class="sh-xq">
+    <div class="sh-xq-zuo">
+        <p>¥{$goods_info.price}.00</p>
+    </div>
+    <div class="sh-xq-you">
+        <a href="javascript:;" class="sh-t">立即抢购</a>
+    </div>
+</div>
+<div class="xiangqing-tan">
+    <div onclick="mao(event);" class="sh-t1">
+        <div class="sh-t-tou">
+            <div class="sh-t-tou2">
+                <div class="sh-t-tou3">
+                    <p>距&nbsp;<span>{$lastTermNum+1}</span>&nbsp;期结束:</p>
+                    <div class="time-item2">
+                        <strong id="minute_show1">00分</strong>
+                        <strong id="second_show1">00秒</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="sh-t-tou4">
+                <img src="/static/index/images/guanbi.png">
+            </div>
+        </div>
+        <div class="shang4">
+            <p>促销升级</p>
+        </div>
+        <div class="zhong4">
+            <ul>
+                <li value="0">瑞雪</li>
+                <li value="1">丰年</li>
+            </ul>
+            <input type="hidden" value="" id="award_num">
+        </div>
+        <div class="shang3">
+            <p>抢购数量</p>
+        </div>
+        <div class="zhong3">
+            <ul>
+                <li>1</li>
+                <li>10</li>
+                <li>30</li>
+                <li>
+                    <input type="text" name="otherNum" placeholder="其他数量">
+                </li>
+            </ul>
+            <input type="hidden" value="" id="buy_num">
+        </div>
+        <div class="dh-lb">
+            <li>
+                <a href="{:url('index/recharge/index')}">充值</a>
+            </li>
+            <li>
+                <a href="javascript:;" class="sh-tan">购买</a>
+            </li>
+        </div>
+        <div class="wx-ti">
+            <img src="/static/index/images/sh5.png">
+            <p>请选择夺宝项目</p>
+            <p>您的夺宝币余额不足，请先充值</p>
+        </div>
+    </div>
+</div>
+
+<script src="/static/index/js/common.js"></script>
+<script src="/static/index/js/timeCount.js"></script>
+{/block}
+
+{block name="script"}
+<script>
+    $(function(){
+
+        var h3_height = $(".sh-p").offset().top;
+        $(window).scroll(function(){
+            var this_scrollTop = $(this).scrollTop();
+            if(this_scrollTop >= h3_height ){
+                $(".zh-y").show();
+            }else{
+                $(".zh-y").hide();
+            }
+        });
+
+        $(".xiangqing-tan").height($(window).height());
+        $(".sh-t").click(function(){
+            $(".xiangqing-tan").toggle();
+        });
+        $(".sh-t-tou4").click(function(){
+            $(".xiangqing-tan").toggle();
+        });
+
+        $('#tit1 span').click(function() {
+            var i = $(this).index();//下标第一种写法
+            $(this).addClass('select1').siblings().removeClass('select1');
+            $('.login1').eq(i).show().siblings().hide();
+        });
+
+        $(".zhong3 ul li").click(function(){
+            $(this).css({'background-color':'#07cda5','color':'#fff','border':'none'}).siblings().css({'background-color':'#fff','color':'#8a8787','border':'1px solid #cdcdcd'});
+            if($(this).children('input').length == 0){
+                $('#buy_num').val($(this).html());
+            }
+        });
+        $(".zhong4 ul li").click(function(){
+            $(this).css({'background-color':'#07cda5','color':'#fff','border':'none'}).siblings().css({'background-color':'#fff','color':'#8a8787','border':'1px solid #cdcdcd'})
+            $('#award_num').val($(this).attr('value'));
+        });
+
+        $('input[name="otherNum"]').change(function () {
+            $('#buy_num').val($(this).val());
+        });
+
+        $('.sh-tan').click(function() {
+            if($('#minute_show1')[0].innerText.substring(1,2) < 2){
+                layer.msg('现在不允许购买，请稍候',{time:1500});
+                return false;
+            }
+            var buy_num = $('#buy_num').val();
+            var award_num = $('#award_num').val();
+            var goods_id = $('#goods_id').val();
+            var goods_price = {$goods_info.price};
+            var guessing_term = {$lastTermNum+1};
+            var award_id = $('#award_id').val();
+            if(award_num == ''){
+                layer.msg('请选择升级选项',{time:1500});
+                return false;
+            }
+            if(buy_num == ''){
+                layer.msg('请选择抢购数量',{time:1500});
+                return false;
+            }
+            $.ajax({
+                url : 'buyGoods',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    buy_num : buy_num,
+                    award_num : award_num,
+                    goods_id : goods_id,
+                    goods_price : goods_price,
+                    award_id : award_id
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function () {
+                            location.href='/index/index';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+
+    function mao(e){
+        e.stopPropagation();
+    }
+
+</script>
+{/block}

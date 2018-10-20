@@ -1,0 +1,183 @@
+{extend name="base/base" /}
+
+{block name="title"}个人中心{/block}
+
+{block name="main"}
+<header class="me-header">
+    <div class="me-box">
+        <div class="avatar">
+            {if empty($user_photo)}
+                <img src="/static/index/images/touxiang.png">
+            {else/}
+                <img src="{$user_photo}">
+            {/if}
+            <h4>&nbsp;&nbsp;{$name}</h4>
+            <span class="label {if (!empty($email))} label-yes {/if}">绑定邮箱</span>
+            <span class="label {if (!empty($tel))} label-yes {/if}">绑定手机</span>
+            <span class="label {if ($adressNum >0)} label-yes {/if}">收货地址</span>
+        </div>
+        <div class="income-h">
+            <h2>￥ {$money}</h2>
+            <small>我的余额</small>
+        </div>
+    </div>
+
+    <ul class="me-h ">
+        <li>
+            <a href="{:url('index/extract/goldToMoney')}">
+                <i class="iconfont icon-jiaohuan"></i>
+                <span>兑换</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('index/recharge/index')}">
+                <i class="iconfont icon-chongzhi1"></i>
+                <span>充值</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('index/extract/index')}">
+                <i class="iconfont icon-tixian"></i>
+                <span>提现</span>
+            </a>
+        </li>
+    </ul>
+</header>
+
+<div class="fgx"></div>
+<div class="gr-xia">
+    <ul>
+        <li>
+            <a href="{:url('index/order/index')}">
+                <img src="/static/index/images/ge1.png">
+                <p>我的订单</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('index/extract/record')}">
+                <img src="/static/index/images/ge2.png">
+                <p>提现记录</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('index/extract/goldrecord')}">
+                <img src="/static/index/images/ge3.png">
+                <p>兑换记录</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="#" class="tan-chu">
+                <img src="/static/index/images/ge4.png">
+                <p>绑定手机</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="fgx"></div>
+<div class="gr-xia">
+    <ul>
+        <li>
+            <a href="{:url('index/user/alipay')}">
+                <img src="/static/index/images/ge5.png">
+                <p>支付宝</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('index/address/index')}">
+                <img src="/static/index/images/ge6.png">
+                <p>收货地址</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="fgx"></div>
+<div class="gr-xiao">
+    <a href="javascript:;" class="logout">
+        <p>退出登录</p>
+    </a>
+</div>
+<div class="kong"></div>
+
+<div class="tanch hidden">
+    <p>为保证您的资金安全，请绑定手机</p>
+    <input type="text" name="user_tel" placeholder="请输入手机号" value="{if (isset($tel) && !empty($tel))}{$tel}{/if}">
+    <a href="#" class="gb-tan submit_tel">确定</a>
+</div>
+{/block}
+
+{block name="nav"}
+{include file="base/nav"}
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.daohang ul li:eq(3)').addClass('active').siblings().removeClass('active');
+        $('.tan-chu').click(function() {
+            $('.tanch').show()
+        });
+        $('.submit_tel').click(function() {
+            var telNum = $(this).prev().val();
+            if(telNum != ''){
+                if(telNum.length != 11){
+                    layer.msg('请填写正确的手机号',{time:1500});
+                    return false;
+                }
+                $.ajax({
+                    url : 'addTel',
+                    type : "POST",
+                    dataType : "json",
+                    cache : false,
+                    data : {
+                        tel_num : telNum
+                    },
+                    success : function(data){
+                        data = JSON.parse(data);
+                        if(data != null && data.status == 1){
+                            layer.msg(data.msg,{time: 1000});
+                        }else if(data.status == 0){
+                            layer.msg(data.msg,{time: 1000});
+                        }
+                        $('.tanch').hide();
+                    },
+                    error : function(data){
+                        console.log(data);
+                    }
+                });
+            }else{
+                $('.tanch').hide();
+            }
+
+        });
+
+        $('.logout').click(function () {
+            $.ajax({
+                url : '/service/logout/index',
+                type : "GET",
+                dataType : "json",
+                cache : false,
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function () {
+                            window.location.reload();
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+
+    });
+</script>
+{/block}

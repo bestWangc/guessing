@@ -1,0 +1,106 @@
+{extend name="base/base" /}
+
+{block name="title"}收货地址{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/index/images/zuo.png" alt=""></a>
+    <p>收货地址</p>
+</div>
+<div class="login12">
+    <form>
+        <label>
+            <div>
+                <span>收货人：</span>
+                <input type="text" name="reci_name" placeholder="请输入收货人名称" value="{if (isset($name) && !empty($name))}{$name}{/if}">
+            </div>
+        </label>
+        <label>
+            <div>
+                <span>手机号：</span>
+                <input type="text" name="reci_tel" placeholder="请输入手机号" value="{if (isset($phone) && !empty($phone))}{$phone}{/if}">
+            </div>
+        </label>
+        <label>
+            <div>
+                <span>详细地址：</span>
+                <input type="text" name="address_detail" placeholder="请输入详细地址" value="{if (isset($address) && !empty($address))}{$address}{/if}">
+            </div>
+        </label>
+        <label>
+            <div>
+                <span>邮政编码：</span>
+                <input type="text" name="postal_code" placeholder="请输入邮政编码" value="{if (isset($code) && !empty($code))}{$code}{/if}">
+            </div>
+        </label>
+    </form>
+</div>
+<div class="tijiao">
+    <span>保存</span>
+</div>
+
+<script src="/static/index/js/common.js"></script>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.tijiao').click(function(){
+            var tel = $('input[name="reci_tel"]').val();
+            var reci_name = $('input[name="reci_name"]').val();
+            var address_detail = $('input[name="address_detail"]').val();
+            var postal_code = $('input[name="postal_code"]').val();
+            if(tel == ''){
+                layer.msg('请填写手机号',{time:1500});
+                return false;
+            }
+            if(reci_name == ''){
+                layer.msg('请填写收货人',{time:1500});
+                return false;
+            }
+            if(address_detail == ''){
+                layer.msg('请填写详细收货地址',{time:1500});
+                return false;
+            }
+            if(postal_code == ''){
+                layer.msg('请填写邮政编码',{time:1500});
+                return false;
+            }
+            if(isNaN(parseInt(tel)) || tel.length != 11) {
+                layer.msg('手机号填写不正确',{time:1500});
+                return false;
+            }
+            if(isNaN(parseInt(postal_code))){
+                layer.msg('邮编填写不正确',{time:1500});
+                return false;
+            }
+
+            $.ajax({
+                url : 'add',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    reci_name : reci_name,
+                    tel : tel,
+                    address_detail : address_detail,
+                    postal_code : postal_code
+                },
+                success : function(data){
+                    data = JSON.parse(data);
+                    if(data != null && data.status == 1){
+                        layer.msg(data.msg,{time: 1000},function(){
+                            location.href='/index/user';
+                        });
+                    }else if(data.status == 0){
+                        layer.msg(data.msg,{time: 1000});
+                    }
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+{/block}
