@@ -35,10 +35,9 @@
                     </div>
                     <div class="ibox-content no-padding">
                         <ul class="list">
-                            <li>团队成员 ：{$teamAllNum}</li>
-                            <li>今日活跃成员 ：{$teamActiveNum}</li>
-                            <li>今日新增成员 ：{$teamNewNum}</li>
-                            <li>团队净收益  ：20</li>
+                            <li title="团队所有成员人数">团队成员 ：{$teamAllNum}</li>
+                            <li title="今日新增团队成员人数">今日新增成员 ：{$teamNewNum}</li>
+                            <li title="今日参与抢购成员人数">今日活跃成员 ：{$teamActiveNum}</li>
                         </ul>
                     </div>
 
@@ -47,15 +46,15 @@
             <div class="col-sm-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>团队信息说明</h5>
+                        <h5>分红信息</h5>
                     </div>
                     <div class="ibox-content">
-                        <ol>
-                            <li>团队成员：团队所有成员人数</li>
-                            <li>今日活跃成员：今日参与抢购成员人数</li>
-                            <li>今日新增成员：今日成为团队成员的人数</li>
-                            <li>团队净收益：你应得到的收益，即分红</li>
-                        </ol>
+                        <ul class="list bg_color_orange_red">
+                            <li>今日订单总量：{$orderTotal}</li>
+                            <li>今日订单总额：{$moneyTotal}</li>
+                            <li>昨日分红： 50</li>
+                            <li>本月分红：5000</li>
+                        </ul>
                     </div>
                 </div>
             </div>

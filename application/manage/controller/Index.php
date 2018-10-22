@@ -33,8 +33,10 @@ class Index extends Base
             ->field($field)
             ->find();
         //团队成员数量
-        $count = $this->getCountForTeam($uid);
+        $count = $this->getTeamInfo($uid);
         list($teamAllNum,$teamNewNum,$teamActiveNum) = $count;
+
+        $orderCountInfo = $this->getTeamOrderCount($uid);
 
         $this->assign([
             'userName' => $userName,
@@ -48,6 +50,8 @@ class Index extends Base
             'teamAllNum' => $teamAllNum,
             'teamNewNum' => $teamNewNum,
             'teamActiveNum' => $teamActiveNum,
+            'orderTotal' => $orderCountInfo['total'],
+            'moneyTotal' => $orderCountInfo['amount'],
         ]);
         return $this->fetch();
     }
@@ -59,7 +63,7 @@ class Index extends Base
     }
 
     //计算团队成员数量
-    public function getCountForTeam($uid){
+    public function getTeamInfo($uid){
         //今日凌晨时间戳
         $time = strtotime(date('Ymd'));
         //今日新增成员
@@ -76,6 +80,17 @@ class Index extends Base
             ->select();
         $result = array_column($result,'count');
         return $result;
+    }
 
+    //获取简单收益信息
+    public function getTeamOrderCount($uid){
+        //今日凌晨时间戳
+        $time = strtotime(date('Ymd'));
+        $result = db('order')
+            ->field('COUNT(id) AS total,COALESCE(SUM(amount),0) AS amount')
+            ->where('user_id',$uid)
+            ->where('created_date','>', $time)
+            ->find();
+        return $result;
     }
 }
