@@ -2,7 +2,6 @@
 
 namespace app\manage\controller;
 
-use app\manage\model\User;
 use app\manage\model\UserRole;
 
 class Index extends Base
@@ -51,7 +50,7 @@ class Index extends Base
             'teamNewNum' => $teamNewNum,
             'teamActiveNum' => $teamActiveNum,
             'orderTotal' => $orderCountInfo['total'],
-            'moneyTotal' => $orderCountInfo['amount'],
+            'moneyTotal' => $orderCountInfo['amount']
         ]);
         return $this->fetch();
     }
@@ -93,4 +92,5 @@ class Index extends Base
             ->find();
         return $result;
     }
+
 }

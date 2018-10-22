@@ -52,8 +52,8 @@
                         <ul class="list bg_color_orange_red">
                             <li>今日订单总量：{$orderTotal}</li>
                             <li>今日订单总额：{$moneyTotal}</li>
-                            <li>昨日分红： 50</li>
-                            <li>本月分红：5000</li>
+                            <li>昨日分红： <span class="yesBonus">0</span></li>
+                            <li>本月分红：<span class="monthBonus">0</span></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                            <!--<a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
                                 <i class="fa fa-wrench"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
@@ -76,11 +76,11 @@
                                 </li>
                                 <li><a href="graph_flot.html#">近一月</a>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div class="echarts" id="echarts-bar-chart"></div>
+                        <div class="echarts" id="incomeChart"></div>
                     </div>
                 </div>
             </div>
@@ -90,6 +90,6 @@
     <script src="/static/manage/js/plugins/echarts/echarts-all.js"></script>
 
     <!-- ECharts demo data -->
-    <script src="/static/manage/js/demo/echarts-demo.js"></script>
+    <script src="/static/manage/js/data/index_chart.js"></script>
 </body>
 {/block}

@@ -13,6 +13,7 @@ class M3result
 {
     public $status;
     public $msg;
+    public $data;
 
     public function toJson()
     {
