@@ -31,9 +31,9 @@ class Counter extends Command
             foreach ($uinfo as $key => $value){
                 $result = db('users')
                     ->alias('su')
-                    ->join('order so','so.user_id = su.id','left')
-                    ->join('award_info sai','sai.id = so.award_id','left')
-                    ->join('goods sg','sg.id = so.goods_id','left')
+                    ->join('order so','so.user_id = su.id')
+                    ->join('award_info sai','sai.id = so.award_id')
+                    ->join('goods sg','sg.id = so.goods_id')
                     ->where('su.parent_id',$value['id'])
                     ->where('so.created_date','>',$time)
                     ->field('so.amount,so.guessing,sai.win,(sg.success_price*so.goods_num) AS success_price')

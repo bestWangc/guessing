@@ -39,7 +39,7 @@ class Login extends Base
             $m3_result->msg = '用户未激活';
             return $m3_result->toJson();
         }
-        if($userPwd = md5($userPwd) == $userArr['passwd']){
+        if($userPwd = md5($userPwd.'jfn') == $userArr['passwd']){
             //将user id 存入session中
             session('user_id',$userArr['id']);
             session('user_role',$userArr['role']);

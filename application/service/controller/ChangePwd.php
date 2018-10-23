@@ -10,24 +10,28 @@ namespace app\service\controller;
 
 use app\tools\M3result;
 
-class Register extends Base
+class ChangePwd extends Base
 {
     public function index(){
-        $userName = input('username', "");
-        $userPwd = input('userpwd', "");
-        $email = input('email', "");
-        $parent_id = input('parent', 1);
+        $uid = input('uid', 0);
+        $uname = input('uname', "");
+        $oldPwd = input('oldPwd', "");
+        $newPwd = input('newPwd', "");
+        $reNewPwd = input('reNewPwd', "");
 
         $m3_result = new M3result();
-        if(empty($userName) || empty($userPwd) || empty($email)){
+        if(!$uid || empty($uname) || empty($oldPwd) || empty($newPwd) || empty($reNewPwd)){
             $m3_result->status = 0;
             $m3_result->msg = '信息填写不全，请重试';
             return $m3_result->toJson();
         }
+        if(){
+
+        }
 
         $data = [
             'name' => $userName,
-            'passwd' => md5($userPwd.'jfn'),
+            'passwd' => md5($userPwd),
             'role' => 1,
             'parent_id' => $parent_id,
             'created_date' => time()
