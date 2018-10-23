@@ -148,6 +148,8 @@ return [
         404 =>  Env::get('app_path') . '/manage/view/exception_html/404.html',
         // 还可以定义其它的HTTP status
         500 =>  Env::get('app_path') . '/manage/view/exception_html/500.html',
+        //权限不够空白页
+        403 =>  Env::get('app_path') . '/manage/view/exception_html/403.html',
     ]
 
 ];

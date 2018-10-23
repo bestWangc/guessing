@@ -29,7 +29,7 @@ class Base extends Controller
     //禁止翻墙登录
     public function checkRole(){
         //seeion没有user_id 重新登录
-        if(!session('user_role')) abort(500,'禁止访问');
+        if(!session('user_role')) abort(403,'权限不够');
     }
 
 }
