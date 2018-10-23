@@ -54,8 +54,8 @@ class Console
         $reqs    = $runtime > 0 ? number_format(1 / $runtime, 2) : '∞';
         $mem     = number_format((memory_get_usage() - Container::get('app')->getBeginMem()) / 1024, 2);
 
-        if (isset($_SERVER['HTTP_HOST'])) {
-            $uri = $_SERVER['SERVER_PROTOCOL'] . ' ' . $_SERVER['REQUEST_METHOD'] . ' : ' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        if ($request->host()) {
+            $uri = $request->protocol() . ' ' . $request->method() . ' : ' . $request->url(true);
         } else {
             $uri = 'cmd:' . implode(' ', $_SERVER['argv']);
         }
@@ -134,7 +134,7 @@ JS;
                     break;
                 case '错误':
                     $msg    = str_replace("\n", '\n', addslashes(is_scalar($m) ? $m : json_encode($m)));
-                    $style  = 'color:#F4006B;fonts-size:14px;';
+                    $style  = 'color:#F4006B;font-size:14px;';
                     $line[] = "console.error(\"%c{$msg}\", \"{$style}\");";
                     break;
                 case 'sql':

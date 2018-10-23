@@ -11,6 +11,7 @@
 
 
 // Route::get('manage/login', 'manage/login/index');
+Route::get('download', 'index/download/download');
 return [
 
 ];

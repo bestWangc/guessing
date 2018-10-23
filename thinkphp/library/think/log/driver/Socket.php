@@ -30,14 +30,16 @@ class Socket
         'force_client_ids'    => [],
         // 限制允许读取日志的client_id
         'allow_client_ids'    => [],
+        //输出到浏览器默认展开的日志级别
+        'expand_level'        => ['debug'],
     ];
 
     protected $css = [
         'sql'      => 'color:#009bb4;',
-        'sql_warn' => 'color:#009bb4;fonts-size:14px;',
-        'error'    => 'color:#f4006b;fonts-size:14px;',
+        'sql_warn' => 'color:#009bb4;font-size:14px;',
+        'error'    => 'color:#f4006b;font-size:14px;',
         'page'     => 'color:#40e2ff;background:#171717;',
-        'big'      => 'fonts-size:20px;color:red;',
+        'big'      => 'font-size:20px;color:red;',
     ];
 
     protected $allowForceClientIds = []; //配置强制推送且被授权的client_id
@@ -95,7 +97,7 @@ class Socket
 
         foreach ($log as $type => $val) {
             $trace[] = [
-                'type' => 'groupCollapsed',
+                'type' => in_array($type, $this->config['expand_level']) ? 'group' : 'groupCollapsed',
                 'msg'  => '[ ' . $type . ' ]',
                 'css'  => isset($this->css[$type]) ? $this->css[$type] : '',
             ];
