@@ -17,19 +17,19 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">用户名：</label>
                                 <div class="col-sm-8">
-                                    <input name="uname" minlength="2" type="text" class="form-control"  aria-required="true" value="{$uname}" disabled>
+                                    <input name="uname" minlength="6" type="text" class="form-control"  aria-required="true" value="{$uname}" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">旧密码：</label>
                                 <div class="col-sm-8">
-                                    <input type="password" name="oldPwd" minlength="2" type="text" class="form-control" required="" aria-required="true">
+                                    <input type="password" name="oldPwd" minlength="6" type="text" class="form-control" required="" aria-required="true">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">新密码：</label>
                                 <div class="col-sm-8">
-                                    <input type="password" name="newPwd" minlength="2" type="text" class="form-control" required="" aria-required="true">
+                                    <input type="password" name="newPwd" minlength="6" type="text" class="form-control" required="" aria-required="true">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -66,6 +66,10 @@
 <script>
     $(function(){
         $('button.submit_btn').click(function(){
+            //刷新iframe d代码
+            console.log(parent.$('li.active a.J_menuItem').data('index'));
+            $('iframe[name="iframe2"]').attr('src', $('iframe[name="iframe2"]').attr('src'));
+
             var uid = $('.uid').val();
             var uname = $('input[name="uname"]').val();
             var oldPwd = $('input[name="oldPwd"]').val();
@@ -76,13 +80,16 @@
                 layer.msg('字段必须填写',{time:1500});
                 return false;
             }
-
             if(newPwd != reNewPwd){
                 layer.msg('两次新密码不一致',{time:1500});
                 return false;
             }
+            if(newPwd.length < 6){
+                layer.msg('密码长度不能小于6位',{time:1500});
+                return false;
+            }
             $.ajax({
-                url: '/service/changePwd/index',
+                url: '/service/change_pwd/index',
                 type: 'POST',
                 dataType: 'json',
                 data:{
@@ -94,6 +101,9 @@
                 },
                 success: function (res) {
                     console.log(res);
+                    layui.msg(res.msg,{time:1500},function () {
+
+                    })
                 },
                 error: function (res) {
                     console.log(res);

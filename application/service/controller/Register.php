@@ -24,6 +24,15 @@ class Register extends Base
             $m3_result->msg = '信息填写不全，请重试';
             return $m3_result->toJson();
         }
+        $oldUserInfo = db('users')
+            ->where('name',$userName)
+            ->count('id');
+
+        if(!!$oldUserInfo){
+            $m3_result->status = 0;
+            $m3_result->msg = '帐号已存在，请重试';
+            return $m3_result->toJson();
+        }
 
         $data = [
             'name' => $userName,

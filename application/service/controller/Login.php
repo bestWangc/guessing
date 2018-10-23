@@ -46,11 +46,11 @@ class Login extends Base
             session('user_name',$userArr['name']);
 
             $m3_result->status = 1;
-            $m3_result->msg = '密码正确';
+            $m3_result->msg = '登录成功';
             return $m3_result->toJson();
         }else{
             $m3_result->status = 0;
-            $m3_result->msg = '密码错误';
+            $m3_result->msg = '登录失败';
             return $m3_result->toJson();
         }
     }

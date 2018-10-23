@@ -11,12 +11,15 @@ namespace app\tools;
 
 class M3result
 {
-    public $status;
-    public $msg;
-    public $data;
+    public $status = 0;
+    public $msg = '';
+    public $data = [];
 
-    public function toJson()
-    {
-        return json_encode($this, JSON_UNESCAPED_UNICODE);
+    public function toArray(){
+        return [
+            'code' => $this->status,
+            'msg' => $this->msg,
+            'data' => $this->data
+        ];
     }
 }
