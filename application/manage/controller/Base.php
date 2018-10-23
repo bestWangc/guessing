@@ -18,10 +18,18 @@ class Base extends Controller
     {
         parent::__construct($app);
         $this->checkLogin();
+        $this->checkRole();
     }
 
     public function checkLogin(){
         //seeion没有user_id 重新登录
         if(!session('user_id')) $this->redirect('/manage/login');
     }
+
+    //禁止翻墙登录
+    public function checkRole(){
+        //seeion没有user_id 重新登录
+        if(!session('user_role')) abort(500,'禁止访问');
+    }
+
 }
