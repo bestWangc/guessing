@@ -26,39 +26,65 @@ $(function () {
     });
     var getOption = function (xAxisData,incomeData) {
         return {
-            title : {
-                text: '收入统计图'
-            },
-            tooltip : {
-                trigger: 'axis'
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
             },
             legend: {
                 data:['收入金额']
             },
-            grid:{
-                x:30,
-                x2:40,
-                y2:24
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
-            // calculable : true,
+            yAxis: {
+                type: 'value'
+            },
+            calculable : true,
             xAxis : [
                 {
                     type : 'category',
+                    offset: 10,
+                    nameTextStyle: {
+                        fontSize: 15
+                    },
                     data : xAxisData
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value'
                 }
             ],
             series : [
                 {
                     name:'收入金额',
                     type:'bar',
-                    itemStyle:{
-                        normal:{
-                            color:'#0ae',
+                    barWidth: 14,
+                    barGap: 10,
+                    smooth: true,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            textStyle: {
+                                color: '#ff7f50',
+                                fontSize: 13
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1,
+                                [
+                                    {offset: 0, color: '#3977E6'},
+                                    {offset: 1, color: '#0ae'}
+                                ]
+                            )
                         }
                     },
                     markLine : {
