@@ -21,7 +21,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
@@ -142,5 +142,12 @@ return [
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
+    //自定义404 和500页面
+    'http_exception_template'    =>  [
+        // 定义404错误的模板文件地址
+        404 =>  Env::get('app_path') . '/manage/view/exception_html/404.html',
+        // 还可以定义其它的HTTP status
+        500 =>  Env::get('app_path') . '/manage/view/exception_html/500.html',
+    ]
 
 ];
