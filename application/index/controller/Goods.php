@@ -31,7 +31,7 @@ class Goods extends Base
         $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($buy_num) || empty($goods_id) || empty($goods_price)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '请选择购买数量或者选择升级选项';
             return $m3_result->toJson();
         }
@@ -44,7 +44,7 @@ class Goods extends Base
             ->field('money,frozen_money')
             ->find();
         if($userMoney['money']-$userMoney['frozen_money'] < $amount){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '余额不足，请充值';
             return $m3_result->toJson();
         }
@@ -67,12 +67,12 @@ class Goods extends Base
                 ->where('id',$user_id)
                 ->update(['money' => $surplus_money]);
             if($changeUserMoney){
-                $m3_result->status = 1;
+                $m3_result->code = 1;
                 $m3_result->msg = '购买成功';
                 return $m3_result->toJson();
             }
         }
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '失败，请重试';
         return $m3_result->toJson();
 

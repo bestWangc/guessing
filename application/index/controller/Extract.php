@@ -22,14 +22,14 @@ class Extract extends Base
         $real_money = (int)bcmul($ext_money, '0.9');
         $user_id = session('user_id');
         if(empty($ext_money)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '提现金额不能为0';
             return $m3_result->toJson();
         }
 
         $alipayId = $this->checkAlipay($user_id);
         if(!$alipayId){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
             return $m3_result->toJson();
         }
@@ -38,7 +38,7 @@ class Extract extends Base
             ->where('user_id', $user_id)
             ->count();
         if($extractCount){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '还有提现未处理，请等待';
             return $m3_result->toJson();
         }
@@ -61,13 +61,13 @@ class Extract extends Base
                 ->where('id',$user_id)
                 ->setField('frozen_money',$ext_money);
             if($updateAmount){
-                $m3_result->status = 1;
+                $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
                 return $m3_result->toJson();
             }
         }
 
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '提现失败';
         return $m3_result->toJson();
 
@@ -100,14 +100,14 @@ class Extract extends Base
         $ext_gold = input('ext_gold',0);
         $user_id = session('user_id');
         if(empty($ext_gold)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '兑换金币不能为0';
             return $m3_result->toJson();
         }
 
         $alipayId = $this->checkAlipay($user_id);
         if(!$alipayId){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
             return $m3_result->toJson();
         }
@@ -128,13 +128,13 @@ class Extract extends Base
                 ->where('id',$user_id)
                 ->setField('frozen_gold',$ext_gold);
             if($updateGold){
-                $m3_result->status = 1;
+                $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
                 return $m3_result->toJson();
             }
         }
 
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '兑换失败';
         return $m3_result->toJson();
     }

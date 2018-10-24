@@ -138,10 +138,9 @@
                         tel_num : telNum
                     },
                     success : function(data){
-                        data = JSON.parse(data);
-                        if(data != null && data.status == 1){
+                        if(data.code == 1){
                             layer.msg(data.msg,{time: 1000});
-                        }else if(data.status == 0){
+                        }else if(data.code == 0){
                             layer.msg(data.msg,{time: 1000});
                         }
                         $('.tanch').hide();
@@ -163,12 +162,11 @@
                 dataType : "json",
                 cache : false,
                 success : function(data){
-                    data = JSON.parse(data);
-                    if(data != null && data.status == 1){
+                    if(data.code == 1){
                         layer.msg(data.msg,{time: 1000},function () {
                             window.location.reload();
                         });
-                    }else if(data.status == 0){
+                    }else if(data.code == 0){
                         layer.msg(data.msg,{time: 1000});
                     }
                 },

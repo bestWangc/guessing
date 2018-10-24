@@ -19,7 +19,7 @@ class Login extends Base
 
         $m3_result = new M3result();
         if(empty($userName) || empty($userPwd)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '用户名或者密码不能为空';
             return json($m3_result->toArray());
         }
@@ -30,12 +30,12 @@ class Login extends Base
             ->find();
 
         if(empty($userArr['id'])){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '用户名不存在';
             return json($m3_result->toArray());
         }
         if(!$userArr['status']){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '用户未激活';
             return json($m3_result->toArray());
         }
@@ -45,11 +45,11 @@ class Login extends Base
             session('user_role',$userArr['role']);
             session('user_name',$userArr['name']);
 
-            $m3_result->status = 1;
+            $m3_result->code = 1;
             $m3_result->msg = '登录成功';
             return json($m3_result->toArray());
         }else{
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '登录失败';
             return json($m3_result->toArray());
         }

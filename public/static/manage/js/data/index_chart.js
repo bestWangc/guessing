@@ -4,10 +4,9 @@ $(function () {
         type : 'POST',
         dataType : 'json',
         success : function (res) {
-            res = JSON.parse(res);
             console.log(res);
             var xAxisData =[],incomeData = [];
-            if(!!res.status){
+            if(!!res.code){
                 xAxisData = res.data.xAxisData;
                 incomeData = res.data.countAll;
                 $('.yesBonus').html(res.data.yesBonus);

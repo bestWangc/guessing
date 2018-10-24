@@ -21,7 +21,7 @@ class Recharge extends Base
 
         $m3_result = new M3result();
         if($moeny_amount == 0){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '充值金额不能为0';
             return $m3_result->toJson();
         }
@@ -34,11 +34,11 @@ class Recharge extends Base
         ];
         $res = db('recharge')->insert($data);
         if($res){
-            $m3_result->status = 1;
+            $m3_result->code = 1;
             $m3_result->msg = '充值记录创建成功';
             return $m3_result->toJson();
         }
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '未知错误，请重试';
         return $m3_result->toJson();
     }

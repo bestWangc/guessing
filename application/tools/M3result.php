@@ -11,13 +11,13 @@ namespace app\tools;
 
 class M3result
 {
-    public $status = 0;
+    public $code = 0;
     public $msg = '';
     public $data = [];
 
     public function toArray(){
         return [
-            'code' => $this->status,
+            'code' => $this->code,
             'msg' => $this->msg,
             'data' => $this->data
         ];

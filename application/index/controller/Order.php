@@ -35,7 +35,7 @@ class Order extends Base
         $order_id = input('order_id','');
         $purpose = input('purpose',0);
         if(empty($order_id)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '订单编号不能为空';
             return $m3_result->toJson();
         }
@@ -43,7 +43,7 @@ class Order extends Base
             ->where('order_id',$order_id)
             ->count();
         if($applyOrderNum > 0){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '订单请勿重复提交';
             return $m3_result->toJson();
         }
@@ -59,13 +59,13 @@ class Order extends Base
         if($res){
             $changeOrderStatus = db('order')->where('id',$order_id)->setField('status',$purpose);
             if($changeOrderStatus){
-                $m3_result->status = 1;
+                $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
                 return $m3_result->toJson();
             }
         }
 
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '未知错误，请重试';
         return $m3_result->toJson();
     }
@@ -75,7 +75,7 @@ class Order extends Base
         $m3_result = new M3result();
         $order_id = input('order_id','');
         if(empty($order_id)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '订单编号不能为空';
             return $m3_result->toJson();
         }
@@ -99,12 +99,12 @@ class Order extends Base
         if($res){
             $toStatus = db('order')->where('id',$order_id)->setField('status',5);
             if($toStatus){
-                $m3_result->status = 1;
+                $m3_result->code = 1;
                 $m3_result->msg = '成功';
                 return $m3_result->toJson();
             }
         }
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '失败';
         return $m3_result->toJson();
     }

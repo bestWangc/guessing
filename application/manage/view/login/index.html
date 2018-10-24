@@ -52,12 +52,11 @@
                     userpwd : user_pwd
                 },
                 success : function(data){
-                    data = JSON.parse(data);
-                    if(data != null && data.status == 1){
+                    if(data.code == 1){
                         layer.msg(data.msg,{time: 1000},function(){
                             location.href='/manage/index';
                         });
-                    }else if(data.status == 0){
+                    }else if(data.code == 0){
                         layer.msg(data.msg,{time: 1000});
                     }
                 },

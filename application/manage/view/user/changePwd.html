@@ -66,7 +66,7 @@
 <script>
     $(function(){
         $('button.submit_btn').click(function(){
-
+            // parent.refreshIframe();return false;
             var uid = $('.uid').val();
             var uname = $('input[name="uname"]').val();
             var oldPwd = $('input[name="oldPwd"]').val();
@@ -97,10 +97,14 @@
                     reNewPwd: reNewPwd
                 },
                 success: function (res) {
-                    console.log(res);
-                    layui.msg(res.msg,{time:1500},function () {
-                        parent.refreshIframe();
-                    })
+                    var callBack = '';
+                    if(res.code == 1){
+                        callBack = function () {
+                            parent.refreshIframe();
+                        };
+                    }
+                    layer.msg(res.msg,{time:1500},callBack);
+
                 },
                 error: function (res) {
                     console.log(res);

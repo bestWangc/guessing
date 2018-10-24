@@ -34,7 +34,7 @@ class Address extends Base
         $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($name) || empty($tel) || empty($address_detail) || empty($postal_code)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '信息内容不能为空';
             return $m3_result->toJson();
         }
@@ -57,12 +57,12 @@ class Address extends Base
                 ->update($data);
         }
         if($res){
-            $m3_result->status = 1;
+            $m3_result->code = 1;
             $m3_result->msg = '保存成功';
             return $m3_result->toJson();
         }
 
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '保存失败，请重试';
         return $m3_result->toJson();
     }

@@ -59,7 +59,7 @@ class User extends Base
         $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($alipay_account) || empty($alipay_name)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '信息内容不能为空';
             return $m3_result->toJson();
         }
@@ -80,12 +80,12 @@ class User extends Base
                 ->update($data);
         }
         if($res){
-            $m3_result->status = 1;
+            $m3_result->code = 1;
             $m3_result->msg = '保存成功';
             return $m3_result->toJson();
         }
 
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '保存失败，请重试';
         return $m3_result->toJson();
     }
@@ -96,7 +96,7 @@ class User extends Base
         $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($tel_num)){
-            $m3_result->status = 0;
+            $m3_result->code = 0;
             $m3_result->msg = '手机号不能为空';
             return $m3_result->toJson();
         }
@@ -104,11 +104,11 @@ class User extends Base
             ->where('id', $user_id)
             ->setField('tel', $tel_num);
         if($res){
-            $m3_result->status = 1;
+            $m3_result->code = 1;
             $m3_result->msg = '保存成功';
             return $m3_result->toJson();
         }
-        $m3_result->status = 0;
+        $m3_result->code = 0;
         $m3_result->msg = '没有任何修改';
         return $m3_result->toJson();
     }
