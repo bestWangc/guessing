@@ -22,7 +22,7 @@ class Register extends Base
         if(empty($userName) || empty($userPwd) || empty($email)){
             $m3_result->status = 0;
             $m3_result->msg = '信息填写不全，请重试';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $oldUserInfo = db('users')
             ->where('name',$userName)
@@ -31,7 +31,7 @@ class Register extends Base
         if(!!$oldUserInfo){
             $m3_result->status = 0;
             $m3_result->msg = '帐号已存在，请重试';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $data = [
@@ -46,11 +46,11 @@ class Register extends Base
         if($creatUser){
             $m3_result->status = 1;
             $m3_result->msg = '注册成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $m3_result->status = 0;
         $m3_result->msg = '注册失败，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 }

@@ -66,9 +66,6 @@
 <script>
     $(function(){
         $('button.submit_btn').click(function(){
-            //刷新iframe d代码
-            console.log(parent.$('li.active a.J_menuItem').data('index'));
-            $('iframe[name="iframe2"]').attr('src', $('iframe[name="iframe2"]').attr('src'));
 
             var uid = $('.uid').val();
             var uname = $('input[name="uname"]').val();
@@ -102,7 +99,7 @@
                 success: function (res) {
                     console.log(res);
                     layui.msg(res.msg,{time:1500},function () {
-
+                        parent.refreshIframe();
                     })
                 },
                 error: function (res) {

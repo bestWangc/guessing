@@ -18,6 +18,6 @@ class Logout extends Base
         $m3_result = new M3result();
         $m3_result->status = 1;
         $m3_result->msg = '注销成功';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 }

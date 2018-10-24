@@ -21,7 +21,7 @@ class Login extends Base
         if(empty($userName) || empty($userPwd)){
             $m3_result->status = 0;
             $m3_result->msg = '用户名或者密码不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $userArr = db('users')
             ->where('name',$userName)
@@ -32,12 +32,12 @@ class Login extends Base
         if(empty($userArr['id'])){
             $m3_result->status = 0;
             $m3_result->msg = '用户名不存在';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         if(!$userArr['status']){
             $m3_result->status = 0;
             $m3_result->msg = '用户未激活';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         if($userPwd = md5($userPwd.'jfn') == $userArr['passwd']){
             //将user id 存入session中
@@ -47,11 +47,11 @@ class Login extends Base
 
             $m3_result->status = 1;
             $m3_result->msg = '登录成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }else{
             $m3_result->status = 0;
             $m3_result->msg = '登录失败';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
     }
 }
