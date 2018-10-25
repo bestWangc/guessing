@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="b_order_total">
-                    {if($vo.guessing==$vo.win)}
+                    {if($vo.guessing === $vo.win)}
                         <p>共<span class="b_good_num">{$vo.goods_num}</span>件商品 合计：￥<span class="b_good_tprice">{$vo.goods_num*$vo.success_price}</span><span class="b_trans_fee">(运费:￥10.00)</span></p>
                     {else/}
                         <p>共<span class="b_good_num">{$vo.goods_num}</span>件商品 合计：￥<span class="b_good_tprice">{$vo.amount}</span><span class="b_trans_fee">(运费:￥10.00)</span></p>
@@ -64,7 +64,7 @@
                         {else/}
                             <a class="b_buy_again take_goods" href="#">提货</a>
                             <a class="b_buy_again to_gold" href="#">转为金币</a>
-                            {if($vo.guessing==$vo.win)}
+                            {if($vo.guessing === $vo.win)}
                                 <a class="b_buy_again back_goods" href="#">退货</a>
                             {/if}
                         {/if}
