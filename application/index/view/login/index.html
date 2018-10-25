@@ -62,13 +62,13 @@
                     userpwd : user_pwd
                 },
                 success : function(data){
+                    var callingBack = '';
                     if(data.code == 1){
-                        layer.msg(data.msg,{time: 1000},function(){
+                        callingBack = function(){
                             location.href='/index/index';
-                        });
-                    }else if(data.code == 0){
-                        layer.msg(data.msg,{time: 1000});
+                        };
                     }
+                    layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
                     console.log(data);

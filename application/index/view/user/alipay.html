@@ -56,14 +56,13 @@
                     name : name
                 },
                 success : function(data){
-                    data = JSON.parse(data);
-                    if(data != null && data.status == 1){
-                        layer.msg(data.msg,{time: 1000},function(){
+                    var callingBack = '';
+                    if(data.status == 1){
+                        callingBack = function(){
                             location.href='/index/user';
-                        });
-                    }else if(data.status == 0){
-                        layer.msg(data.msg,{time: 1000});
+                        };
                     }
+                    layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
                     console.log(data);

@@ -76,14 +76,13 @@
                     parent: parent
                 },
                 success : function(data){
-                    data = JSON.parse(data);
+                    var callingBack = '';
                     if(data != null && data.status == 1){
-                        layer.msg(data.msg,{time: 1000},function(){
+                        callingBack = function(){
                             location.href='/index/login';
-                        });
-                    }else if(data.status == 0){
-                        layer.msg(data.msg,{time: 1000});
+                        };
                     }
+                    layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
                     console.log(data);

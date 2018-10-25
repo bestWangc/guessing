@@ -138,9 +138,7 @@
                         tel_num : telNum
                     },
                     success : function(data){
-                        if(data.code == 1){
-                            layer.msg(data.msg,{time: 1000});
-                        }else if(data.code == 0){
+                        if(data.hasOwnProperty('code')){
                             layer.msg(data.msg,{time: 1000});
                         }
                         $('.tanch').hide();

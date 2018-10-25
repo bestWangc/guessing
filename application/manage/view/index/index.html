@@ -137,13 +137,13 @@
             dataType : "json",
             cache : false,
             success : function(data){
+                var callBack = '';
                 if(data.code == 1){
-                    layer.msg(data.msg,{time: 1000},function () {
+                    callBack = function () {
                         window.location.reload();
-                    });
-                }else if(data.code == 0){
-                    layer.msg(data.msg,{time: 1000});
+                    };
                 }
+                layer.msg(data.msg,{time: 1000},callBack);
             },
             error : function(data){
                 console.log(data);

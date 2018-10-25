@@ -64,14 +64,13 @@
                     ext_money : ext_money
                 },
                 success : function(data){
-                    data = JSON.parse(data);
-                    if(data != null && data.status == 1){
-                        layer.msg(data.msg,{time: 1500},function(){
+                    var callingBack = '';
+                    if(data.status == 1){
+                        callingBack = function(){
                             location.href='/index/user';
-                        });
-                    }else if(data.status == 0){
-                        layer.msg(data.msg,{time: 1500});
+                        };
                     }
+                    layer.msg(data.msg,{time: 1500},callingBack);
                 },
                 error : function(data){
                     console.log(data);
