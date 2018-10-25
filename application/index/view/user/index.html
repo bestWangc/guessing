@@ -129,6 +129,10 @@
                     layer.msg('请填写正确的手机号',{time:1500});
                     return false;
                 }
+                //加载遮罩层
+                layer.load(1, {
+                    shade: [0.5,'#fff']
+                });
                 $.ajax({
                     url : 'addTel',
                     type : "POST",
@@ -141,9 +145,11 @@
                         if(data.hasOwnProperty('code')){
                             layer.msg(data.msg,{time: 1000});
                         }
+                        layer.closeAll('loading');
                         $('.tanch').hide();
                     },
                     error : function(data){
+                        layer.closeAll('loading');
                         console.log(data);
                     }
                 });
@@ -154,21 +160,26 @@
         });
 
         $('.logout').click(function () {
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
             $.ajax({
                 url : '/service/logout/index',
                 type : "GET",
                 dataType : "json",
                 cache : false,
                 success : function(data){
+                    var callingBack = '';
                     if(data.code == 1){
-                        layer.msg(data.msg,{time: 1000},function () {
+                        callingBack = function () {
                             window.location.reload();
-                        });
-                    }else if(data.code == 0){
-                        layer.msg(data.msg,{time: 1000});
+                        };
                     }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
+                    layer.closeAll('loading');
                     console.log(data);
                 }
             });

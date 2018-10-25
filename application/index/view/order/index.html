@@ -89,6 +89,9 @@
                 layer.msg('未知错误，请刷新',{time: 1000});
                 return false;
             }
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
             $.ajax({
                 url : 'toGold',
                 type : "POST",
@@ -104,9 +107,11 @@
                             location.href='/index/user';
                         };
                     }
+                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
+                    layer.closeAll('loading');
                     console.log(data);
                 }
             });
@@ -118,6 +123,9 @@
                 layer.msg('未知错误，请刷新',{time: 1000});
                 return false;
             }
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
             $.ajax({
                 url : 'takeGoods',
                 type : "POST",
@@ -134,9 +142,11 @@
                             location.href='/index/user';
                         };
                     }
+                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
+                    layer.closeAll('loading');
                     console.log(data);
                 }
             });
@@ -148,6 +158,9 @@
                 layer.msg('未知错误，请刷新',{time: 1000});
                 return false;
             }
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
             $.ajax({
                 url : 'takeGoods',
                 type : "POST",
@@ -164,9 +177,11 @@
                             location.href='/index/user';
                         };
                     }
+                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
+                    layer.closeAll('loading');
                     console.log(data);
                 }
             });
