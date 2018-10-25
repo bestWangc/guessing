@@ -15,7 +15,7 @@ class Goods extends Base
         $this->assign([
             'goods_id' => $goods_id,
             'goods_info' => $goods_info,
-            'lastTermNum' => $termInfo[0]['term_num'],
+            'nowTermNum' => $termInfo[0]['term_num'],
             'award_id' => $termInfo[0]['id'],
         ]);
         return $this->fetch();
@@ -57,7 +57,7 @@ class Goods extends Base
             'amount' => $amount,
             'created_date' => time(),
             'guessing' => $award_num,
-            'award_id' => $award_id+1,
+            'award_id' => $award_id,
             'status' => 0
         ];
         $res = db('order')

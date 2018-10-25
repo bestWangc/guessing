@@ -13,7 +13,7 @@ class Index extends Base
         $award = controller('reward')->getAwardInfo(10);
 
         $resultAttr = [];
-        $result = $award[0]['result'];
+        $result = $award[1]['result'];
         $resultLength = strlen($result);
         for($i=0;$i<$resultLength;$i++){
             array_push($resultAttr,$result{$i});
@@ -38,7 +38,8 @@ class Index extends Base
             'name' => $userInfo['name'],
             'gold' => $userInfo['gold']-$userInfo['frozen_gold'],
             'user_photo' => $userInfo['photo'],
-            'lastTermNum' => $award[0]['term_num'],
+            'lastTermNum' => $award[1]['term_num'],
+            'nowTermNum' => $award[0]['term_num'],
             'result' => $resultAttr,
             'goodsInfo' => $goodsInfo,
             'orderInfo' => $orderInfo,

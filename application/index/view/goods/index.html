@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="sh-you">
-        <p>距<span>{$lastTermNum+1}</span>期结束</p>
+        <p>距<span>{$nowTermNum}</span>期结束</p>
         <div class="time-item1">
             <strong id="minute_show">00分</strong>
             <strong id="second_show">00秒</strong>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="sh-you">
-        <p>距<span>{$lastTermNum+1}</span>期结束</p>
+        <p>距<span>{$nowTermNum}</span>期结束</p>
         <div class="time-item1">
             <strong id="minute_show5">00分</strong>
             <strong id="second_show5">00秒</strong>
@@ -74,7 +74,7 @@
         <div class="sh-t-tou">
             <div class="sh-t-tou2">
                 <div class="sh-t-tou3">
-                    <p>距&nbsp;<span>{$lastTermNum+1}</span>&nbsp;期结束:</p>
+                    <p>距&nbsp;<span>{$nowTermNum}</span>&nbsp;期结束:</p>
                     <div class="time-item2">
                         <strong id="minute_show1">00分</strong>
                         <strong id="second_show1">00秒</strong>
@@ -181,7 +181,7 @@
             var award_num = $('#award_num').val();
             var goods_id = $('#goods_id').val();
             var goods_price = {$goods_info.price};
-            var guessing_term = {$lastTermNum+1};
+            var guessing_term = {$nowTermNum};
             var award_id = $('#award_id').val();
             if(award_num == ''){
                 layer.msg('请选择升级选项',{time:1500});

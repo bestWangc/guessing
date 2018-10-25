@@ -12,4 +12,5 @@
 return [
     'app\command\Term',
     'app\command\Counter',
+    'app\command\NewTerm',
 ];

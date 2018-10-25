@@ -13,7 +13,7 @@
             <li>
                 <div class="hj-z1">
                     <p>
-                        {if($vo.win != '')}
+                        {if(!is_null($vo.win))}
                             第{$vo.term_num}期
                             {$vo.guessing === $vo.win ? '<span class="yanse3">大胜</span>' : '<span class="yanse2">惜败</span>'}
                         {else /}

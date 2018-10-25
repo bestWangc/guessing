@@ -3,3 +3,6 @@
 
 #每天晚上11点统计今日平台收入
 0 23 * * * /usr/bin/php /home/www/guessing/think counter
+
+#每天10-23点 没半个小时往warad_info表里插条数据
+0/30 10-23 * * * /usr/bin/php /home/www/guessing/think new_term

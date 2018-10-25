@@ -47,22 +47,25 @@ class Term extends Command
                 if(empty($term_num) || empty($result)){
                     continue;
                 }
-                $isHasTerm = Db::table('ssc_award_info')->where('term_num',$term_num)->select();
-                if(!empty($isHasTerm)) continue;
+                $isHasTerm = db('award_info')
+                    ->where('term_num',$term_num)
+                    ->field('result')
+                    ->select();
+                if(!empty($isHasTerm['result'])) continue;
 
                 $win = substr($result,-1);
                 $win = $win%2 ==1 ? 1 : 0;
 
                 $data = [
-                    'term_num' => $term_num,
                     'result' => $result,
-                    'win' => $win,
-                    'created_date' => time()
+                    'win' => $win
                 ];
-                $insertId = Db::table('ssc_award_info')->insertGetId($data);
+                $update = db('award_info')
+                    ->where('term_num',(int)$term_num)
+                    ->update($data);
 
-                if($insertId)
-                    file_put_contents("/home/www/guessing/runtime/term/term.log", date('Y-m-d H:i:s',time()).'   '.$insertId.'\r\n', FILE_APPEND);
+                if($update)
+                    file_put_contents("/home/www/guessing/runtime/term/term.log", date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n', FILE_APPEND);
 
             }
         }

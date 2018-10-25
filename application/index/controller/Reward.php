@@ -16,7 +16,7 @@ class Reward extends Base
             'name' => $userInfo['name'],
             'gold' => $userInfo['gold']-$userInfo['frozen_gold'],
             'user_photo' => $userInfo['photo'],
-            'lastTermNum' => $award[0]['term_num'],
+            'nowTermNum' => $award[0]['term_num'],
             'award' => $award
 
         ]);
