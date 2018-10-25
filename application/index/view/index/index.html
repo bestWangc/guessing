@@ -109,6 +109,7 @@
                 </div>
                 <ul>
                     {volist name="award" id="vo"}
+                        {if(!empty($vo.result))}
                         <li>
                             <p class="kj-p4">第{$vo.term_num}期</p>
                             <p class="kj-p5">{$vo.result}</p>
@@ -118,6 +119,7 @@
                                 <p class="kj-p6">瑞雪</p>
                             {/if}
                         </li>
+                        {/if}
                     {/volist}
                     <div class="kj-jz">
                         <a href="{:url('/index/reward/index')}">查看全部</a>

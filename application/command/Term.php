@@ -24,6 +24,7 @@ class Term extends Command
 
         $url = 'https://www.km28.com/gp_chart/cqssc/0.html';
 
+        $output->writeln('term start.');
         $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_POST, FALSE);
@@ -44,6 +45,8 @@ class Term extends Command
                 $term_num = $value->children(1)->plaintext;
                 $result = $value->children(2)->plaintext;
 
+                $output->writeln($term_num);
+
                 if(empty($term_num) || empty($result)){
                     continue;
                 }
@@ -61,7 +64,7 @@ class Term extends Command
                     'win' => $win
                 ];
                 $update = db('award_info')
-                    ->where('term_num',(int)$term_num)
+                    ->where('term_num',$term_num)
                     ->update($data);
 
                 if($update)
@@ -69,6 +72,7 @@ class Term extends Command
 
             }
         }
+        $output->writeln('term end.');
         return true;
     }
 }
