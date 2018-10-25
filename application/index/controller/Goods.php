@@ -33,7 +33,7 @@ class Goods extends Base
         if(empty($buy_num) || empty($goods_id) || empty($goods_price)){
             $m3_result->code = 0;
             $m3_result->msg = '请选择购买数量或者选择升级选项';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $award_num = input('award_num',0);
@@ -46,7 +46,7 @@ class Goods extends Base
         if($userMoney['money']-$userMoney['frozen_money'] < $amount){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足，请充值';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $surplus_money = $userMoney['money']-$amount;
         unset($userMoney);
@@ -69,12 +69,12 @@ class Goods extends Base
             if($changeUserMoney){
                 $m3_result->code = 1;
                 $m3_result->msg = '购买成功';
-                return $m3_result->toJson();
+                return json($m3_result->toArray());
             }
         }
         $m3_result->code = 0;
         $m3_result->msg = '失败，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
 
     }
 
