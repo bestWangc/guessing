@@ -77,7 +77,7 @@
                 },
                 success : function(data){
                     var callingBack = '';
-                    if(data != null && data.status == 1){
+                    if(data.code == 1){
                         callingBack = function(){
                             location.href='/index/login';
                         };
