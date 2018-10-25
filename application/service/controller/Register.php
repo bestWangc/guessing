@@ -37,7 +37,7 @@ class Register extends Base
         $data = [
             'name' => $userName,
             'passwd' => md5($userPwd.'jfn'),
-            'role' => 1,
+            'role' => 0,
             'parent_id' => $parent_id,
             'created_date' => time()
         ];
