@@ -24,11 +24,12 @@ class NewTerm extends Command
             ->order('id desc')
             ->field('term_num')
             ->find();
-
+        $term_num = floatval($termInfo['term_num']);
         $data = [
-            'term_num' => $termInfo['term_num']+1,
+            'term_num' => $term_num+1,
             'created_date' => time()
         ];
+
         db('award_info')->insert($data);
         $output->writeln('new term end.');
         return true;
