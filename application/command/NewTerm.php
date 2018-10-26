@@ -20,15 +20,23 @@ class NewTerm extends Command
     {
 
         $output->writeln('new term start.');
-        $termInfo = db('award_info')
-            ->order('id desc')
-            ->field('term_num')
-            ->find();
-        $term_num = floatval($termInfo['term_num']);
-        $data = [
-            'term_num' => $term_num+1,
-            'created_date' => time()
-        ];
+        $nowTime = date('H:i',time());
+        if($nowTime == '10:00' || $nowTime == '10:01'){
+            $data = [
+                'term_num' => date('Ymd').'024',
+                'created_date' => time()
+            ];
+        }else{
+            $termInfo = db('award_info')
+                ->order('id desc')
+                ->field('term_num')
+                ->find();
+            $term_num = floatval($termInfo['term_num']);
+            $data = [
+                'term_num' => $term_num+1,
+                'created_date' => time()
+            ];
+        }
 
         db('award_info')->insert($data);
         $output->writeln('new term end.');
