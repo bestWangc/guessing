@@ -55,9 +55,10 @@ class User extends Base
 
     //抢购详细记录
     public function buyLogDetails(){
-        $uid = input('post.choseUid');
+        $uid = input('post.choseUid/d');
+        $where = ['so.user_id'=>$uid];
         if(!$uid){
-            $uid = $this->uid;
+            $where = ['su.parent_id'=>$this->uid];
         }
         $m3_result = new M3result();
 
@@ -66,14 +67,14 @@ class User extends Base
             ->join('users su','su.id = so.user_id','left')
             ->join('goods sg','sg.id = so.goods_id','left')
             ->join('award_info sai','sai.id = so.award_id','left')
-            ->where('so.user_id',$uid)
+            ->where($where)
             ->field('so.id as order_id,su.`name`,sg.`name` as good_name,so.goods_num,so.amount,so.guessing,sai.term_num,so.created_date')
             ->order('so.created_date desc')
             ->select();
 
         if(!empty($result)){
             foreach ($result as $key => &$value){
-                $value['guessing'] = $value['guessing'] ? '瑞雪' : '丰年';
+                $value['guessing'] = $value['guessing'] ? '丰年' : '瑞雪';
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }

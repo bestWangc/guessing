@@ -90,7 +90,7 @@
             'click .extractLog': function (e, value, row) {
                 commonClick(4,row.uid);
             },
-            'click .extractLog': function (e, value, row) {
+            'click .rechargeLog': function (e, value, row) {
                 commonClick(5,row.uid);
             }
         };
@@ -98,8 +98,15 @@
             $(".J_menuItem" , parent.document).each(function () {
                 if($(this).data('index') == index){
                     var oldHref = $(this).attr('href');
-                    $(this).attr('href', oldHref+'?choseUid='+uid);
+
+                    //url加上choseUid,并模拟点击
+                    oldHref += '?choseUid='+uid;
+                    $(this).attr('href', oldHref);
                     $(this)[0].click();
+
+                    //url改回原来的
+                    oldHref = oldHref.substr(0,oldHref.indexOf('?'));
+                    $(this).attr('href', oldHref);
                 }
             });
         }
