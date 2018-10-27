@@ -10,3 +10,18 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function statusTrans($status){
+    $res = '';
+    switch ($status){
+        case 0:
+            $res = '失败';
+            break;
+        case 1:
+            $res = '成功';
+            break;
+        case 2:
+            $res = '待处理';
+            break;
+    }
+    return $res;
+}

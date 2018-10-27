@@ -34,17 +34,7 @@ class Extract extends Base
 
         if(!empty($result)){
             foreach ($result as $key => &$value){
-                switch ($value['status']){
-                    case 0:
-                        $value['status'] = '失败';
-                        break;
-                    case 1:
-                        $value['status'] = '成功';
-                        break;
-                    case 2:
-                        $value['status'] = '待处理';
-                        break;
-                }
+                $value['status'] = statusTrans($value['status']);
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }

@@ -7,6 +7,7 @@
         <div class="ibox-title">
             <h5>充值记录</h5>
         </div>
+        <input type="hidden" class="choseUid" value="{$choseUid}">
         <div class="ibox-content">
             <div class="row row-lg">
                 <div class="col-sm-12">
@@ -28,6 +29,48 @@
 {block name="my-js"}
 <script>
     $(function () {
+        $.ajax({
+            url: 'rechargeLog',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                choseUid : $('.choseUid').val()
+            },
+            cache: false,
+            success: function (res) {
+                if (res.code) {
+                    var btt_data = res.data;
+
+                    $('#rechargeLog').bootstrapTable({
+                        data: btt_data,
+                        columns: [{
+                            field:"recharge_id",
+                            title:"编号"
+                        }, {
+                            field:"name",
+                            title:"用户帐号"
+                        },{
+                            field:"amount",
+                            title:"充值金额"
+                        }, {
+                            field:"way",
+                            title:"充值方式"
+                        }, {
+                            field:"status",
+                            title:"状态"
+                        }, {
+                            field:"created_date",
+                            title:"充值时间"
+                        }]
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500});
+                }
+            },
+            error: function () {
+                console.log(res);
+            }
+        });
         var btt_data = [{
             "extract_id": "1",
             "name": "奔波儿灞",
@@ -50,28 +93,6 @@
             "status": "失败",
             "created_date" : "2018-09-07 17:20"
         }];
-        $('#rechargeLog').bootstrapTable({
-            data: btt_data,
-            columns: [{
-                field:"extract_id",
-                title:"编号"
-            }, {
-                field:"name",
-                title:"用户帐号"
-            },{
-                field:"amount",
-                title:"充值金额"
-            }, {
-                field:"way",
-                title:"充值方式"
-            }, {
-                field:"status",
-                title:"状态"
-            }, {
-                field:"created_date",
-                title:"充值时间"
-            }]
-        });
     });
 </script>
 {/block}
