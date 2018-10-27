@@ -21,21 +21,20 @@ class Index extends Base
 
     public function indexMain(){
         $userName = session('user_name');
-        $uid = session('user_id');
 
         $field = 'su.created_date,su.email,sa.alipay_name,alipay_account,sad.`name`,sad.phone,sad.details';
         $info = db('users')
             ->alias('su')
             ->join('alipay sa','sa.user_id = su.id','left')
             ->join('address sad','sad.user_id = su.id','left')
-            ->where('su.id',$uid)
+            ->where('su.id',$this->uid)
             ->field($field)
             ->find();
         //团队成员数量
-        $count = $this->getTeamInfo($uid);
+        $count = $this->getTeamInfo($this->uid);
         list($teamAllNum,$teamNewNum,$teamActiveNum) = $count;
 
-        $orderCountInfo = $this->getTeamOrderCount($uid);
+        $orderCountInfo = $this->getTeamOrderCount($this->uid);
 
         $this->assign([
             'userName' => $userName,

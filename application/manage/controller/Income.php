@@ -9,11 +9,11 @@ class Income extends Base
 
     //获取首页图表数据
     public function getChartsInfo(){
-        $uid = session('user_id');
+
         //本月1号
         $monFirst = mktime(0,0,0,date('m'),1,date('Y'));
         $result = db('group_income')
-            ->where('user_id',$uid)
+            ->where('user_id',$this->uid)
             ->where('created_date','>',$monFirst)
             ->field('bonus,created_date')
             ->order('created_date asc')

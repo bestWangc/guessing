@@ -7,6 +7,7 @@
             <div class="ibox-title">
                 <h5>抢购列表</h5>
             </div>
+            <input type="hidden" class="choseUid" value="{$choseUid}">
             <div class="ibox-content">
                 <div class="row row-lg">
                     <div class="col-sm-12">
@@ -28,77 +29,54 @@
 {block name="my-js"}
 <script>
     $(function () {
-        var btt_data = [{
-            "order_id": "1",
-            "name": "奔波儿灞",
-            "good_name": "积分",
-            "good_num": "300",
-            "amount": "300",
-            "guessing": "300",
-            "term": "436",
-            "status": "启用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "order_id": "2",
-            "name": "灞波儿奔",
-            "good_name": "充值",
-            "good_num": "218",
-            "amount": "218",
-            "guessing": "218",
-            "term": "436",
-            "status": "启用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "order_id": "3",
-            "name": "作家崔成浩",
-            "good_name": "充值",
-            "good_num": "436",
-            "amount": "436",
-            "guessing": "436",
-            "term": "436",
-            "status": "停用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "order_id": "3",
-            "name": "作家崔成浩",
-            "good_name": "充值",
-            "good_num": "436",
-            "amount": "436",
-            "term": "436",
-            "guessing": "436",
-            "status": "停用",
-            "created_date" : "2018-09-07 17:20"
-        }];
-        $('#buyLog').bootstrapTable({
-            data: btt_data,
-            columns: [{
-                field:"order_id",
-                title:"编号"
-            }, {
-                field:"name",
-                title:"用户帐号"
-            },{
-                field:"good_name",
-                title:"购买商品名称"
-            },{
-                field:"good_num",
-                title:"数量"
-            },{
-                field:"amount",
-                title:"金额"
-            }, {
-                field:"guessing",
-                title:"升级选择"
-            }, {
-                field:"term",
-                title:"升级期号"
-            }, {
-                field:"status",
-                title:"状态"
-            }, {
-                field:"created_date",
-                title:"抢购时间"
-            }]
+        $.ajax({
+            url: 'buyLogDetails',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                choseUid : $('.choseUid').val()
+            },
+            cache: false,
+            success: function (res) {
+                console.log(res);
+                if (res.code) {
+                    var btt_data = res.data;
+
+                    $('#buyLog').bootstrapTable({
+                        data: btt_data,
+                        columns: [{
+                            field:"order_id",
+                            title:"编号"
+                        }, {
+                            field:"name",
+                            title:"用户帐号"
+                        },{
+                            field:"good_name",
+                            title:"购买商品名称"
+                        },{
+                            field:"goods_num",
+                            title:"数量"
+                        },{
+                            field:"amount",
+                            title:"金额"
+                        }, {
+                            field:"guessing",
+                            title:"升级选择"
+                        }, {
+                            field:"term_num",
+                            title:"升级期号"
+                        }, {
+                            field:"created_date",
+                            title:"抢购时间"
+                        }]
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500});
+                }
+            },
+            error: function () {
+                console.log(res);
+            }
         });
     });
 </script>

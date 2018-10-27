@@ -10,7 +10,6 @@
 <input type="hidden" id="goods_id" value="{$goods_id}">
 <input type="hidden" id="award_id" value="{$award_id}">
 <div class="sh-x">
-    <!--<img src="/static/index/images/sh1.png">-->
     <img src="{$goods_info.pic_url}">
 </div>
 <div class="sh-z">
@@ -173,6 +172,11 @@
         });
 
         $('.sh-tan').click(function() {
+            var currentHour = (new Date()).getHours();
+            if(currentHour > 23 || currentHour < 10){
+                layer.msg('竞猜时间为10点-23点，请稍候',{time:1500});
+                return false;
+            }
             if($('#minute_show1')[0].innerText.substring(1,2) < 2){
                 layer.msg('现在不允许购买，请稍候',{time:1500});
                 return false;

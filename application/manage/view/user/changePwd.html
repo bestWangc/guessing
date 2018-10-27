@@ -66,7 +66,7 @@
 <script>
     $(function(){
         $('button.submit_btn').click(function(){
-            // parent.refreshIframe();return false;
+
             var uid = $('.uid').val();
             var uname = $('input[name="uname"]').val();
             var oldPwd = $('input[name="oldPwd"]').val();
@@ -85,6 +85,10 @@
                 layer.msg('密码长度不能小于6位',{time:1500});
                 return false;
             }
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
             $.ajax({
                 url: '/service/change_pwd/index',
                 type: 'POST',
@@ -103,10 +107,12 @@
                             parent.refreshIframe();
                         };
                     }
+                    layer.closeAll('loading');
                     layer.msg(res.msg,{time:1500},callBack);
 
                 },
                 error: function (res) {
+                    layer.closeAll('loading');
                     console.log(res);
                 }
             });

@@ -14,11 +14,13 @@ use think\Controller;
 class Base extends Controller
 {
 
+    protected $uid;
     public function __construct(App $app = null)
     {
         parent::__construct($app);
         $this->checkLogin();
         $this->checkRole();
+        $this->uid = session('user_id');
     }
 
     public function checkLogin(){

@@ -23,8 +23,6 @@
         <!-- End Panel Basic -->
     </div>
 
-    <!-- Peity -->
-    <!--<script src="/static/manage/js/demo/bootstrap-table-demo.js"></script>-->
     <script src="/static/manage/js/common.js"></script>
 
 </body>
@@ -32,70 +30,79 @@
 {block name="my-js"}
 <script>
     $(function () {
-        var btt_data = [{
-            "uid": "1",
-            "name": "奔波儿灞",
-            "tel": "积分",
-            "email": "300",
-            "status": "启用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "uid": "2",
-            "name": "灞波儿奔",
-            "tel": "充值",
-            "email": "218",
-            "status": "启用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "uid": "3",
-            "name": "作家崔成浩",
-            "tel": "充值",
-            "email": "436",
-            "status": "停用",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "uid": "3",
-            "name": "作家崔成浩",
-            "tel": "充值",
-            "email": "436",
-            "status": "停用",
-            "created_date" : "2018-09-07 17:20"
-        }];
-        $('#usersTableFromData').bootstrapTable({
-            data: btt_data,
-            columns: [{
-                field:"uid",
-                title:"用户ID"
-            }, {
-                field:"name",
-                title:"用户帐号"
-            },{
-                field:"tel",
-                title:"绑定手机"
-            },{
-                field:"email",
-                title:"绑定邮箱"
-            },{
-                field:"status",
-                title:"状态"
-            }, {
-                field:"created_date",
-                title:"创建时间"
-            }, {
-                field: 'operate',
-                title: '操作',
-                align: 'center',
-                formatter: operateFormatter()
-            }]
+        $.ajax({
+            url: 'userDetails',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (res) {
+                if (res.code) {
+                    var btt_data = res.data;
+
+                    $('#usersTableFromData').bootstrapTable({
+                        data: btt_data,
+                        columns: [{
+                            field: "uid",
+                            title: "用户ID"
+                        }, {
+                            field: "name",
+                            title: "用户帐号"
+                        }, {
+                            field: "tel",
+                            title: "绑定手机"
+                        }, {
+                            field: "email",
+                            title: "绑定邮箱"
+                        }, {
+                            field: "status",
+                            title: "状态"
+                        }, {
+                            field: "created_date",
+                            title: "创建时间"
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            formatter: operateFormatter,
+                            events: operateEvents
+                        }]
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500});
+                }
+            },
+            error: function () {
+                console.log(res);
+            }
         });
+
+        var operateFormatter = function() {
+            return [
+                '<a href="#" class="buyLog btn btn-xs btn-info btn-sm" style="margin-right:10px;">抢购记录</a>',
+                '<a href="#" class="extractLog btn btn-xs btn-info btn-sm" style="margin-right:10px;">提现记录</a>',
+                '<a href="#" class="rechargeLog btn btn-xs btn-info btn-sm" style="margin-right:10px;">充值记录</a>',
+            ].join('');
+        };
+        window.operateEvents = {
+            'click .buyLog': function (e, value, row) {
+                commonClick(3,row.uid);
+            },
+            'click .extractLog': function (e, value, row) {
+                commonClick(4,row.uid);
+            },
+            'click .extractLog': function (e, value, row) {
+                commonClick(5,row.uid);
+            }
+        };
+        var commonClick = function (index,uid) {
+            $(".J_menuItem" , parent.document).each(function () {
+                if($(this).data('index') == index){
+                    var oldHref = $(this).attr('href');
+                    $(this).attr('href', oldHref+'?choseUid='+uid);
+                    $(this)[0].click();
+                }
+            });
+        }
     });
-    function operateFormatter() {
-        return [
-            // '<a href="" class="btn btn-xs btn-info">查看</a>',
-            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">详情</>',
-            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">抢购记录</a>',
-            '<a href="#" class="btn btn-xs btn-info btn-sm" style="margin-right:10px;">竞猜记录</a>',
-        ].join('');
-    }
 </script>
 {/block}
