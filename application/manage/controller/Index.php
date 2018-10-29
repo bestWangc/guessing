@@ -27,7 +27,7 @@ class Index extends Base
             ->alias('su')
             ->join('alipay sa','sa.user_id = su.id','left')
             ->join('address sad','sad.user_id = su.id','left')
-            ->where('su.id',$this->uid)
+            ->where('su.parent_id',$this->uid)
             ->field($field)
             ->find();
         //团队成员数量
@@ -85,8 +85,10 @@ class Index extends Base
         //今日凌晨时间戳
         $time = strtotime(date('Ymd'));
         $result = db('order')
-            ->field('COUNT(id) AS total,COALESCE(SUM(amount),0) AS amount')
-            ->where('user_id',$uid)
+            ->alias('so')
+            ->join('users su','su.id = so.user_id')
+            ->field('COUNT(so.id) AS total,COALESCE(SUM(so.amount),0) AS amount')
+            ->where('su.parent_id',$uid)
             ->where('created_date','>', $time)
             ->find();
         return $result;
