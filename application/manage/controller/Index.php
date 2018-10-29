@@ -32,6 +32,7 @@ class Index extends Base
             ->find();
         //团队成员数量
         $count = $this->getTeamInfo($this->uid);
+
         list($teamAllNum,$teamNewNum,$teamActiveNum) = $count;
 
         $orderCountInfo = $this->getTeamOrderCount($this->uid);
@@ -67,7 +68,7 @@ class Index extends Base
         //今日新增成员
         $sql1 = 'SELECT count(id) FROM ssc_users WHERE parent_id = '.$uid.' AND created_date > '.$time;
         //今日活跃成员
-        $sql2 = 'SELECT count(su.id) AS count3 FROM ssc_users su
+        $sql2 = 'SELECT count(DISTINCT su.id) AS count3 FROM ssc_users su
                 INNER JOIN ssc_order so ON so.user_id = su.id AND so.created_date > '.$time.'
                 WHERE su.parent_id = '.$uid;
         $result = db('users')
@@ -89,7 +90,7 @@ class Index extends Base
             ->join('users su','su.id = so.user_id')
             ->field('COUNT(so.id) AS total,COALESCE(SUM(so.amount),0) AS amount')
             ->where('su.parent_id',$uid)
-            ->where('created_date','>', $time)
+            ->where('so.created_date','>', $time)
             ->find();
         return $result;
     }
