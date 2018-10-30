@@ -28,74 +28,106 @@
 {block name="my-js"}
 <script>
     $(function () {
-        var btt_data = [{
-            "extract_id": "1",
-            "name": "奔波儿灞",
-            "amount": "300",
-            "way": "支付宝",
-            "status": "成功",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "extract_id": "1",
-            "name": "奔波儿灞",
-            "amount": "300",
-            "way": "支付宝",
-            "status": "成功",
-            "created_date" : "2018-09-07 17:20"
-        }, {
-            "extract_id": "1",
-            "name": "奔波儿灞",
-            "amount": "300",
-            "way": "支付宝",
-            "status": "失败",
-            "created_date" : "2018-09-07 17:20"
-        }];
-        $('#rechargeApply').bootstrapTable({
-            data: btt_data,
-            columns: [{
-                field:"extract_id",
-                title:"编号"
-            }, {
-                field:"name",
-                title:"用户帐号"
-            },{
-                field:"amount",
-                title:"充值金额"
-            }, {
-                field:"way",
-                title:"充值方式"
-            }, {
-                field:"status",
-                title:"状态"
-            }, {
-                field:"created_date",
-                title:"充值时间"
-            }, {
-                field: 'operate',
-                title: '操作',
-                align: 'center',
-                events: operateEvents,
-                formatter: operateFormatter
-            }]
+        $.ajax({
+            url: 'applyDetails',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (res) {
+                console.log(res);
+                if (res.code) {
+                    var btt_data = res.data;
+
+                    $('#rechargeApply').bootstrapTable({
+                        data: btt_data,
+                        columns: [{
+                            field:"id",
+                            title:"编号"
+                        }, {
+                            field:"name",
+                            title:"用户帐号"
+                        },{
+                            field:"amount",
+                            title:"充值金额"
+                        }, {
+                            field:"way",
+                            title:"充值方式"
+                        }, {
+                            field:"status",
+                            title:"状态"
+                        }, {
+                            field:"created_date",
+                            title:"充值时间"
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            events: operateEvents,
+                            formatter: operateFormatter
+                        }]
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500});
+                }
+            },
+            error: function () {
+                console.log(res);
+            }
         });
+
+        var operateFormatter = function() {
+            return [
+                '<a class="agree btn btn-info btn-xs" href="javascript:void(0)" style="margin-right:10px;" title="Agree">',
+                '同意',
+                '</a>',
+                '<a class="refuse btn btn-danger btn-xs" href="javascript:void(0)" title="Refuse">',
+                '拒绝',
+                '</a>'
+            ].join('');
+        };
+
+        window.operateEvents = {
+            'click .agree': function (e, value, row) {
+                alert('You click like action, row: ' + JSON.stringify(row));
+                commonOperate(row.id,1);
+            },
+            'click .refuse': function (e, value, row) {
+                alert('You click like action, row: ' + JSON.stringify(row));
+                commonOperate(row.id,0);
+            }
+        };
+
+        var commonOperate = function (id,operate) {
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url: 'operation',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id : id,
+                    operate : operate
+                },
+                cache: false,
+                success: function (res) {
+                    console.log(res);
+                    var callBack = '';
+                    if(res.code == 1){
+                        callBack = function () {
+                            parent.refreshIframe();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(res.msg,{time:1500},callBack);
+                },
+                error: function () {
+                    layer.closeAll('loading');
+                    console.log(res);
+                }
+            });
+        };
     });
-    function operateFormatter(value, row, index) {
-        return [
-            '<a class="agree btn btn-info btn-xs" href="javascript:void(0)" style="margin-right:10px;" title="Agree">',
-            '同意',
-            '</a>',
-            '<a class="refuse btn btn-danger btn-xs" href="javascript:void(0)" title="Refuse">',
-            '拒绝',
-            '</a>'
-        ].join('');
-    }
-    window.operateEvents = {
-        'click .agree': function (e, value, row, index) {
-            alert('You click like action, row: ' + JSON.stringify(row));
-        },
-        'click .refuse': function (e, value, row, index) {
-            alert('You click like action, row: ' + JSON.stringify(row));
-        }
-    };
 </script>
 {/block}
