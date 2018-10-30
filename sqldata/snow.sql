@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 25/10/2018 16:50:37
+ Date: 30/10/2018 20:44:03
 */
 
 SET NAMES utf8mb4;
@@ -51,15 +51,14 @@ CREATE TABLE `ssc_apply`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL DEFAULT 0 COMMENT '订单表id',
   `user_id` int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0-未处理，1-已处理',
-  `purpose` tinyint(1) NOT NULL COMMENT '申请目的，1-退货，2-提货，3-提现',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0-失败，1-成功，2-待处理',
+  `purpose` tinyint(1) NOT NULL COMMENT '申请目的，1-退货，2-提货，3-金币兑换',
   `gold` int(11) NOT NULL DEFAULT 0 COMMENT '兑换金币',
-  `amount` int(11) NOT NULL DEFAULT 0 COMMENT '提现金额',
-  `real_amount` int(11) NOT NULL DEFAULT 0 COMMENT '实际到账金额',
-  `alipay_id` int(11) NOT NULL COMMENT '绑定的支付宝id',
   `created_date` int(11) NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '申请表' ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX ```user_id```(`user_id`) USING BTREE,
+  INDEX ```purpose```(`purpose`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '申请表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ssc_award_info
@@ -74,7 +73,7 @@ CREATE TABLE `ssc_award_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `term_num`(`term_num`) USING BTREE,
   INDEX `result`(`result`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4763 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '开奖信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5151 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '开奖信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ssc_extract
@@ -91,7 +90,7 @@ CREATE TABLE `ssc_extract`  (
   `created_date` int(11) NOT NULL COMMENT '提现时间',
   `updated_date` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户提现表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户提现表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ssc_goods
@@ -118,7 +117,7 @@ CREATE TABLE `ssc_group_income`  (
   `out` int(10) NOT NULL COMMENT '今日支出',
   `created_date` int(11) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '团队表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '团队表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ssc_gussing
@@ -153,7 +152,7 @@ CREATE TABLE `ssc_order`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `award_id`(`award_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ssc_recharge
@@ -201,7 +200,8 @@ CREATE TABLE `ssc_users`  (
   `frozen_money` int(11) NULL DEFAULT 0 COMMENT '冻结金额',
   `frozen_gold` int(11) NULL DEFAULT 0 COMMENT '冻结金币',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `name`(`name`) USING BTREE
+  INDEX `name`(`name`) USING BTREE,
+  INDEX `parent_id`(`parent_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

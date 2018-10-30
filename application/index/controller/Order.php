@@ -59,6 +59,7 @@ class Order extends Base
 
         $data=[
             'order_id' => $order_id,
+            'user_id' => $this->uid,
             'created_date' => time(),
             'purpose' => $purpose,
             'status' => 2
