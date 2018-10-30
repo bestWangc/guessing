@@ -38,7 +38,7 @@ class Order extends Base
         if(empty($order_id)){
             $m3_result->code = 0;
             $m3_result->msg = '订单编号不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $applyOrderNum = db('apply')
             ->where('order_id',$order_id)
@@ -46,8 +46,18 @@ class Order extends Base
         if($applyOrderNum > 0){
             $m3_result->code = 0;
             $m3_result->msg = '订单请勿重复提交';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
+        $addressInfo = db('address')
+            ->where('user_id',$this->uid)
+            ->field('id')
+            ->count();
+        if(!$addressInfo){
+            $m3_result->code = 0;
+            $m3_result->msg = '未设置收货地址';
+            return json($m3_result->toArray());
+        }
+
         $data=[
             'order_id' => $order_id,
             'created_date' => time(),
@@ -62,13 +72,13 @@ class Order extends Base
             if($changeOrderStatus){
                 $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
-                return $m3_result->toJson();
+                return json($m3_result->toArray());
             }
         }
 
         $m3_result->code = 0;
         $m3_result->msg = '未知错误，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 
     //转为金币
@@ -78,7 +88,7 @@ class Order extends Base
         if(empty($order_id)){
             $m3_result->code = 0;
             $m3_result->msg = '订单编号不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $orderInfo = db('order o')
@@ -102,12 +112,12 @@ class Order extends Base
             if($toStatus){
                 $m3_result->code = 1;
                 $m3_result->msg = '成功';
-                return $m3_result->toJson();
+                return json($m3_result->toArray());
             }
         }
         $m3_result->code = 0;
         $m3_result->msg = '失败';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 
 
