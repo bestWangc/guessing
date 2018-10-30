@@ -20,10 +20,10 @@ class Apply extends Base
         $result = db('apply')
             ->alias('sa')
             ->join('users su','su.id = sa.user_id')
-            ->join('alipay sa','sa.id = se.alipay_id')
-            ->where('se.status',2)
-            ->field('se.id,su.name,se.amount,se.real_amount,se.way,se.status,se.created_date,sa.alipay_account,sa.alipay_name')
-            ->order('se.created_date asc')
+            ->where('sa.status',2)
+            ->where('sa.purpose',3)
+            ->field('sa.id,su.name,sa.gold,sa.status,sa.created_date')
+            ->order('sa.created_date asc')
             ->select();
         if(!empty($result)){
             foreach ($result as $key => &$value){
@@ -34,6 +34,32 @@ class Apply extends Base
         $m3_result->code = 1;
         $m3_result->msg = 'success';
         $m3_result->data = $result;
+        return json($m3_result->toArray());
+    }
+
+    //操作
+    public function operation(){
+        $id = input('post.id',0);
+        $operate = input('post.operate');
+        $m3_result = new M3result();
+
+        if(!$id || is_null($operate)){
+            $m3_result->code = 0;
+            $m3_result->msg = 'id 不存在，请重试';
+            return json($m3_result->toArray());
+        }
+        $data = [
+            'status' => $operate,
+            'updated_date' => time()
+        ];
+        $res = db('apply')->where('id',$id)->update($data);
+        if($res){
+            $m3_result->code = 1;
+            $m3_result->msg = '成功';
+            return json($m3_result->toArray());
+        }
+        $m3_result->code = 0;
+        $m3_result->msg = '失败，请重试';
         return json($m3_result->toArray());
     }
 }

@@ -22,7 +22,7 @@
     </div>
     <!-- End Panel Basic -->
 </div>
-
+<script src="/static/manage/js/innerCommon.js"></script>
 </body>
 {/block}
 {block name="my-js"}
@@ -37,10 +37,11 @@
             },
             cache: false,
             success: function (res) {
-                if (res.code) {
+                console.log(res);
+                if (res.code == 1) {
                     var btt_data = res.data;
 
-                    $('#extractApply').bootstrapTable({
+                    $('#goldApplyLog').bootstrapTable({
                         data: btt_data,
                         columns: [{
                             field:"id",
@@ -52,11 +53,8 @@
                             field:"gold",
                             title:"兑换金币"
                         }, {
-                            field:"alipay_account",
-                            title:"支付宝账号"
-                        }, {
-                            field:"alipay_name",
-                            title:"支付宝姓名"
+                            field:"gold",
+                            title:"到账金额"
                         }, {
                             field:"status",
                             title:"状态"
