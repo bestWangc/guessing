@@ -28,7 +28,6 @@ class Goods extends Base
         $goods_id = input('goods_id',0);
         $goods_price = input('goods_price',0);
 
-        $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($buy_num) || empty($goods_id) || empty($goods_price)){
             $m3_result->code = 0;
@@ -40,7 +39,7 @@ class Goods extends Base
         $award_id = input('award_id',0);
         $amount = $buy_num*$goods_price;
         $userMoney = db('users')
-            ->where('id',$user_id)
+            ->where('id',$this->uid)
             ->field('money,frozen_money')
             ->find();
         if($userMoney['money']-$userMoney['frozen_money'] < $amount){
@@ -51,7 +50,7 @@ class Goods extends Base
         $surplus_money = $userMoney['money']-$amount;
         unset($userMoney);
         $data = [
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'goods_id' => $goods_id,
             'goods_num' => $buy_num,
             'amount' => $amount,
@@ -64,7 +63,7 @@ class Goods extends Base
             ->insert($data);
         if($res){
             $changeUserMoney = db('users')
-                ->where('id',$user_id)
+                ->where('id',$this->uid)
                 ->update(['money' => $surplus_money]);
             if($changeUserMoney){
                 $m3_result->code = 1;

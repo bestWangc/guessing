@@ -27,9 +27,8 @@ class User extends Base
     //获取user信息
     //获取用户信息
     public function getUserInfo(){
-        $user_id = session('user_id');
         $userInfo = db('users')
-            ->where('id', $user_id)
+            ->where('id', $this->uid)
             ->field('name,gold,photo,money,tel,email,frozen_money,frozen_gold')
             ->find();
         return $userInfo;
@@ -56,60 +55,58 @@ class User extends Base
         $alipay_account = input('account','');
         $alipay_name = input('name','');
 
-        $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($alipay_account) || empty($alipay_name)){
             $m3_result->code = 0;
             $m3_result->msg = '信息内容不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $data=[
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'alipay_name' => $alipay_name,
             'alipay_account' => $alipay_account
         ];
 
-        $oldInfo = db('alipay')->where('user_id',$user_id)->find();
+        $oldInfo = db('alipay')->where('user_id',$this->uid)->find();
         if(empty($oldInfo)){
             $res = db('alipay')
                 ->insert($data);
         }else{
             $res = db('alipay')
-                ->where('user_id', $user_id)
+                ->where('user_id', $this->uid)
                 ->update($data);
         }
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '保存成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $m3_result->code = 0;
         $m3_result->msg = '保存失败，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 
     //添加手机号
     public function addTel(){
         $tel_num = input('tel_num','');
-        $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($tel_num)){
             $m3_result->code = 0;
             $m3_result->msg = '手机号不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $res = db('users')
-            ->where('id', $user_id)
+            ->where('id', $this->uid)
             ->setField('tel', $tel_num);
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '保存成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $m3_result->code = 0;
         $m3_result->msg = '没有任何修改';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 }

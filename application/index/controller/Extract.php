@@ -20,14 +20,14 @@ class Extract extends Base
         $m3_result = new M3result();
         $ext_money = (int)input('ext_money',0);
         $real_money = (int)bcmul($ext_money, '0.9');
-        $user_id = session('user_id');
+
         if(empty($ext_money)){
             $m3_result->code = 0;
             $m3_result->msg = '提现金额不能为0';
             return json($m3_result->toArray());
         }
 
-        $alipayId = $this->checkAlipay($user_id);
+        $alipayId = $this->checkAlipay($this->uid);
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
@@ -35,7 +35,7 @@ class Extract extends Base
         }
 
         $extractCount = db('extract')
-            ->where('user_id', $user_id)
+            ->where('user_id', $this->uid)
             ->count();
         if($extractCount){
             $m3_result->code = 0;
@@ -44,7 +44,7 @@ class Extract extends Base
         }
 
         $data = [
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'amount' => $ext_money,
             'real_amount' => $real_money,
             'way' => '支付宝',
@@ -58,7 +58,7 @@ class Extract extends Base
 
         if($res){
             $updateAmount = db('users')
-                ->where('id',$user_id)
+                ->where('id',$this->uid)
                 ->setField('frozen_money',$ext_money);
             if($updateAmount){
                 $m3_result->code = 1;
@@ -75,9 +75,8 @@ class Extract extends Base
 
     //提现记录
     public function record(){
-        $user_id = session('user_id');
         $info = db('extract')
-            ->where('user_id',$user_id)
+            ->where('user_id',$this->uid)
             ->where('status',1)
             ->field('created_date,amount')
             ->select();
@@ -98,14 +97,13 @@ class Extract extends Base
     public function doGoldToMoney(){
         $m3_result = new M3result();
         $ext_gold = input('ext_gold',0);
-        $user_id = session('user_id');
         if(empty($ext_gold)){
             $m3_result->code = 0;
             $m3_result->msg = '兑换金币不能为0';
             return json($m3_result->toArray());
         }
 
-        $alipayId = $this->checkAlipay($user_id);
+        $alipayId = $this->checkAlipay($this->uid);
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
@@ -113,7 +111,7 @@ class Extract extends Base
         }
 
         $data=[
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'created_date' => time(),
             'purpose' => 3,
             'status' => 0,
@@ -125,7 +123,7 @@ class Extract extends Base
             ->insert($data);
         if($res){
             $updateGold = db('users')
-                ->where('id',$user_id)
+                ->where('id',$this->uid)
                 ->setField('frozen_gold',$ext_gold);
             if($updateGold){
                 $m3_result->code = 1;
@@ -142,9 +140,8 @@ class Extract extends Base
 
     //兑换记录
     public function goldRecord(){
-        $user_id = session('user_id');
         $info = db('apply')
-            ->where('user_id',$user_id)
+            ->where('user_id',$this->uid)
             ->where('status',1)
             ->field('created_date,gold')
             ->select();

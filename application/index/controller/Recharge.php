@@ -17,16 +17,14 @@ class Recharge extends Base
         //充值方式，0为微信，1为支付宝
         $pay_way = input('pay_way',0);
 
-        $user_id = session('user_id');
-
         $m3_result = new M3result();
         if($moeny_amount == 0){
             $m3_result->code = 0;
             $m3_result->msg = '充值金额不能为0';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $data = [
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'amount' => $moeny_amount,
             'status' => 2,
             'created_date' => time(),
@@ -36,10 +34,10 @@ class Recharge extends Base
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '充值记录创建成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
         $m3_result->code = 0;
         $m3_result->msg = '未知错误，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 }

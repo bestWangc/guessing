@@ -5,9 +5,7 @@ class Index extends Base
 {
     public function index()
     {
-        $user_id = session('user_id');
-
-        $userInfo = controller('user')->getUserInfo($user_id);
+        $userInfo = controller('user')->getUserInfo($this->uid);
 
         //获取开奖信息
         $award = controller('reward')->getAwardInfo(10);
@@ -28,7 +26,7 @@ class Index extends Base
         $orderInfo = db('order')
             ->alias('o')
             ->leftJoin('goods g','g.id = o.goods_id')
-            ->where('user_id', $user_id)
+            ->where('user_id', $this->uid)
             ->field('o.goods_num,o.amount,o.created_date,g.name as goods_name')
             ->order('o.id desc')
             ->limit(5)

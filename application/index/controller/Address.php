@@ -31,39 +31,38 @@ class Address extends Base
         $address_detail = input('address_detail','');
         $postal_code = input('postal_code','');
 
-        $user_id = session('user_id');
         $m3_result = new M3result();
         if(empty($name) || empty($tel) || empty($address_detail) || empty($postal_code)){
             $m3_result->code = 0;
             $m3_result->msg = '信息内容不能为空';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $data=[
-            'user_id' => $user_id,
+            'user_id' => $this->uid,
             'name' => $name,
             'phone' => $tel,
             'details' => $address_detail,
             'postal_code' => $postal_code
         ];
 
-        $oldInfo = db('address')->where('user_id',$user_id)->find();
+        $oldInfo = db('address')->where('user_id',$this->uid)->find();
         if(empty($oldInfo)){
             $res = db('address')
                 ->insert($data);
         }else{
             $res = db('address')
-                ->where('user_id', $user_id)
+                ->where('user_id', $this->uid)
                 ->update($data);
         }
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '保存成功';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $m3_result->code = 0;
         $m3_result->msg = '保存失败，请重试';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 }

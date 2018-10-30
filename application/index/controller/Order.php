@@ -7,9 +7,8 @@ use app\tools\M3result;
 class Order extends Base
 {
     public function index(){
-        $user_id = session('user_id');
 
-        $orderInfo = $this->getOrderInfo($user_id);
+        $orderInfo = $this->getOrderInfo($this->uid);
 
         $this->assign([
             'orderInfo' => $orderInfo
@@ -98,13 +97,12 @@ class Order extends Base
             ->find();
 
         $gold = $orderInfo['amount'];
-        $user_id = session('user_id');
         $oldGold = db('users')
             ->where('id', $user_id)
             ->value('gold');
         $gold = intval(($gold+$oldGold)/10);
         $res = db('users')
-            ->where('id',$user_id)
+            ->where('id',$this->uid)
             ->setField('gold',$gold);
 
         if($res){

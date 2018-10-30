@@ -7,9 +7,7 @@ class Reward extends Base
 {
     public function index()
     {
-        $user_id = session('user_id');
-
-        $userInfo = controller('user')->getUserInfo($user_id);
+        $userInfo = controller('user')->getUserInfo($this->uid);
         $award = $this->getAwardInfo(30);
 
         $this->assign([
