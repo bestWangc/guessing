@@ -62,7 +62,7 @@ class Order extends Base
             'order_id' => $order_id,
             'created_date' => time(),
             'purpose' => $purpose,
-            'status' => 0
+            'status' => 2
         ];
         $res = db('apply')
             ->insert($data);

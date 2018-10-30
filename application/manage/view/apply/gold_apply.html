@@ -1,18 +1,18 @@
 {extend name="layout/layout"}
-{block name="title"}充值申请{/block}
+
 {block name="body"}
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>充值申请</h5>
+            <h5>金币兑换申请</h5>
         </div>
         <div class="ibox-content">
             <div class="row row-lg">
                 <div class="col-sm-12">
                     <div class="example-wrap">
                         <div class="example">
-                            <table id="rechargeApply"  data-mobile-responsive="true"  data-pagination="true" data-page-list=[10]>
+                            <table id="goldApplyLog"  data-mobile-responsive="true"  data-pagination="true" data-page-list=[10]>
                             </table>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
     </div>
     <!-- End Panel Basic -->
 </div>
-<script src="/static/manage/js/innerCommon.js"></script>
+
 </body>
 {/block}
 {block name="my-js"}
@@ -32,13 +32,15 @@
             url: 'applyDetails',
             type: 'POST',
             dataType: 'json',
+            data:{
+                purpose: 3
+            },
             cache: false,
             success: function (res) {
-                console.log(res);
                 if (res.code) {
                     var btt_data = res.data;
 
-                    $('#rechargeApply').bootstrapTable({
+                    $('#extractApply').bootstrapTable({
                         data: btt_data,
                         columns: [{
                             field:"id",
@@ -47,17 +49,20 @@
                             field:"name",
                             title:"用户帐号"
                         },{
-                            field:"amount",
-                            title:"充值金额"
+                            field:"gold",
+                            title:"兑换金币"
                         }, {
-                            field:"way",
-                            title:"充值方式"
+                            field:"alipay_account",
+                            title:"支付宝账号"
+                        }, {
+                            field:"alipay_name",
+                            title:"支付宝姓名"
                         }, {
                             field:"status",
                             title:"状态"
                         }, {
                             field:"created_date",
-                            title:"充值时间"
+                            title:"兑换时间"
                         }, {
                             field: 'operate',
                             title: '操作',
@@ -74,7 +79,6 @@
                 console.log(res);
             }
         });
-
     });
 </script>
 {/block}

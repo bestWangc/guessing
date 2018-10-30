@@ -24,14 +24,14 @@ class Extract extends Base
         if(empty($ext_money)){
             $m3_result->code = 0;
             $m3_result->msg = '提现金额不能为0';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $alipayId = $this->checkAlipay($user_id);
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $extractCount = db('extract')
@@ -40,7 +40,7 @@ class Extract extends Base
         if($extractCount){
             $m3_result->code = 0;
             $m3_result->msg = '还有提现未处理，请等待';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $data = [
@@ -63,13 +63,13 @@ class Extract extends Base
             if($updateAmount){
                 $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
-                return $m3_result->toJson();
+                return json($m3_result->toArray());
             }
         }
 
         $m3_result->code = 0;
         $m3_result->msg = '提现失败';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
 
     }
 
@@ -102,14 +102,14 @@ class Extract extends Base
         if(empty($ext_gold)){
             $m3_result->code = 0;
             $m3_result->msg = '兑换金币不能为0';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $alipayId = $this->checkAlipay($user_id);
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
-            return $m3_result->toJson();
+            return json($m3_result->toArray());
         }
 
         $data=[
@@ -130,13 +130,13 @@ class Extract extends Base
             if($updateGold){
                 $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
-                return $m3_result->toJson();
+                return json($m3_result->toArray());
             }
         }
 
         $m3_result->code = 0;
         $m3_result->msg = '兑换失败';
-        return $m3_result->toJson();
+        return json($m3_result->toArray());
     }
 
 
