@@ -21,6 +21,9 @@ class NewTerm extends Command
 
         $output->writeln('new term start.');
         $nowTime = date('H:i',time());
+        if($nowTime >= '22:00'){
+            return false;
+        }
         if($nowTime == '10:00' || $nowTime == '10:01'){
             $data = [
                 'term_num' => date('Ymd').'024',
