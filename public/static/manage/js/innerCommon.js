@@ -12,6 +12,7 @@ function operateFormatter() {
 
 window.operateEvents = {
     'click .agree': function (e, value, row) {
+        console.log(row);
         commonOperate(row.id,1);
     },
     'click .refuse': function (e, value, row) {

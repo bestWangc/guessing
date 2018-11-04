@@ -29,7 +29,9 @@ class Income extends Base
                 }
             }
         }
-        $finalData['monthBonus'] = array_sum($finalData['countAll']);
+        if(!empty($finalData)){
+            $finalData['monthBonus'] = array_sum($finalData['countAll']);
+        }
         $m3_result = new M3result();
         $m3_result->code = 1;
         $m3_result->msg = 'success';

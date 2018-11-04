@@ -57,7 +57,20 @@ class Order extends Base
             return json($m3_result->toArray());
         }
 
-        $data=[
+        if ($purpose == 2){
+            //查询余额是否够10元
+            $balance = db('users')
+                ->where('user_id',$this->uid)
+                ->field('money')
+                ->find();
+            if($balance['money'] < 10){
+                $m3_result->code = 0;
+                $m3_result->msg = '金额不足10元，无法提货';
+                return json($m3_result->toArray());
+            }
+        }
+
+      $data=[
             'order_id' => $order_id,
             'user_id' => $this->uid,
             'created_date' => time(),
