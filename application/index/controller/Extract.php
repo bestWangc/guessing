@@ -34,7 +34,7 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
-        $userAmount = $this->getSurplus('amount');
+        $userAmount = $this->getSurplus('money');
         if($userAmount < $ext_money){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足';

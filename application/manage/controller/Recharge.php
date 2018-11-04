@@ -2,8 +2,6 @@
 
 namespace app\manage\controller;
 
-use app\tools\M3result;
-
 class Recharge extends Base
 {
 
@@ -21,7 +19,6 @@ class Recharge extends Base
         if(!$uid){
             $where = ['su.parent_id'=>$this->uid];
         }
-        $m3_result = new M3result();
         $field = 'sr.id as recharge_id,su.name,sr.amount,sr.way,sr.status,sr.created_date';
 
         $result = db('recharge')
@@ -37,10 +34,7 @@ class Recharge extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $result;
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$result);
     }
 
     //充值页面
@@ -50,7 +44,6 @@ class Recharge extends Base
 
     //充值申请详细数据
     public function applyDetails(){
-        $m3_result = new M3result();
         $result = db('recharge')
             ->alias('sr')
             ->join('users su','su.id = sr.user_id')
@@ -64,10 +57,7 @@ class Recharge extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $result;
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$result);
     }
 
     //操作
@@ -76,12 +66,9 @@ class Recharge extends Base
         $operate = input('post.operate');
         $amount = input('post.amount',0);
         $user_id = input('post.user_id');
-        $m3_result = new M3result();
 
         if(!$id || is_null($operate) || is_null($user_id)){
-            $m3_result->code = 0;
-            $m3_result->msg = '参数不够，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(0,'参数不够，请重试');
         }
         $data = [
             'status' => $operate,
@@ -94,19 +81,13 @@ class Recharge extends Base
                 ->where('id',$user_id)
                 ->update();
             if(!$result){
-                $m3_result->code = 0;
-                $m3_result->msg = '充值未成功';
-                return json($m3_result->toArray());
+                return jsonRes(0,'充值未成功');
             }
         }
         if($res){
-            $m3_result->code = 1;
-            $m3_result->msg = '成功';
-            return json($m3_result->toArray());
+            return jsonRes(1,'成功');
         }
-        $m3_result->code = 0;
-        $m3_result->msg = '失败，请重试';
-        return json($m3_result->toArray());
+        return jsonRes(0,'失败，请重试');
     }
 
 }

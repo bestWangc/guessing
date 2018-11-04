@@ -2,7 +2,6 @@
 
 namespace app\manage\controller;
 
-use app\tools\M3result;
 
 class Extract extends Base
 {
@@ -21,7 +20,7 @@ class Extract extends Base
         if(!$uid){
             $where = ['su.parent_id'=>$this->uid];
         }
-        $m3_result = new M3result();
+
         $field = 'se.id as extract_id,su.name,se.amount,se.real_amount,se.way,sa.alipay_account,sa.alipay_name,se.status,se.created_date';
         $result = db('extract')
             ->alias('se')
@@ -38,10 +37,7 @@ class Extract extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $result;
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$result);
     }
 
     //提现申请
@@ -50,7 +46,6 @@ class Extract extends Base
     }
     //提现申请详细信息
     public function applyDetails(){
-        $m3_result = new M3result();
         $result = db('extract')
             ->alias('se')
             ->join('users su','su.id = se.user_id')
@@ -65,10 +60,7 @@ class Extract extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $result;
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$result);
     }
 
     //提现申请操作
@@ -77,36 +69,29 @@ class Extract extends Base
         $operate = input('post.operate');
         $amount = input('post.amount',0);
         $user_id = input('post.user_id');
-        $m3_result = new M3result();
 
         if(!$id || is_null($operate) || is_null($user_id)){
-            $m3_result->code = 0;
-            $m3_result->msg = '参数不够，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(0,'参数不够，请重试');
         }
         $data = [
             'status' => $operate,
             'updated_date' => time()
         ];
-        $res = db('extract')->where('id',$id)->update($data);
+
         if(!!$operate){
             $result = db('users')
                 ->dec('money',$amount)
+                ->dec('frozen_money',$amount)
                 ->where('id',$user_id)
                 ->update();
             if(!$result){
-                $m3_result->code = 0;
-                $m3_result->msg = '充值未成功';
-                return json($m3_result->toArray());
+                return jsonRes(0,'充值未成功');
             }
         }
+        $res = db('extract')->where('id',$id)->update($data);
         if($res){
-            $m3_result->code = 1;
-            $m3_result->msg = '成功';
-            return json($m3_result->toArray());
+            return jsonRes(1,'成功');
         }
-        $m3_result->code = 0;
-        $m3_result->msg = '失败，请重试';
-        return json($m3_result->toArray());
+        return jsonRes(0,'失败，请重试');
     }
 }

@@ -46,9 +46,12 @@
                             field:"id",
                             title:"编号"
                         }, {
+                            field:"user_id",
+                            title:"用户ID"
+                        }, {
                             field:"name",
                             title:"用户帐号"
-                        },{
+                        }, {
                             field:"gold",
                             title:"兑换金币"
                         }, {
@@ -76,6 +79,51 @@
                 console.log(res);
             }
         });
+
+        window.operateEvents = {
+            'click .agree': function (e, value, row) {
+                console.log(row);
+                commonOperate(row.id,row.user_id,row.gold,3,1);
+            },
+            'click .refuse': function (e, value, row) {
+                commonOperate(row.id,row.user_id,row.gold,3,0);
+            }
+        };
+
+        var commonOperate = function (id,user_id,gold,purpose,operate) {
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url: 'operation',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id : id,
+                    user_id : user_id,
+                    gold : gold,
+                    purpose : purpose,
+                    operate : operate
+                },
+                cache: false,
+                success: function (res) {
+                    console.log(res);
+                    var callBack = '';
+                    if(res.code == 1){
+                        callBack = function () {
+                            parent.refreshIframe();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(res.msg,{time:1500},callBack);
+                },
+                error: function () {
+                    layer.closeAll('loading');
+                    console.log(res);
+                }
+            });
+        };
     });
 </script>
 {/block}

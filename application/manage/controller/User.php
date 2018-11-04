@@ -26,11 +26,9 @@ class User extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
                 $value['status'] = $value['status'] ? '启用' : '停用';
             }
-            $m3_result->code = 1;
-            $m3_result->msg = 'success';
-            $m3_result->data = $userInfo;
-            return json($m3_result->toArray());
+            return jsonRes(1,'成功',$userInfo);
         }
+        
         $m3_result->code = 0;
         $m3_result->msg = '错误,请重试';
         return json($m3_result->toArray());
@@ -60,7 +58,6 @@ class User extends Base
         if(!$uid){
             $where = ['su.parent_id'=>$this->uid];
         }
-        $m3_result = new M3result();
 
         $result = db('order')
             ->alias('so')
@@ -78,10 +75,7 @@ class User extends Base
                 $value['created_date'] = date('Y-m-d H:i:s',$value['created_date']);
             }
         }
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $result;
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$result);
     }
 
 }

@@ -32,11 +32,6 @@ class Income extends Base
         if(!empty($finalData)){
             $finalData['monthBonus'] = array_sum($finalData['countAll']);
         }
-        $m3_result = new M3result();
-        $m3_result->code = 1;
-        $m3_result->msg = 'success';
-        $m3_result->data = $finalData;
-
-        return json($m3_result->toArray());
+        return jsonRes(1,'成功',$finalData);
     }
 }
