@@ -55,7 +55,7 @@ class Recharge extends Base
             ->alias('sr')
             ->join('users su','su.id = sr.user_id')
             ->where('sr.status',2)
-            ->field('sr.id,su.name,sr.amount,sr.way,sr.status,sr.created_date')
+            ->field('sr.id,sr.user_id,su.name,sr.amount,sr.way,sr.status,sr.created_date')
             ->order('sr.created_date asc')
             ->select();
         if(!empty($result)){
@@ -74,11 +74,13 @@ class Recharge extends Base
     public function operation(){
         $id = input('post.id',0);
         $operate = input('post.operate');
+        $amount = input('post.amount',0);
+        $user_id = input('post.user_id');
         $m3_result = new M3result();
 
-        if(!$id || is_null($operate)){
+        if(!$id || is_null($operate) || is_null($user_id)){
             $m3_result->code = 0;
-            $m3_result->msg = 'id 不存在，请重试';
+            $m3_result->msg = '参数不够，请重试';
             return json($m3_result->toArray());
         }
         $data = [
@@ -86,6 +88,17 @@ class Recharge extends Base
             'updated_date' => time()
         ];
         $res = db('recharge')->where('id',$id)->update($data);
+        if(!!$operate){
+            $result = db('users')
+                ->inc('money',$amount)
+                ->where('id',$user_id)
+                ->update();
+            if(!$result){
+                $m3_result->code = 0;
+                $m3_result->msg = '充值未成功';
+                return json($m3_result->toArray());
+            }
+        }
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '成功';
