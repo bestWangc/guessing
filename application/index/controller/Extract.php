@@ -34,6 +34,13 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
+        $userAmount = $this->getSurplus('amount');
+        if($userAmount < $ext_money){
+            $m3_result->code = 0;
+            $m3_result->msg = '余额不足';
+            return json($m3_result->toArray());
+        }
+
         $extractCount = db('extract')
             ->where('user_id', $this->uid)
             ->count();
@@ -162,9 +169,8 @@ class Extract extends Base
 
     //获取剩余金币或者金额
     public function getSurplus($field){
-        $user_id = session('user_id');
         $num = db('users')
-            ->where('id',$user_id)
+            ->where('id',$this->uid)
             ->value($field);
         return $num;
     }

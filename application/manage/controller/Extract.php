@@ -56,7 +56,7 @@ class Extract extends Base
             ->join('users su','su.id = se.user_id')
             ->join('alipay sa','sa.id = se.alipay_id')
             ->where('se.status',2)
-            ->field('se.id,su.name,se.amount,se.real_amount,se.way,se.status,se.created_date,sa.alipay_account,sa.alipay_name')
+            ->field('se.id,su.name,se.user_id,se.amount,se.real_amount,se.way,se.status,se.created_date,sa.alipay_account,sa.alipay_name')
             ->order('se.created_date asc')
             ->select();
         if(!empty($result)){
@@ -75,11 +75,13 @@ class Extract extends Base
     public function operation(){
         $id = input('post.id',0);
         $operate = input('post.operate');
+        $amount = input('post.amount',0);
+        $user_id = input('post.user_id');
         $m3_result = new M3result();
 
-        if(!$id || is_null($operate)){
+        if(!$id || is_null($operate) || is_null($user_id)){
             $m3_result->code = 0;
-            $m3_result->msg = 'id 不存在，请重试';
+            $m3_result->msg = '参数不够，请重试';
             return json($m3_result->toArray());
         }
         $data = [
@@ -87,6 +89,17 @@ class Extract extends Base
             'updated_date' => time()
         ];
         $res = db('extract')->where('id',$id)->update($data);
+        if(!!$operate){
+            $result = db('users')
+                ->dec('money',$amount)
+                ->where('id',$user_id)
+                ->update();
+            if(!$result){
+                $m3_result->code = 0;
+                $m3_result->msg = '充值未成功';
+                return json($m3_result->toArray());
+            }
+        }
         if($res){
             $m3_result->code = 1;
             $m3_result->msg = '成功';
