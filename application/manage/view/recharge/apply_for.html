@@ -82,11 +82,15 @@
                 commonOperate(row.id,row.user_id,row.amount,1);
             },
             'click .refuse': function (e, value, row) {
-                commonOperate(row.id,row.user_id,row.amount,0);
+                layer.prompt({title: '拒绝原因', formType: 2}, function(text, index){
+                    layer.close(index);
+                    commonOperate(row.id,row.user_id,row.amount,0,text);
+                });
+
             }
         };
 
-        var commonOperate = function (id,user_id,amount,operate) {
+        var commonOperate = function (id,user_id,amount,operate,reason) {
             //加载遮罩层
             layer.load(1, {
                 shade: [0.5,'#fff']
@@ -99,6 +103,7 @@
                     id : id,
                     user_id : user_id,
                     amount : amount,
+                    reason : reason,
                     operate : operate
                 },
                 cache: false,

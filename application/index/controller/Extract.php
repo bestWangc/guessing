@@ -85,7 +85,7 @@ class Extract extends Base
         $info = db('extract')
             ->where('user_id',$this->uid)
             ->where('status',1)
-            ->field('created_date,amount')
+            ->field('created_date,amount,refuse_reason')
             ->select();
 
         $this->assign('amount_record',$info);

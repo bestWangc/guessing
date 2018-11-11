@@ -21,6 +21,7 @@
                     <div class="b_good_name">
                         <p>{$vo.name}</p>
                         <span>升级选择：{$vo.guessing==0 ? '瑞雪' : '丰年'}</span>
+                        <p style="color: #ff6951">{$vo.refuse_reason ? '拒绝：'.$vo.refuse_reason : ''}</p>
                     </div>
                     <div class="b_good_price">
                         {if($vo.guessing === $vo.win)}

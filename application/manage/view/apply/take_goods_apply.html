@@ -5,7 +5,7 @@
 <div class="wrapper wrapper-content">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>金币兑换申请</h5>
+            <h5>提货申请</h5>
         </div>
         <div class="ibox-content">
             <div class="row row-lg">
@@ -46,11 +46,14 @@
                             field:"id",
                             title:"编号"
                         }, {
+                            field:"user_id",
+                            title:"用户id"
+                        }, {
                             field:"name",
                             title:"用户帐号"
                         }, {
                             field:"order_id",
-                            title:"退货订单号"
+                            title:"提货订单号"
                         }, {
                             field:"goods_name",
                             title:"抢购物品名称"
@@ -91,6 +94,54 @@
                 console.log(res);
             }
         });
+        window.operateEvents = {
+            'click .agree': function (e, value, row) {
+                console.log(row);
+                commonOperate(row.id,row.user_id,row.order_id,row.amount,2,1);
+            },
+            'click .refuse': function (e, value, row) {
+                layer.prompt({title: '拒绝原因', formType: 2}, function(text, index){
+                    layer.close(index);
+                    commonOperate(row.id,row.user_id,row.order_id,row.amount,2,0,text);
+                });
+            }
+        };
+        var commonOperate = function (id,user_id,order_id,amount,purpose,operate,reason) {
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url: 'operation',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id : id,
+                    user_id : user_id,
+                    order_id : order_id,
+                    amount : amount,
+                    reason : reason,
+                    purpose : purpose,
+                    operate : operate
+                },
+                cache: false,
+                success: function (res) {
+                    console.log(res);
+                    var callBack = '';
+                    if(res.code == 1){
+                        callBack = function () {
+                            parent.refreshIframe();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(res.msg,{time:1500},callBack);
+                },
+                error: function (res) {
+                    layer.closeAll('loading');
+                    console.log(res);
+                }
+            });
+        };
     });
 </script>
 {/block}

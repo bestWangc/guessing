@@ -66,13 +66,15 @@ class Recharge extends Base
         $operate = input('post.operate');
         $amount = input('post.amount',0);
         $user_id = input('post.user_id');
+        $reason = input('post.reason','');
 
         if(!$id || is_null($operate) || is_null($user_id)){
             return jsonRes(0,'参数不够，请重试');
         }
         $data = [
             'status' => $operate,
-            'updated_date' => time()
+            'updated_date' => time(),
+            'refuse_reason' => $reason
         ];
         $res = db('recharge')->where('id',$id)->update($data);
         if(!!$operate){

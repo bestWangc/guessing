@@ -2,7 +2,6 @@
 
 namespace app\manage\controller;
 
-use app\tools\M3result;
 
 class User extends Base
 {
@@ -14,7 +13,6 @@ class User extends Base
     //用户详细信息
     public function userDetails(){
 
-        $m3_result = new M3result();
         $userInfo = db('users')
             ->where('parent_id',$this->uid)
             ->field('id as uid,name,tel,email,status,created_date')
@@ -28,10 +26,7 @@ class User extends Base
             }
             return jsonRes(1,'成功',$userInfo);
         }
-        
-        $m3_result->code = 0;
-        $m3_result->msg = '错误,请重试';
-        return json($m3_result->toArray());
+        return jsonRes(0,'错误,请重试');
     }
 
     //修改密码
