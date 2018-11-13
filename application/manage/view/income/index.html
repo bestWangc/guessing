@@ -8,7 +8,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>平台收入统计</h5>
+                        <h5>平台总收入统计</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -16,54 +16,23 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
                                 <i class="fa fa-wrench"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="graph_flot.html#">近一年</a>
-                                </li>
-                                <li><a href="graph_flot.html#">近一月</a>
-                                </li>
+                            <ul class="dropdown-menu dropdown-user choseDate">
+                                <li data-val="12"><a href="#">近一年</a></li>
+                                <li data-val="6"><a href="#">近半年</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="ibox-content">
-                        <div class="echarts" id="echarts-bar-chart"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>收入支出统计</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="graph_flot.html#">选项1</a>
-                                </li>
-                                <li><a href="graph_flot.html#">选项2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="echarts" id="echarts-line-chart"></div>
+                    <div class="ibox-content" style="height: 30rem;">
+                        <div class="echarts" id="incomeChartAll"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- ECharts -->
-    <script src="/static/manage/js/plugins/echarts/echarts-all.js"></script>
+    <script src="/static/manage/js/plugins/echarts/echarts.js"></script>
 
     <!-- ECharts demo data -->
-    <script src="/static/manage/js/demo/echarts-demo2.js"></script>
+    <script src="/static/manage/js/data/all_chart.js"></script>
 </body>
 {/block}

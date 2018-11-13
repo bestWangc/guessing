@@ -41,7 +41,8 @@ class Term extends Command
         $table_tr = $html_dom->find('.t_tr2'); //获取tr
         $count = count($table_tr);
         foreach ($table_tr as $key => $value) {
-            if($key == ($count-2) || $key == ($count-1)){
+            // if($key == ($count-2) || $key == ($count-1)){
+            if($key >= ($count-3)){
                 $term_num = $value->children(1)->plaintext;
                 $result = $value->children(2)->plaintext;
 

@@ -7,6 +7,42 @@ use app\tools\M3result;
 class Income extends Base
 {
 
+    public function index(){
+        return $this->fetch();
+    }
+
+    //获取平台收益图表数据
+    public function getDetailChartsInfo(){
+        $choseDate = input('post.choseDate');
+        if(empty($choseDate)){
+            //本月1号
+            $beginDate = mktime(0,0,0,date('m'),1,date('Y'));
+        }else{
+            if($choseDate == 6){
+                $beginDate = date("Y-m-d", strtotime("-6 month"));
+            } elseif ($choseDate == 12){
+                $beginDate = date("Y-m-d", strtotime("-1 year"));
+            }
+        }
+
+        $result = db('group_income')
+            ->where('created_date','>',$beginDate)
+            ->field('income,`out`,(income-bonus-`out`) as net_income,created_date')
+            ->order('created_date asc')
+            ->select();
+        $finalData = $xAxisData = [];
+        if(!empty($result)){
+            $finalData['income'] = array_column($result,'income');
+            $finalData['out'] = array_column($result,'out');
+            $finalData['netIncome'] = array_column($result,'net_income');
+            $xAxisData = array_column($result,'created_date');
+            foreach ($xAxisData as &$key){
+                $key = date('m/d',$key);
+            }
+            $finalData['xAxisData'] = $xAxisData;
+        }
+        return jsonRes(1,'成功',$finalData);
+    }
     //获取首页图表数据
     public function getChartsInfo(){
 

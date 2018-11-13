@@ -58,7 +58,7 @@ class Counter extends Command
                         'income' => $income,
                         'out' => $out,
                         'created_date' => time(),
-                        'bonus' => ($income-$out) ? ($income-$out)*$value['proportion'] : 0
+                        'bonus' => ($income-$out) ? floor(($income-$out)*$value['proportion']*100)/100 : 0
                     ];
                     $res = db('group_income')->insert($data);
 

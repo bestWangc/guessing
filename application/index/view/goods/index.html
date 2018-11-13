@@ -173,8 +173,9 @@
 
         $('.sh-tan').click(function() {
             var currentHour = (new Date()).getHours();
-            if(currentHour > 23 || currentHour < 10){
-                layer.msg('竞猜时间为10点-23点，请稍候',{time:1500});
+            console.log(currentHour);
+            if(currentHour >= 22 || currentHour < 10){
+                layer.msg('竞猜时间为10点-22点，请稍候',{time:1500});
                 return false;
             }
             if($('#minute_show1')[0].innerText.substring(1,2) < 2){
