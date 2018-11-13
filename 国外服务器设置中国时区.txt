@@ -1,0 +1,2 @@
+#ÃüÁî
+timedatectl set-timezone 'Asia/Shanghai'
