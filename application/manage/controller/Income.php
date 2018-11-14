@@ -70,4 +70,9 @@ class Income extends Base
         }
         return jsonRes(1,'成功',$finalData);
     }
+
+    //结算分红
+    public function settleBonus(){
+
+    }
 }
