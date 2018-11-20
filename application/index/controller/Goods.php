@@ -34,7 +34,7 @@ class Goods extends Base
             $m3_result->msg = '请选择购买数量或者选择升级选项';
             return json($m3_result->toArray());
         }
-        $hours = (int)date('h',time());
+        $hours = (int)date('H',time());
         if($hours >= 22 || $hours < 10){
             $m3_result->code = 0;
             $m3_result->msg = '竞猜时间为10点-22点，请稍候';
