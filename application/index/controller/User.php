@@ -19,6 +19,7 @@ class User extends Base
             'email' => $userInfo['email'],
             'tel' => $userInfo['tel'],
             'name' => $userInfo['name'],
+            'uid' => $this->uid,
             'adressNum' => $adressNum
         ]);
         return $this->fetch();
