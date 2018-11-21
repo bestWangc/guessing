@@ -94,6 +94,13 @@
                 <img src="/static/index/images/you.png">
             </a>
         </li>
+        <li>
+            <a href="#" class="cus_service">
+                <img src="/static/index/images/ge7.png">
+                <p>联系客服</p>
+                <img src="/static/index/images/you.png">
+            </a>
+        </li>
     </ul>
 </div>
 <div class="fgx"></div>
@@ -104,10 +111,15 @@
 </div>
 <div class="kong"></div>
 
-<div class="tanch hidden">
+<div class="phone hidden tanch">
     <p>为保证您的资金安全，请绑定手机</p>
     <input type="text" name="user_tel" placeholder="请输入手机号" value="{if (isset($tel) && !empty($tel))}{$tel}{/if}">
     <a href="#" class="gb-tan submit_tel">确定</a>
+</div>
+<div class="cservice hidden tanch">
+    <p>客服微信： wangc_zb</p>
+    <br/>
+    <a href="#" class="gb-tan close_ser">确定</a>
 </div>
 {/block}
 
@@ -120,7 +132,13 @@
     $(function () {
         $('.daohang ul li:eq(3)').addClass('active').siblings().removeClass('active');
         $('.tan-chu').click(function() {
-            $('.tanch').show()
+            $('.phone').show();
+        });
+        $('.cus_service').click(function() {
+            $('.cservice').show();
+        });
+        $('.close_ser').click(function() {
+            $('.cservice').hide();
         });
         $('.submit_tel').click(function() {
             var telNum = $(this).prev().val();
@@ -146,7 +164,7 @@
                             layer.msg(data.msg,{time: 1000});
                         }
                         layer.closeAll('loading');
-                        $('.tanch').hide();
+                        $('.phone').hide();
                     },
                     error : function(data){
                         layer.closeAll('loading');
@@ -154,7 +172,7 @@
                     }
                 });
             }else{
-                $('.tanch').hide();
+                $('.phone').hide();
             }
 
         });
