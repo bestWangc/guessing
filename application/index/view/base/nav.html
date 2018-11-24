@@ -1,29 +1,54 @@
-<div class="daohang">
-    <ul>
-        <li class="active">
-            <a href="{:url('index/index')}">
-                <i class="iconfont icon-shouye"></i>
-                <p>首页</p>
-            </a>
-        </li>
-        <li>
-            <a href="{:url('index/reward/index')}">
-                <i class="iconfont icon-kaijiangjilu"></i>
-                <p>开奖</p>
-            </a>
-        </li>
-        <li>
-            <a href="{:url('index/rankings/index')}">
-                <i class="iconfont icon-paixing"></i>
-                <p>排行</p>
-            </a>
-        </li>
-        <li>
-            <a href="{:url('index/user/index')}">
-                <i class="iconfont icon-ICON-user"></i>
-                <p class="yanse">个人</p>
-            </a>
-        </li>
-    </ul>
+<!-- navbar -->
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1 class="w3ls-logo"><a class="navbar-brand" href="index.html">金丰年</a></h1>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse top-w3lnav">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">首页</a></li>
+                        <li><a href="#about" class="scroll">介绍</a></li>
+                        <li><a href="#contact" class="scroll">加盟</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:;">敬请期待</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="javascript:;">敬请期待</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="w3social-icons w3lsnav-right">
+                        <ul>
+                            <li><a class="wechat" href="#wechatModal" data-toggle="modal"><i class="fa fa-weixin"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
-
+<!-- The Modal -->
+<div id="wechatModal" class="modal wthree-modal bs-example-modal-sm" tabindex="-1">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" data-dismiss="modal" >&times;</span>
+            <h3>客服微信</h3>
+        </div>
+        <div class="modal-body grid_3">
+            <p>扫一扫，添加微信</p>
+            <img src="/static/index/images/wechat.jpg" class="modal-img1" alt="">
+        </div>
+    </div>
+</div>
+<!-- //navbar -->

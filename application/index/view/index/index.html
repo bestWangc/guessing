@@ -1,168 +1,301 @@
 {extend name="base/base" /}
 
-{block name="title"}首页{/block}
+{block name="title"}金丰年{/block}
 
 {block name="header"}
-{include file="base/header"}
-{/block}
-
-{block name="main"}
-<div class="fenge"></div>
-<div class="gg-z">
-    <div class="gg-z-f">
-        <i class="iconfont icon-gonggao_active"></i>
-    </div>
-    <div class="gd-g">
-
-        <marquee direction="left" scrollamount="3" onmouseover="this.stop()" onmouseout="this.start()">
-            <a href="javascript:;">重庆时时彩，每10分钟开奖一次，可百度开奖结果对照数据，商品升级商城，最公平、公正、公开、的赚钱购物平台！</a>
-        </marquee>
-    </div>
-</div>
-<div class="gg-zhong">
-    <p>第{$lastTermNum}期</p>
-    <div class="gg-shu">
-        <ul>
-            {foreach $result as $vo}
-                <li><p>{$vo}</p></li>
-            {/foreach}
-        </ul>
-    </div>
-</div>
-
-<div class="kj-zh" style="margin-top: 0px; background-color: #fff; padding: 0px;">
-    <div class="kj-zh-nei">
-        <div class="kj-zh-nei1">
-            <img src="/static/index/images/k6.png">
-            <p>距离第<span>{$nowTermNum}</span>期结束：</p>
-        </div>
-        <div class="time-item">
-            <strong id="minute_show">0分</strong>
-            <strong id="second_show">0秒</strong>
-        </div>
-    </div>
-</div>
-<div class="shou-zhong">
-    <p class="h3"><span>抢购规则：</span>根据当期"重庆时时彩"的最后一位数字，为奇则<span>"丰年"</span>升级成功，反之<span>"瑞雪"</span>升级成功。</p>
-</div>
-<div class="shou-b">
-    <i class="iconfont icon-product"></i>
-    <span>实物商品</span>
-</div>
-<div class="shou-shp">
-    <ul>
-        {volist name="goodsInfo" id="vo"}
-            <li class="shou-shp1">
-                <img src="{$vo.pic_url}">
-                <div class="p-5">
-                    <h3>{$vo.name}</h3>
-                    <p>价格：<span class="span1">¥{$vo.price}</span>
-                        升级：<span class="span2">¥{$vo.success_price}</span></p>
-                </div>
-                <div class="text-centeer">
-                    <button class="shou-shp2 buy" type="button" value="{$vo.id}">
-                        立即抢购
-                    </button>
-                </div>
-            </li>
-        {/volist}
-    </ul>
-</div>
-<!--分割线-->
-<div class="fgx"></div>
-<div id="wrap2">
-    <div id="tit2">
-        <span class="select2">最新参与记录</span>
-        <span>开奖记录</span>
-    </div>
-    <div id="login2">
-        <div class="login2 show2">
-            <div class="shou-q">
-                <ul>
-                    {volist name="orderInfo" id="vo"}
-                        <li>
-                            <div class="shou-q1">
-                                <img src="/static/index/images/cg.jpg">
-                            </div>
-                            <div class="shou-q2">
-                                <h3>{$name}</h3>
-                                <p>抢购 {$vo.goods_num} 件 {$vo.goods_name},总价{$vo.amount}</p>
-                            </div>
-                            <div class="shou-q3">
-                                <p>{:date('Y-m-d H:i', $vo.created_date)}</p>
-                            </div>
-                        </li>
-                    {/volist}
-
-                    <div class="kj-jz">
-                        <a href="{:url('news/index')}">查看全部</a>
-                    </div>
-                </ul>
-            </div>
-        </div>
-        <div class="login2">
-            <div class="kj-xia">
-                <div class="kj-xia-b">
-                    <p class="kj-p1">时时彩期号</p>
-                    <p class="kj-p2">开奖号码</p>
-                    <p class="kj-p3">获胜</p>
-                </div>
-                <ul>
-                    {volist name="award" id="vo"}
-                        {if(!empty($vo.result))}
-                        <li>
-                            <p class="kj-p4">第{$vo.term_num}期</p>
-                            <p class="kj-p5">{$vo.result}</p>
-                            {if($vo.win == 1)}
-                                <p class="kj-p7">丰年</p>
-                            {else /}
-                                <p class="kj-p6">瑞雪</p>
-                            {/if}
-                        </li>
-                        {/if}
-                    {/volist}
-                    <div class="kj-jz">
-                        <a href="{:url('/index/reward/index')}">查看全部</a>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="/static/index/js/timeCount.js"></script>
-{/block}
-
-{block name="nav"}
 {include file="base/nav"}
 {/block}
 
-{block name="script"}
+{block name="main"}
+<!-- banner -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h2>Example headline.</h2>
+                    <p>Note: If you're viewing this page via the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+                    <button class="btn btn-primary" href="#myModal" >安卓版下载</button>
+                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
+                </div>
+            </div>
+        </div>
+        <div class="item item2">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>Another example headline.</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
+                </div>
+            </div>
+        </div>
+        <div class="item item3">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>One more for good measure.</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
+                </div>
+            </div>
+        </div>
+        <div class="item item4">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>One more for good measure.</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
+                </div>
+            </div>
+        </div>
+        <div class="item item5">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>One more for good measure.</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    <!-- The Modal -->
+    <div id="myModal" class="modal wthree-modal" tabindex="-1">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal" >&times;</span>
+                <h3>Modal Header</h3>
+            </div>
+            <div class="modal-body grid_3">
+                <p><img src="images/img1.jpg" class="modal-img1" alt=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eleifend commodo mi at pharetra. Vivamus accumsan ac erat non eleifend. Nulla a tortor tortor. Phasellus eget dui vel orci lacinia fermentum. Etiam consectetur augue felis, in consectetur est facilisis id. Nam porttitor eros libero. Cras vitae metus eu dui finibus sagittis vitae at est. Aliquam pulvinar, justo eget aliquam vulputate, enim mi suscipit mi, id dapibus est tortor sit amet urna. Aenean mattis sed diam eget aliquam. Proin eu felis id diam congue ultricies ac ac ipsum. Vivamus euismod augue et tellus maximus, vitae lacinia eros feugiat. Aliquam erat volutpat. Curabitur risus dui, viverra convallis rhoncus ac, blandit et nisl. Praesent in massa non magna aliquam scelerisque eget a dolor.
+                    Fusce enim magna, feugiat ac velit ac, congue vestibulum elit. Donec lectus ex, elementum nec molestie eu, lobortis sit amet enim.</p>
+                <p><img src="images/img1.jpg" class="modal-img2" alt=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eleifend commodo mi at pharetra. Vivamus accumsan ac erat non eleifend. Nulla a tortor tortor. Phasellus eget dui vel orci lacinia fermentum. Etiam consectetur augue felis, in consectetur est facilisis id. Nam porttitor eros libero. Cras vitae metus eu dui finibus sagittis vitae at est. Aliquam pulvinar, justo eget aliquam vulputate, enim mi suscipit mi, id dapibus est tortor sit amet urna. Aenean mattis sed diam eget aliquam. Proin eu felis id diam congue ultricies ac ac ipsum. Vivamus euismod augue et tellus maximus, vitae lacinia eros feugiat. Aliquam erat volutpat. Curabitur risus dui, viverra convallis rhoncus ac, blandit et nisl. Praesent in massa non magna aliquam scelerisque eget a dolor.
+                    Fusce enim magna, feugiat ac velit ac, congue vestibulum elit. Donec lectus ex, elementum nec molestie eu, lobortis sit amet enim.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //banner -->
+
+<div class="codes ">
+    <div class="container">
+        <div class="grid_3 grid_4 grid-w3hdngs"> <!-- Headings -->
+            <h3 class="w3ls-hdg">Headings</h3>
+            <div class="bs-example w3layouts">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><h1 id="h1.-bootstrap-heading">h1. Bootstrap heading<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h1></td>
+                        <td class="type-info w3l">Semibold 36px</td>
+                    </tr>
+                    <tr>
+                        <td><h2 id="h2.-bootstrap-heading">h2. Bootstrap heading<a class="anchorjs-link" href="#h2.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h2></td>
+                        <td class="type-info w3l">Semibold 30px</td>
+                    </tr>
+                    <tr>
+                        <td><h3 id="h3.-bootstrap-heading">h3. Bootstrap heading<a class="anchorjs-link" href="#h3.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h3></td>
+                        <td class="type-info w3l">Semibold 24px</td>
+                    </tr>
+                    <tr>
+                        <td><h4 id="h4.-bootstrap-heading">h4. Bootstrap heading<a class="anchorjs-link" href="#h4.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h4></td>
+                        <td class="type-info w3l">Semibold 18px</td>
+                    </tr>
+                    <tr>
+                        <td><h5 id="h5.-bootstrap-heading">h5. Bootstrap heading<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
+                        <td class="type-info w3l">Semibold 14px</td>
+                    </tr>
+                    <tr>
+                        <td><h6>h6. Bootstrap heading</h6></td>
+                        <td class="type-info w3l">Semibold 12px</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="codes agileitsbg3">
+    <div class="container">
+        <div class="grid_3 grid_5 w3-agileits w3layouts"> <!-- Progress Bars -->
+            <h3 class="w3ls-hdg">Progress Bars</h3>
+            <div class="tab-content">
+                <div class="tab-pane active" id="domprogress">
+                    <p>Success with <code>progress-bar-info</code> class.</p>
+                    <div class="progress w3-agileits">
+                        <div class="progress-bar progress-bar-info" style="width: 30%"></div>
+                    </div>
+                    <p>progress-bar-info <code>progress-bar-success </code>With label</p>
+                    <div class="progress w3-agileits">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            60%
+                        </div>
+                    </div>
+                    <p>Inverse with <code>Animated progress-bar </code> class.</p>
+                    <div class="progress w3-agileits">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                            <span class="sr-only">45% Complete</span>45%
+                        </div>
+                    </div>
+                    <p>Inverse with <code>Animated progress-bar-inverse </code> class.</p>
+                    <div class="progress w3-agileits">
+                        <div class="progress-bar progress-bar-success" style="width: 35%">
+                            <span class="sr-only">35% Complete (success)</span>35%
+                        </div>
+                        <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 20%">
+                            <span class="sr-only">20% Complete (warning)</span>
+                        </div>
+                        <div class="progress-bar progress-bar-danger" style="width: 10%">
+                            <span class="sr-only">10% Complete (danger)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="codes">
+    <div class="container">
+        <div class="grid_3 grid_5 w3-agileits tables-w3">
+            <h3 class="w3ls-hdg">Tables</h3>
+            <br>
+            <div class="agileinfo-w3lsrow">
+                <div class="col-md-6 w3llist-grids">
+                    <h4 class="w3t-text">Default styles</h4>
+                    <p>For basic stylinglight padding and only horizontal add the base class <code>.table</code> to any <code>&lt;table&gt;</code>.</p>
+                    <div class="bs-docs-example ">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 w3llist-grids w3llist-grids-btm2">
+                    <h4 class="w3t-text">Bordered style</h4>
+                    <p>Add borders and rounded corners to the table.</p>
+                    <div class="bs-docs-example ">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <br>
+            <h4 class="w3t-text">Row hover style</h4>
+            <p>Enable a hover state on table rows within a <code>&lt;tbody&gt;</code>.</p>
+            <div class="bs-docs-example ">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="support">
+            <a href="javascript:;">联系我们</a>
+        </div>
+    </div>
+</div>
+<div class="w3copy-agile">
+    <div class="container">
+        <p class="footer-class">Copyright &copy; 2017.Company name All rights reserved.</p>
+    </div>
+</div>
+{/block}
+
+{block name="my-js"}
 <script>
-    $(function(){
-        $('.daohang ul li:eq(0)').addClass('active').siblings().removeClass('active');
-
-        var h3_height = $(".shou-b").offset().top;
-        $(window).scroll(function () {
-            var this_scrollTop = $(this).scrollTop();
-            if (this_scrollTop - 80 >= h3_height) {
-                $(".kj-zh1").show();
-            } else {
-                $(".kj-zh1").hide();
-            }
-        });
-
-        $('.gb-tan').click(function () {
-            $('.tanch').hide()
-        });
-
-        $('#tit2 span').click(function () {
-            var i = $(this).index();//下标第一种写法
-            $(this).addClass('select2').siblings().removeClass('select2');
-            $('.login2').eq(i).show().siblings().hide();
-        });
-
-        $('.buy').on('click',function () {
-            $(location).prop('href', '/index/goods/index?goods_id='+$(this).val());
+    $(function () {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
         });
     });
 </script>
