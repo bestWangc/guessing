@@ -121,7 +121,7 @@ body a:focus {
 
 .codes.agileitsbg3 {
     background: #3498DB;  
-	clip-path: polygon( 0 0, 100% calc(100% - 55vw), 100% 100%, 0 calc(100% - 5vw) );
+	clip-path: polygon( 0 0, 100% calc(100% - 56vw), 100% 100%, 0 calc(100% - 5vw) );
     padding-bottom: 10em;
 }
 .grid_3.grid_4 {  

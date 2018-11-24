@@ -21,9 +21,9 @@
         <div class="item active">
             <div class="container">
                 <div class="carousel-caption">
-                    <h2>Example headline.</h2>
-                    <p>Note: If you're viewing this page via the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-                    <button class="btn btn-primary" href="#myModal" >安卓版下载</button>
+                    <h2>为你赚网络第一桶金</h2>
+                    <p>独特的升级玩法，源源不断的收益看得见</p>
+                    <button class="btn btn-primary download" href="javascript:;" >安卓版下载</button>
                     <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
                 </div>
             </div>
@@ -31,9 +31,9 @@
         <div class="item item2">
             <div class="container">
                 <div class="carousel-caption">
-                    <h3>Another example headline.</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <h3>壮大你的团队</h3>
+                    <p>团队人数越多，平台分红越多，躺着数钱真好</p>
+                    <button class="btn btn-primary download" href="javascript:;" data-toggle="modal">安卓版下载</button>
                     <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
                 </div>
             </div>
@@ -41,9 +41,9 @@
         <div class="item item3">
             <div class="container">
                 <div class="carousel-caption">
-                    <h3>One more for good measure.</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <h3>战，一战到底</h3>
+                    <p>做长久稳定平台，永不跑路</p>
+                    <button class="btn btn-primary download" href="javascript:;" data-toggle="modal">安卓版下载</button>
                     <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
                 </div>
             </div>
@@ -51,9 +51,9 @@
         <div class="item item4">
             <div class="container">
                 <div class="carousel-caption">
-                    <h3>One more for good measure.</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <h3>支付宝 & 微信</h3>
+                    <p>采用支付宝微信进行充值提现，速度那个快哟</p>
+                    <button class="btn btn-primary download" href="javascript:;">安卓版下载</button>
                     <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
                 </div>
             </div>
@@ -61,9 +61,9 @@
         <div class="item item5">
             <div class="container">
                 <div class="carousel-caption">
-                    <h3>One more for good measure.</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <button class="btn btn-primary" href="#myModal" data-toggle="modal">安卓版下载</button>
+                    <h3>只要你有一部手机</h3>
+                    <p>操作简单易上手，赚个零花钱？可能比你工资还高</p>
+                    <button class="btn btn-primary" href="{:url('/index/download')}" data-toggle="modal">安卓版下载</button>
                     <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
                 </div>
             </div>
@@ -292,10 +292,17 @@
 {block name="my-js"}
 <script>
     $(function () {
+        console.log(222222222222222);
         $().UItoTop({ easingType: 'easeOutQuart' });
         $(".scroll").click(function(event){
             event.preventDefault();
             $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+        
+        //下载app
+        $('.download').click(function () {
+            console.log('111111111111111');
+            location.href = '/download';
         });
     });
 </script>

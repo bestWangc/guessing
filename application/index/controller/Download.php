@@ -9,7 +9,10 @@ class Download extends Controller
     //下载文件
     public function download()
     {
-        $file_url = Env::get('root_path').'/public/uploads/photo_1.jpg';
+        // $file_url = Env::get('root_path').'/public/uploads/photo_1.jpg';
+        $file_url = Env::get('root_path').'public\static\download\jfn_1.0.apk';
+
+        var_dump($file_url);
         if(!file_exists($file_url)){ //检查文件是否存在
             abort(404,'文件未找到');
         }
