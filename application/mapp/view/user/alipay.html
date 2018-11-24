@@ -1,0 +1,74 @@
+{extend name="base/base" /}
+
+{block name="title"}支付宝{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/mapp/images/zuo.png" alt=""></a>
+    <p>支付宝信息</p>
+</div>
+<div class="login12">
+    <form>
+        <label>
+            <div>
+                <span>支付宝账号：</span>
+                <input type="text" name="alipay_account" placeholder="请输入支付宝账号" value="{if (isset($account) && !empty($account))}{$account}{/if}">
+            </div>
+        </label>
+        <label>
+            <div>
+                <span>支付宝用户名：</span>
+                <input type="text" name="alipay_name" placeholder="请输入支付宝用户名" value="{if (isset($name) && !empty($name))}{$name}{/if}">
+            </div>
+        </label>
+    </form>
+</div>
+<div class="tijiao">
+    <span>保存</span>
+</div>
+
+<script src="/static/mapp/js/common.js"></script>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.tijiao').click(function(){
+            var account = $('input[name="alipay_account"]').val();
+            var name = $('input[name="alipay_name"]').val();
+
+            if(account == ''){
+                layer.msg('请填写支付宝账号',{time:1500});
+                return false;
+            }
+            if(name == ''){
+                layer.msg('请填写支付宝姓名',{time:1500});
+                return false;
+            }
+
+            $.ajax({
+                url : 'alipayInfo',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    account : account,
+                    name : name
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function(){
+                            location.href='/mapp/user';
+                        };
+                    }
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+{/block}

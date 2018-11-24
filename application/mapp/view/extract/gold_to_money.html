@@ -1,0 +1,74 @@
+{extend name="base/base" /}
+
+{block name="title"}提现{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/mapp/images/zuo.png" alt=""></a>
+    <div class="zhongzi">
+        金币兑换
+    </div>
+    <a class="shoucang" href="{:url('mapp/extract/goldRecord')}">兑换记录</a>
+</div>
+<div class="tx-t">
+    <h3>可用金币</h3>
+    <p><span>{$gold ? $gold : 0}</span></p>
+</div>
+<div class="tixian1">
+    <form>
+        <div class="tixian2">
+            <input type="text" name="ext_gold" placeholder="请输入兑换金币">
+        </div>
+    </form>
+    <div class="tijiao">
+        <span>兑换</span>
+    </div>
+</div>
+<div class="yhk">
+    <a href="{:url('mapp/user/alipay')}">修改支付宝信息</a>
+</div>
+
+<script src="/static/mapp/js/common.js"></script>
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.tijiao').click(function () {
+            var ext_gold = $('input[name="ext_gold"]').val();
+            var gold_num = parseInt($('.tx-t span').text());
+            if(ext_gold == ''){
+                layer.msg('请填写兑换金币数量',{time:1500});
+                return false;
+            }
+            if(ext_gold > gold_num){
+                layer.msg('兑换数量过大',{time:1500});
+                return false;
+            }
+
+            $.ajax({
+                url : 'doGoldToMoney',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    ext_gold : ext_gold
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function(){
+                            location.href='/mapp/user';
+                        };
+                    }
+                    layer.msg(data.msg,{time: 1500},callingBack);
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+
+        });
+    });
+</script>
+{/block}

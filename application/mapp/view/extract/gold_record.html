@@ -1,0 +1,28 @@
+{extend name="base/base" /}
+
+{block name="title"}兑换记录{/block}
+
+{block name="main"}
+<div class="nav">
+    <a class="weizhi go_back" href="javascript:;"> <img src="/static/mapp/images/zuo.png" alt=""></a>
+    <div class="zhongzi">
+        兑换记录
+    </div>
+    <a class="shoucang" href="{:url('mapp/extract/goldToMoney')}">我要兑换</a>
+</div>
+<div class="tx-jl">
+    <ul>
+        {volist name="gold_record" id="vo"}
+            <li>
+                <p>{:date('Y-m-d H:s',$vo.created_date)}<span>{$vo.gold}</span></p>
+            </li>
+        {/volist}
+    </ul>
+</div>
+
+<script src="/static/mapp/js/common.js"></script>
+{/block}
+
+{block name="script"}
+
+{/block}

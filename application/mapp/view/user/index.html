@@ -1,0 +1,208 @@
+{extend name="base/base" /}
+
+{block name="title"}个人中心{/block}
+
+{block name="main"}
+<header class="me-header">
+    <div class="me-box">
+        <div class="avatar">
+            {if empty($user_photo)}
+                <img src="/static/mapp/images/touxiang.png">
+            {else/}
+                <img src="{$user_photo}">
+            {/if}
+            <h4>&nbsp;&nbsp;{$name}&nbsp;&nbsp;ID : {$uid}</h4>
+            <span class="label {if (!empty($email))} label-yes {/if}">绑定邮箱</span>
+            <span class="label {if (!empty($tel))} label-yes {/if}">绑定手机</span>
+            <span class="label {if ($adressNum >0)} label-yes {/if}">收货地址</span>
+        </div>
+        <div class="income-h">
+            <h2>￥ {$money}</h2>
+            <small>我的余额</small>
+        </div>
+    </div>
+
+    <ul class="me-h ">
+        <li>
+            <a href="{:url('mapp/extract/goldToMoney')}">
+                <i class="iconfont icon-jiaohuan"></i>
+                <span>兑换</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mapp/recharge/index')}">
+                <i class="iconfont icon-chongzhi1"></i>
+                <span>充值</span>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mapp/extract/index')}">
+                <i class="iconfont icon-tixian"></i>
+                <span>提现</span>
+            </a>
+        </li>
+    </ul>
+</header>
+
+<div class="fgx"></div>
+<div class="gr-xia">
+    <ul>
+        <li>
+            <a href="{:url('mapp/order/index')}">
+                <img src="/static/mapp/images/ge1.png">
+                <p>我的订单</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mapp/extract/record')}">
+                <img src="/static/mapp/images/ge2.png">
+                <p>提现记录</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mapp/extract/goldrecord')}">
+                <img src="/static/mapp/images/ge3.png">
+                <p>兑换记录</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="#" class="tan-chu">
+                <img src="/static/mapp/images/ge4.png">
+                <p>绑定手机</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="fgx"></div>
+<div class="gr-xia">
+    <ul>
+        <li>
+            <a href="{:url('mapp/user/alipay')}">
+                <img src="/static/mapp/images/ge5.png">
+                <p>支付宝</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mapp/address/index')}">
+                <img src="/static/mapp/images/ge6.png">
+                <p>收货地址</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+        <li>
+            <a href="#" class="cus_service">
+                <img src="/static/mapp/images/ge7.png">
+                <p>联系客服</p>
+                <img src="/static/mapp/images/you.png">
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="fgx"></div>
+<div class="gr-xiao">
+    <a href="javascript:;" class="logout">
+        <p>退出登录</p>
+    </a>
+</div>
+<div class="kong"></div>
+
+<div class="phone hidden tanch">
+    <p>为保证您的资金安全，请绑定手机</p>
+    <input type="text" name="user_tel" placeholder="请输入手机号" value="{if (isset($tel) && !empty($tel))}{$tel}{/if}">
+    <a href="#" class="gb-tan submit_tel">确定</a>
+</div>
+<div class="cservice hidden tanch">
+    <p>客服微信： wangc_zb</p>
+    <br/>
+    <a href="#" class="gb-tan close_ser">确定</a>
+</div>
+{/block}
+
+{block name="nav"}
+{include file="base/nav"}
+{/block}
+
+{block name="script"}
+<script>
+    $(function () {
+        $('.daohang ul li:eq(3)').addClass('active').siblings().removeClass('active');
+        $('.tan-chu').click(function() {
+            $('.phone').show();
+        });
+        $('.cus_service').click(function() {
+            $('.cservice').show();
+        });
+        $('.close_ser').click(function() {
+            $('.cservice').hide();
+        });
+        $('.submit_tel').click(function() {
+            var telNum = $(this).prev().val();
+            if(telNum != ''){
+                if(telNum.length != 11){
+                    layer.msg('请填写正确的手机号',{time:1500});
+                    return false;
+                }
+                //加载遮罩层
+                layer.load(1, {
+                    shade: [0.5,'#fff']
+                });
+                $.ajax({
+                    url : 'addTel',
+                    type : "POST",
+                    dataType : "json",
+                    cache : false,
+                    data : {
+                        tel_num : telNum
+                    },
+                    success : function(data){
+                        if(data.hasOwnProperty('code')){
+                            layer.msg(data.msg,{time: 1000});
+                        }
+                        layer.closeAll('loading');
+                        $('.phone').hide();
+                    },
+                    error : function(data){
+                        layer.closeAll('loading');
+                        console.log(data);
+                    }
+                });
+            }else{
+                $('.phone').hide();
+            }
+
+        });
+
+        $('.logout').click(function () {
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url : '/service/logout/index',
+                type : "GET",
+                dataType : "json",
+                cache : false,
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function () {
+                            window.location.reload();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        });
+
+    });
+</script>
+{/block}

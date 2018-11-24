@@ -1,0 +1,53 @@
+<div class="kj-sh">
+    <div class="kj-sh-zuo">
+        <a href="{:url('/mapp/user/index')}">
+            <div class="kj-sh-zuo1">
+                {if empty($user_photo)}
+                    <img src="/static/mapp/images/touxiang.png">
+                {else/}
+                    <img src="{$user_photo}">
+                {/if}
+            </div>
+            <div class="kj-sh-zuo2">
+                <div class="kj-sh-zi">
+                    <p>{$name}</p>
+                </div>
+                <div class="kj-sh-zi1">
+                    <img src="/static/mapp/images/jinbi.png">
+                    <p>{$gold}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="kj-sh-you">
+        <ul>
+            <li>
+                <a href="{:url('/mapp/news/index')}">
+                    <i class="iconfont icon-xiaoxi"></i>
+                    <p>参与</p>
+                </a>
+                <div class="kj-li">
+                    <p style="font-size: .24rem; color: #fff;">1</p>
+                </div>
+            </li>
+            <li>
+                <a href="{:url('/mapp/extract/goldToMoney')}">
+                    <i class="iconfont icon-jiaohuan"></i>
+                    <p>兑换</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('/mapp/extract/index')}">
+                    <i class="iconfont icon-tixian"></i>
+                    <p>提现</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('/mapp/recharge/index')}">
+                    <i class="iconfont icon-chongzhi1"></i>
+                    <p>充值</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
