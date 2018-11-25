@@ -128,7 +128,7 @@
 </div>
 
 <!-- Tables -->
-<div class="codes agileitsbg3">
+<div class="codes agileitsbg3" id="dynamic">
     <div class="container">
         <div class="grid_3 grid_5 w3-agileits tables-w3">
             <h3 class="w3ls-hdg">实时动态</h3>
@@ -143,49 +143,40 @@
                         <th>升级选择</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 
-<div class="codes agileitsbg3" id="dynamic">
+<div class="codes" id="result">
     <div class="container">
-        <div class="grid_3 grid_5 w3-agileits w3layouts"> <!-- Progress Bars -->
-            <h3 class="w3ls-hdg">实时动态</h3>
-            <div class="tab-content">
-                <div class="tab-pane active" >
-                    <p>Success with <code>progress-bar-info</code> class.</p>
-                    <div class="progress w3-agileits">
-                        <div class="progress-bar progress-bar-info" style="width: 30%"></div>
-                    </div>
-                    <p>progress-bar-info <code>progress-bar-success </code>With label</p>
-                    <div class="progress w3-agileits">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            60%
-                        </div>
-                    </div>
-                    <p>Inverse with <code>Animated progress-bar </code> class.</p>
-                    <div class="progress w3-agileits">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-                            <span class="sr-only">45% Complete</span>45%
-                        </div>
-                    </div>
-                    <p>Inverse with <code>Animated progress-bar-inverse </code> class.</p>
-                    <div class="progress w3-agileits">
-                        <div class="progress-bar progress-bar-success" style="width: 35%">
-                            <span class="sr-only">35% Complete (success)</span>35%
-                        </div>
-                        <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 20%">
-                            <span class="sr-only">20% Complete (warning)</span>
-                        </div>
-                        <div class="progress-bar progress-bar-danger" style="width: 10%">
-                            <span class="sr-only">10% Complete (danger)</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="grid_3 grid_5 w3-agileits tables-w3">
+            <h3 class="w3ls-hdg">升级结果</h3>
+            <br>
+            <h4 class="w3t-text">展示每期开奖结果</h4>
+            <div class="bs-docs-example ">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>升级期号</th>
+                        <th>开奖结果</th>
+                        <th>开奖时间</th>
+                        <th>获胜方</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="awardInfo" id="vo"}
+                        <tr>
+                            <td>{$vo.term_num}</td>
+                            <td>{$vo.result}</td>
+                            <td>{$vo.updated_date}</td>
+                            <td>{$vo.win}</td>
+                        </tr>
+                    {/volist}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

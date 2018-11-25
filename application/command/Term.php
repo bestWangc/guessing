@@ -62,7 +62,8 @@ class Term extends Command
 
                 $data = [
                     'result' => $result,
-                    'win' => $win
+                    'win' => $win,
+                    'updated_date' => time()
                 ];
                 $update = db('award_info')
                     ->where('term_num',$term_num)
