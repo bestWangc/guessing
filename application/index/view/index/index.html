@@ -77,22 +77,6 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-    <!-- The Modal -->
-    <div id="myModal" class="modal wthree-modal" tabindex="-1">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close" data-dismiss="modal" >&times;</span>
-                <h3>Modal Header</h3>
-            </div>
-            <div class="modal-body grid_3">
-                <p><img src="images/img1.jpg" class="modal-img1" alt=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eleifend commodo mi at pharetra. Vivamus accumsan ac erat non eleifend. Nulla a tortor tortor. Phasellus eget dui vel orci lacinia fermentum. Etiam consectetur augue felis, in consectetur est facilisis id. Nam porttitor eros libero. Cras vitae metus eu dui finibus sagittis vitae at est. Aliquam pulvinar, justo eget aliquam vulputate, enim mi suscipit mi, id dapibus est tortor sit amet urna. Aenean mattis sed diam eget aliquam. Proin eu felis id diam congue ultricies ac ac ipsum. Vivamus euismod augue et tellus maximus, vitae lacinia eros feugiat. Aliquam erat volutpat. Curabitur risus dui, viverra convallis rhoncus ac, blandit et nisl. Praesent in massa non magna aliquam scelerisque eget a dolor.
-                    Fusce enim magna, feugiat ac velit ac, congue vestibulum elit. Donec lectus ex, elementum nec molestie eu, lobortis sit amet enim.</p>
-                <p><img src="images/img1.jpg" class="modal-img2" alt=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eleifend commodo mi at pharetra. Vivamus accumsan ac erat non eleifend. Nulla a tortor tortor. Phasellus eget dui vel orci lacinia fermentum. Etiam consectetur augue felis, in consectetur est facilisis id. Nam porttitor eros libero. Cras vitae metus eu dui finibus sagittis vitae at est. Aliquam pulvinar, justo eget aliquam vulputate, enim mi suscipit mi, id dapibus est tortor sit amet urna. Aenean mattis sed diam eget aliquam. Proin eu felis id diam congue ultricies ac ac ipsum. Vivamus euismod augue et tellus maximus, vitae lacinia eros feugiat. Aliquam erat volutpat. Curabitur risus dui, viverra convallis rhoncus ac, blandit et nisl. Praesent in massa non magna aliquam scelerisque eget a dolor.
-                    Fusce enim magna, feugiat ac velit ac, congue vestibulum elit. Donec lectus ex, elementum nec molestie eu, lobortis sit amet enim.</p>
-            </div>
-        </div>
-    </div>
 </div>
 <!-- //banner -->
 
@@ -127,7 +111,7 @@
     </div>
 </div>
 
-<!-- Tables -->
+<!-- 实时动态 -->
 <div class="codes agileitsbg3" id="dynamic">
     <div class="container">
         <div class="grid_3 grid_5 w3-agileits tables-w3">
@@ -150,6 +134,7 @@
     </div>
 </div>
 
+<!--开奖结果-->
 <div class="codes" id="result">
     <div class="container">
         <div class="grid_3 grid_5 w3-agileits tables-w3">
@@ -182,102 +167,151 @@
     </div>
 </div>
 
-<div class="codes">
+<!--帮助指南-->
+<div class="codes agileitsbg3" id="help">
     <div class="container">
-        <div class="grid_3 grid_5 w3-agileits tables-w3">
-            <h3 class="w3ls-hdg">Tables</h3>
-            <br>
+        <div class="grid_3 grid_4">
+            <h3 class="w3ls-hdg">帮助指南</h3>
             <div class="agileinfo-w3lsrow">
                 <div class="col-md-6 w3llist-grids">
-                    <h4 class="w3t-text">Default styles</h4>
-                    <p>For basic stylinglight padding and only horizontal add the base class <code>.table</code> to any <code>&lt;table&gt;</code>.</p>
-                    <div class="bs-docs-example ">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        可提现的金额有哪些？
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    可提现的有余额，升级失败可以转为金币，金币也可提现。
+                                    <hr>
+                                    所有提现平台收取10%手续费。
+                                    <hr>
+                                    余额和金币兑换人民币比例为1:1。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        团队分红是什么？
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    团队所有人的收益，计算公式为团队总收入*团队级别。
+                                    <hr>
+                                    现在团队分为三个级别：8人团（分红比例10%）、24人团（分红比例20%）、50人团（分红比例30%）。
+                                    <hr>
+                                    计算24人团示例：团队当天24人收入3000*分红比例20%=今日团长收益600RMB。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        账户充值提现问题
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    充值采用微信支付宝支付，请认真填写备注（帐号），否则充值不能成功，半个小时内到账
+                                    <hr>
+                                    提现使用支付宝，一般为第二天到账。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        注册相关
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    注册时填写推荐人id，即可成为推荐人团队成员。
+                                    <hr>
+                                    注册帐号一般为英文加数字较好。
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 w3llist-grids w3llist-grids-btm2">
-                    <h4 class="w3t-text">Bordered style</h4>
-                    <p>Add borders and rounded corners to the table.</p>
-                    <div class="bs-docs-example ">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                <div class="col-md-6 w3llist-grids">
+                    <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFive">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        玩法介绍
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    帐号充值后，首页选择商品，选择升级选项，等待开奖，升级成功全额退款，升级失败将商品带回家。
+                                    <hr>
+                                    示例：张三购买了188的商品，原价272，选择‘瑞雪’进行升级,
+                                    <br>
+                                    升级成功：按照272退款到张三账户。
+                                    <br>
+                                    升级失败：价值188商品寄到张三手中。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingSix">
+                                <h5 class="panel-title asd">
+                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
+                                        额外说明
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body panel_text">
+                                    网站、app持续优化中，我们的产品不一定是最好的，但赚钱我们是认真的。
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="clearfix"> </div>
             </div>
-            <br>
-            <h4 class="w3t-text">Row hover style</h4>
-            <p>Enable a hover state on table rows within a <code>&lt;tbody&gt;</code>.</p>
-            <div class="bs-docs-example ">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    </tbody>
-                </table>
+        </div>
+    </div>
+</div>
+
+<!--加盟平台-->
+<div class="codes" id="joinUs">
+    <div class="container">
+        <div class="grid_3 grid_5 w3-agileits agileits-buttons">
+            <h3 class="w3ls-hdg">加盟平台</h3>
+            <div class="agileinfo-w3lsrow2">
+                <div class="col-md-12 w3llist-grids">
+                    <h4 class="w3t-text" style="text-align: center">敬请期待</h4>
+                </div>
+                <div class="clearfix"> </div>
             </div>
         </div>
     </div>
