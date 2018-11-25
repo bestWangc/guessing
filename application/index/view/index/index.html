@@ -96,36 +96,29 @@
 </div>
 <!-- //banner -->
 
-<div class="codes ">
-    <div class="container">
-        <div class="grid_3 grid_4 grid-w3hdngs"> <!-- Headings -->
-            <h3 class="w3ls-hdg">Headings</h3>
+<!--介绍-->
+<div class="codes " id="introduce">
+    <div class="container" >
+        <div class="grid_3 grid_4 grid-w3hdngs">
+            <h3 class="w3ls-hdg">介绍</h3>
             <div class="bs-example w3layouts">
                 <table class="table">
                     <tbody>
                     <tr>
-                        <td><h1 id="h1.-bootstrap-heading">h1. Bootstrap heading<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h1></td>
-                        <td class="type-info w3l">Semibold 36px</td>
+                        <td><h1 id="h1.-bootstrap-heading">赚钱方法？<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h1></td>
+                        <td class="type-info w3l">购买商品，选择升级选项，升级成功即可按升级成功的价格全额退款。</td>
                     </tr>
                     <tr>
-                        <td><h2 id="h2.-bootstrap-heading">h2. Bootstrap heading<a class="anchorjs-link" href="#h2.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h2></td>
-                        <td class="type-info w3l">Semibold 30px</td>
+                        <td><h2 id="h2.-bootstrap-heading">其他方式？<a class="anchorjs-link" href="#h2.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h2></td>
+                        <td class="type-info w3l">招兵买马，壮大你的团队，团队越大分红越多。。</td>
                     </tr>
                     <tr>
-                        <td><h3 id="h3.-bootstrap-heading">h3. Bootstrap heading<a class="anchorjs-link" href="#h3.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h3></td>
-                        <td class="type-info w3l">Semibold 24px</td>
+                        <td><h3 id="h3.-bootstrap-heading">谁适合做？<a class="anchorjs-link" href="#h3.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h3></td>
+                        <td class="type-info w3l">任何人都可以，人脉广的建立自己团队，人脉少的购买升级即可。</td>
                     </tr>
                     <tr>
-                        <td><h4 id="h4.-bootstrap-heading">h4. Bootstrap heading<a class="anchorjs-link" href="#h4.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h4></td>
-                        <td class="type-info w3l">Semibold 18px</td>
-                    </tr>
-                    <tr>
-                        <td><h5 id="h5.-bootstrap-heading">h5. Bootstrap heading<a class="anchorjs-link" href="#h5.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h5></td>
-                        <td class="type-info w3l">Semibold 14px</td>
-                    </tr>
-                    <tr>
-                        <td><h6>h6. Bootstrap heading</h6></td>
-                        <td class="type-info w3l">Semibold 12px</td>
+                        <td><h4 id="h4.-bootstrap-heading">平台安全吗？<a class="anchorjs-link" href="#h4.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h4></td>
+                        <td class="type-info w3l">只要还有一个会员，我们承诺继续运行。</td>
                     </tr>
                     </tbody>
                 </table>
@@ -134,12 +127,36 @@
     </div>
 </div>
 
+<!-- Tables -->
 <div class="codes agileitsbg3">
     <div class="container">
+        <div class="grid_3 grid_5 w3-agileits tables-w3">
+            <h3 class="w3ls-hdg">实时动态</h3>
+            <br>
+            <h4 class="w3t-text">展示实时会员购买升级动态</h4>
+            <div class="bs-docs-example ">
+                <table class="table table-hover" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>用户账号</th>
+                        <th>购买价格</th>
+                        <th>升级选择</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="codes agileitsbg3" id="dynamic">
+    <div class="container">
         <div class="grid_3 grid_5 w3-agileits w3layouts"> <!-- Progress Bars -->
-            <h3 class="w3ls-hdg">Progress Bars</h3>
+            <h3 class="w3ls-hdg">实时动态</h3>
             <div class="tab-content">
-                <div class="tab-pane active" id="domprogress">
+                <div class="tab-pane active" >
                     <p>Success with <code>progress-bar-info</code> class.</p>
                     <div class="progress w3-agileits">
                         <div class="progress-bar progress-bar-info" style="width: 30%"></div>
@@ -287,12 +304,12 @@
         <p class="footer-class">Copyright &copy; 2017.Company name All rights reserved.</p>
     </div>
 </div>
+<script src="/static/index/js/index.js"></script>
 {/block}
 
 {block name="my-js"}
 <script>
     $(function () {
-        console.log(222222222222222);
         $().UItoTop({ easingType: 'easeOutQuart' });
         $(".scroll").click(function(event){
             event.preventDefault();
@@ -301,9 +318,10 @@
         
         //下载app
         $('.download').click(function () {
-            console.log('111111111111111');
             location.href = '/download';
         });
+        setInterval('autoScroll("#dataTable")', 2000);
     });
+
 </script>
 {/block}
