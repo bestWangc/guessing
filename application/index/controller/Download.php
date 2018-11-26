@@ -15,7 +15,7 @@ class Download extends Controller
         if(!file_exists($file_url)){ //检查文件是否存在
             abort(404,'文件未找到');
         }
-        return download($file_url, 'my');
+        return download($file_url, '金丰年');
     }
 
 }
