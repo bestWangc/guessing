@@ -130,8 +130,18 @@
 
 {block name="script"}
 <script>
+    pushHistory();
+    window.addEventListener("popstate", function(e) {
+        window.location = 'mapp/index';
+    }, false);
+    function pushHistory() {
+        var state = {
+            title: "title",
+            url: "#"
+        };
+        window.history.pushState(state, "title", "#");
+    }
     $(function(){
-
         var h3_height = $(".sh-p").offset().top;
         $(window).scroll(function(){
             var this_scrollTop = $(this).scrollTop();
