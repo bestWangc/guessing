@@ -7,346 +7,146 @@
 {/block}
 
 {block name="main"}
-<!-- banner -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h2>为你赚网络第一桶金</h2>
-                    <p>独特的升级玩法，源源不断的收益看得见</p>
-                    <button class="btn btn-primary download" href="javascript:;" >安卓版下载</button>
-                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
-                </div>
-            </div>
-        </div>
-        <div class="item item2">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>壮大你的团队</h3>
-                    <p>团队人数越多，平台分红越多，躺着数钱真好</p>
-                    <button class="btn btn-primary download" href="javascript:;" data-toggle="modal">安卓版下载</button>
-                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
-                </div>
-            </div>
-        </div>
-        <div class="item item3">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>战，一战到底</h3>
-                    <p>做长久稳定平台，永不跑路</p>
-                    <button class="btn btn-primary download" href="javascript:;" data-toggle="modal">安卓版下载</button>
-                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
-                </div>
-            </div>
-        </div>
-        <div class="item item4">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>支付宝 & 微信</h3>
-                    <p>采用支付宝微信进行充值提现，速度那个快哟</p>
-                    <button class="btn btn-primary download" href="javascript:;">安卓版下载</button>
-                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
-                </div>
-            </div>
-        </div>
-        <div class="item item5">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>只要你有一部手机</h3>
-                    <p>操作简单易上手，赚个零花钱？可能比你工资还高</p>
-                    <button class="btn btn-primary" href="{:url('/index/download')}" data-toggle="modal">安卓版下载</button>
-                    <button class="btn btn-primary" href="javascript:;" disabled title="敬请期待">苹果版下载</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-<!-- //banner -->
-
-<!--介绍-->
-<div class="codes " id="introduce">
-    <div class="container" >
-        <div class="grid_3 grid_4 grid-w3hdngs">
-            <h3 class="w3ls-hdg">介绍</h3>
-            <div class="bs-example w3layouts">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td><h1 id="h1.-bootstrap-heading">赚钱方法？<a class="anchorjs-link" href="#h1.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h1></td>
-                        <td class="type-info w3l">购买商品，选择升级选项，升级成功即可按升级成功的价格全额退款。</td>
-                    </tr>
-                    <tr>
-                        <td><h2 id="h2.-bootstrap-heading">其他方式？<a class="anchorjs-link" href="#h2.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h2></td>
-                        <td class="type-info w3l">招兵买马，壮大你的团队，团队越大分红越多。。</td>
-                    </tr>
-                    <tr>
-                        <td><h3 id="h3.-bootstrap-heading">谁适合做？<a class="anchorjs-link" href="#h3.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h3></td>
-                        <td class="type-info w3l">任何人都可以，人脉广的建立自己团队，人脉少的购买升级即可。</td>
-                    </tr>
-                    <tr>
-                        <td><h4 id="h4.-bootstrap-heading">平台安全吗？<a class="anchorjs-link" href="#h4.-bootstrap-heading"><span class="anchorjs-icon"></span></a></h4></td>
-                        <td class="type-info w3l">只要还有一个会员，我们承诺继续运行。</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 实时动态 -->
-<div class="codes agileitsbg3" id="dynamic">
+<div class="banner-bottom">
     <div class="container">
-        <div class="grid_3 grid_5 w3-agileits tables-w3">
-            <h3 class="w3ls-hdg">实时动态</h3>
-            <br>
-            <h4 class="w3t-text">展示实时会员购买升级动态</h4>
-            <div class="bs-docs-example ">
-                <table class="table table-hover" id="dataTable">
-                    <thead>
-                    <tr>
-                        <th>用户账号</th>
-                        <th>购买价格</th>
-                        <th>升级选择</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+        <div class="col-md-6 w3layouts_banner_bottom_left">
+            <div class="w3layouts_banner_bottom_left_w3">
+                <figure class="effect-julia">
+                    <img src="/static/index/images/da.png" alt=" " class="img-responsive" />
+                    <figcaption>
+                        <h3>￥ <span>金丰年</span></h3>
+                        <div class="w3l_banner_figure">
+                            <p>专业分析团队，大数据带你飞</p>
+                            <p>支付宝微信充值提现，快捷方便</p>
+                            <p>壮大团队，7天分红一次，躺着数钱</p>
+                        </div>
+                    </figcaption>
+                </figure>
             </div>
         </div>
+        <div class="col-md-6 w3layouts_banner_bottom_right">
+            <h3><span>welcome to JFN</span>简单介绍</h3>
+            <p>
+                充值RMB(秒到账)，选择商品购买，选择升级选项，坐等开奖。
+                <span>留意升级结果列表，对照自己的选择。</span>
+                升级成功，按照原价全额退款，升级失败，超值商品带回家。
+                <span>团队队长独享团队分红</span>
+                <span>举个例子：</span>
+                张三购买原价272的商品花费188元，升级成功退款272。
+                <span>专业的团队分析，跟随老师下单不贪心，日入800+</span>
+            </p>
+        </div>
+        <div class="clearfix"> </div>
     </div>
 </div>
 
-<!--开奖结果-->
-<div class="codes" id="result">
-    <div class="container">
-        <div class="grid_3 grid_5 w3-agileits tables-w3">
-            <h3 class="w3ls-hdg">升级结果</h3>
-            <br>
-            <h4 class="w3t-text">展示每期开奖结果</h4>
-            <div class="bs-docs-example ">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>升级期号</th>
-                        <th>开奖结果</th>
-                        <th>开奖时间</th>
-                        <th>获胜方</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {volist name="awardInfo" id="vo"}
-                        <tr>
-                            <td>{$vo.term_num}</td>
-                            <td>{$vo.result}</td>
-                            <td>{$vo.updated_date}</td>
-                            <td>{$vo.win}</td>
-                        </tr>
-                    {/volist}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="blog">
+{volist name="goodsInfo" id="vo"}
+{eq name="i" value="1"}
+<div class="row">
+    <div class="col-md-6 w3layouts_blog_grid">
+{/eq}
+{eq name="i" value="2"}<div class="col-md-6 w3_w3ls_blog_grid">{/eq}
+{eq name="i" value="3"}
 </div>
-
-<!--帮助指南-->
-<div class="codes agileitsbg3" id="help">
-    <div class="container">
-        <div class="grid_3 grid_4">
-            <h3 class="w3ls-hdg">帮助指南</h3>
-            <div class="agileinfo-w3lsrow">
-                <div class="col-md-6 w3llist-grids">
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        可提现的金额有哪些？
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    可提现的有余额，升级失败可以转为金币，金币也可提现。
-                                    <hr>
-                                    所有提现平台收取10%手续费。
-                                    <hr>
-                                    余额和金币兑换人民币比例为1:1。
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        团队分红是什么？
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    团队所有人的收益，计算公式为团队总收入*团队级别。
-                                    <hr>
-                                    现在团队分为三个级别：8人团（分红比例10%）、24人团（分红比例20%）、50人团（分红比例30%）。
-                                    <hr>
-                                    计算24人团示例：团队当天24人收入3000*分红比例20%=今日团长收益600RMB。
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingThree">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        账户充值提现问题
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    充值采用微信支付宝支付，请认真填写备注（帐号），否则充值不能成功，半个小时内到账
-                                    <hr>
-                                    提现使用支付宝，一般为第二天到账。
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFour">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        注册相关
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    注册时填写推荐人id，即可成为推荐人团队成员。
-                                    <hr>
-                                    注册帐号一般为英文加数字较好。
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-md-6 agileits_w3ls_blog_grid">
+{/eq}
+{eq name="i" value="4"}<div class="col-md-6 agile_blog_grid">{/eq}
+            <h3><a href="single.html">{$vo.name}</a></h3>
+            <div class="agileits_blog1">
+                <div class="agileits_blog1_left">
+                    <img src="{$vo.pic_url}" alt=" " class="img-responsive" />
                 </div>
-                <div class="col-md-6 w3llist-grids">
-                    <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        玩法介绍
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    帐号充值后，首页选择商品，选择升级选项，等待开奖，升级成功全额退款，升级失败将商品带回家。
-                                    <hr>
-                                    示例：张三购买了188的商品，原价272，选择‘瑞雪’进行升级,
-                                    <br>
-                                    升级成功：按照272退款到张三账户。
-                                    <br>
-                                    升级失败：价值188商品寄到张三手中。
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingSix">
-                                <h5 class="panel-title asd">
-                                    <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <i class="glyphicon glyphicon-minus" aria-hidden="true"></i>
-                                        额外说明
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body panel_text">
-                                    网站、app持续优化中，我们的产品不一定是最好的，但赚钱我们是认真的。
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="agileits_blog1_left1">
+                    <h3>抢购价：{$vo.price}</h3>
+                    <p><del>原价：{$vo.success_price}</del></p>
                 </div>
-
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--加盟平台-->
-<div class="codes" id="joinUs">
-    <div class="container">
-        <div class="grid_3 grid_5 w3-agileits agileits-buttons">
-            <h3 class="w3ls-hdg">加盟平台</h3>
-            <div class="agileinfo-w3lsrow2">
-                <div class="col-md-12 w3llist-grids">
-                    <h4 class="w3t-text" style="text-align: center">敬请期待</h4>
+                <div class="agileits_blog1_right">
+                    <p>今日已抢购{$i*$i+16}份</p>
                 </div>
                 <div class="clearfix"> </div>
             </div>
+            <div class="agileinfo_para">
+                <p class="w3layouts_blog">一品好茶，尚为佳品。</p>
+                <div class="wthree_more">
+                    <a href="/index/goods/{$vo.id}">立即抢购<i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
         </div>
+{/volist}
+</div>
+    <div class="clearfix"> </div>
+</div>
+
+<div class="blog-bottom">
+    <div class="container">
+        <div class="col-md-5 w3_agile_blog_bottom_left">
+            <img src="/static/index/images/4.jpg" alt=" " class="img-responsive" />
+        </div>
+        <div class="col-md-7 w3_agile_blog_bottom_right">
+            <h5>你能否抓住这个机会？</h5>
+            <h3>敢于尝试的人，正在闷头数钱</h3>
+            <p>我们软件可能不是最好的，但是赚钱我们是认真的</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<hr>
+
+<div class="stats">
+    <div class="container">
+        <h4 class="agileits_w3layouts_sub">统计数据</h4>
+        <h3 class="w3_agileits_head w3_agileits_head1">Overview</h3>
+        <div class="agileits_stats_grids">
+            <div class="col-md-3 agileinfo_stats_grid">
+                <p class="counter">561</p>
+                <h3>个人最高收益</h3>
+            </div>
+            <div class="col-md-3 agileinfo_stats_grid">
+                <p class="counter">492</p>
+                <h3>团队最高分红</h3>
+            </div>
+            <div class="col-md-3 agileinfo_stats_grid">
+                <p class="counter">2</p>
+                <h3>团队数量</h3>
+            </div>
+            <div class="col-md-3 agileinfo_stats_grid">
+                <p class="counter">7</p>
+                <h3>会员数量</h3>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
     </div>
 </div>
 
-<div class="footer">
-    <div class="container">
-        <div class="support">
-            <a href="javascript:;">联系我们</a>
-        </div>
-    </div>
-</div>
-<div class="w3copy-agile">
-    <div class="container">
-        <p class="footer-class">Copyright &copy; 2017.Company name All rights reserved.</p>
-    </div>
-</div>
-<script src="/static/index/js/index.js"></script>
+<!-- Stats-Number-Scroller-Animation-JavaScript -->
+<script src="/static/index/js/waypoints.min.js"></script>
+<script src="/static/index/js/counterup.min.js"></script>
+<!-- //Stats-Number-Scroller-Animation-JavaScript -->
+{/block}
+
+{block name="footer"}
+{include file="base/footer"}
 {/block}
 
 {block name="my-js"}
 <script>
-    $(function () {
-        $().UItoTop({ easingType: 'easeOutQuart' });
-        $(".scroll").click(function(event){
-            event.preventDefault();
-            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-        });
-        
-        //下载app
-        $('.download').click(function () {
-            location.href = '/download';
-        });
-        setInterval('autoScroll("#dataTable")', 2000);
+$(function () {
+    $('.navbar').parent('div').addClass('banner').removeClass('banner1');
+
+    $('.counter').counterUp({
+        delay: 10,
+        time: 1000
     });
 
+    $().UItoTop({ easingType: 'easeOutQuart' });
+
+    $(".scroll").click(function(event){
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+    });
+});
 </script>
 {/block}

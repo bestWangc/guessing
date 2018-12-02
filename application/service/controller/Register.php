@@ -38,6 +38,7 @@ class Register extends Base
             'name' => $userName,
             'passwd' => md5($userPwd.'jfn'),
             'role' => 0,
+            'email' => $email,
             'photo' => '/uploads/photo_1.jpg',
             'parent_id' => $parent_id,
             'created_date' => time()

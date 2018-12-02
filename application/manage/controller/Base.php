@@ -15,9 +15,9 @@ class Base extends Controller
 {
 
     protected $uid;
-    public function __construct(App $app = null)
+    protected function initialize()
     {
-        parent::__construct($app);
+        parent::initialize();
         $this->checkLogin();
         $this->checkRole();
         $this->uid = session('user_id');
