@@ -70,7 +70,7 @@ CREATE TABLE `ssc_award_info`  (
   `term_num` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '哪一期,期号',
   `result` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '开奖结果',
   `created_date` int(11) NOT NULL,
-  `updated_date` int(11) NOT NULL,
+  `updated_date` int(11) NULL,
   `win` tinyint(1) NULL DEFAULT NULL COMMENT '获胜，0-瑞雪，1-丰年',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `term_num`(`term_num`) USING BTREE,
