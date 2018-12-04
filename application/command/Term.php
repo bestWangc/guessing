@@ -7,6 +7,7 @@ use think\console\Input;
 use think\console\Output;
 use \simple_html_dom\simple_html_dom;
 use think\Db;
+use think\Log;
 
 class Term extends Command
 {
@@ -69,9 +70,7 @@ class Term extends Command
                     ->where('term_num',$term_num)
                     ->update($data);
 
-                if($update)
-                    file_put_contents("/home/www/guessing/runtime/term/term.log", date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n', FILE_APPEND);
-
+                if($update) Log::error(date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n');
             }
         }
         $output->writeln('term end.');
