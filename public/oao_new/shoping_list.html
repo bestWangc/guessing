@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="cosmic">
+    <meta name="renderer" content="webkit">
+    <title>线上商城-列表</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="fonts/font/iconfont.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+
+
+</head>
+<body>
+<header class="shop-header">
+    <div class="top">
+        <div class="container">
+            <ul class="pull-left hidden-xs">
+                <li>
+                    <a href="">康烯圣养</a>
+                    <img class="show-tu" src="img/erweima.png">
+                </li>
+                <li>
+                    <a href="">奇妙体验</a>
+                    <img class="show-tu" src="img/erweima.png">
+                </li>
+            </ul>
+            <ul class="pull-right">
+                <li><a href="login.html">登陆</a></li>
+                <li><a href="login.html">注册</a></li>
+                <li><a href="">我的订单</a></li>
+                <li><span>400-777-8118</span></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="menu-box container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target="navbar-collapse" data-toggle="collapse" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=""><img src="img/logo_kxsy.png" class="img-responsive" alt=""/></a>
+        </div>
+        <div class="menu">
+            <ul class="nav-list">
+                <li><a href="shoping_index.html"><i class="iconfont icon-shouye"></i> 首页</a></li>
+                <li class="shop-cart dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="iconfont icon-gouwuche"></i> 购物车
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">
+                                <img width="100%" class="col-sm-4 col-xs-4" src="img/tu-p.jpg">
+                                <div class="col-sm-8 col-xs-8">
+                                    <h4>产品名
+                                        <small class="pull-right">×1</small>
+                                    </h4>
+                                    <p>规格：s <span class="red pull-right">￥200</span></p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <img width="100%" class="col-sm-4 col-xs-4" src="img/tu-p.jpg">
+                                <div class="col-sm-8 col-xs-8">
+                                    <h4>产品名
+                                        <small class="pull-right">×1</small>
+                                    </h4>
+                                    <p>规格：s <span class="red pull-right">￥200</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="last-a">
+                            <p class="text-right"><span>共1件商品</span><span>共计：<strong class="red">¥969</strong></span>
+                            </p>
+                            <div class="overflow">
+                                <a class="btn btn-success pull-left" href="shoping_cart.html">查看购物车</a>
+                                <a class="btn btn-warning pull-right" href="">去结算</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="news.html"><i class="iconfont icon-geren"></i> 个人中心</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="main">
+    <div class="swiper-container banner">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/banner_shop.png"></div>
+            <div class="swiper-slide"><img src="img/banner_shop.png"></div>
+            <div class="swiper-slide"><img src="img/banner_shop.png"></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <!--<div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>-->
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="shop-list">
+                <div class="left-menu" >
+                    <ul>
+                        <li><h5>产品分类</h5></li>
+                        <li><a href=""><i class="iconfont icon-icon"></i> 新品</a></li>
+                        <li><a href=""><i class="iconfont icon-neiyi-copy"></i> 内衣</a></li>
+                        <li><a href=""><i class="iconfont icon-jiafang"></i> 家纺</a></li>
+                        <li><a href=""><i class="iconfont icon-yundongfushi"></i> 休闲</a></li>
+                        <li><a href=""><i class="iconfont icon-peishi"></i> 配饰</a></li>
+                        <li><a href=""><i class="iconfont icon-ic_yaowei_new"></i> 护具</a></li>
+                        <li><a href=""><i class="iconfont icon-tang"></i> 阿拉伯糖</a></li>
+                    </ul>
+                </div>
+                <h4 class="col-sm-12">内衣</h4>
+                <ul class="new-product">
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 col-md-3">
+                        <a href="" class="thumbnail">
+                            <img src="img/news_tu.png">
+                            <div class="caption">
+                                <h4>康烯圣养</h4>
+                                <div>RMB：<strong class="red text-md">200</strong><span
+                                        class="pull-right text-sm">已200购买</span></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="col-sm-12">
+                    <nav aria-label="Page navigation" class="text-center">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="img/banner-sm.png">
+    </div>
+    <div class="container">
+        <div class="row">
+            <h4 class="title-shop"><img src="img/title_act.png"></h4>
+            <ul class="shop-act">
+                <li class="col-sm-6  col-xs-12">
+                    <a href="#">
+                        <img width="100%" src="img/mmexport.png">
+                        <div>满880送演唱会门票，100张先到先得</div>
+                    </a>
+                </li>
+                <li class="col-sm-6  col-xs-12">
+                    <a href="#">
+                        <img width="100%" src="img/mmexport.png">
+                        <div>满880送演唱会门票，100张先到先得</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="footer hidden-xs">
+        <div class="container">
+            <dl>
+                <dt>OAO奇妙体验</dt>
+                <dd><a href="">运作模式</a></dd>
+                <dd><a href="">精彩活动</a></dd>
+                <dd><a href="">在线讲堂</a></dd>
+                <dd><a href="">线下体验</a></dd>
+            </dl>
+            <dl>
+                <dt>服务支持</dt>
+                <dd><a href="">加盟优势</a></dd>
+                <dd><a href="">产品支持</a></dd>
+                <dd><a href="">服务团队</a></dd>
+                <dd><a href="">售后支持</a></dd>
+            </dl>
+            <dl>
+                <dt>新闻资讯</dt>
+                <dd><a href="">官方通告</a></dd>
+                <dd><a href="">企业新闻</a></dd>
+                <dd><a href="">媒体报道</a></dd>
+                <dd><a href="">健康知识</a></dd>
+            </dl>
+            <dl>
+                <dt>关于我们</dt>
+                <dd><a href="">公司简介</a></dd>
+                <dd><a href="">资质荣誉</a></dd>
+                <dd><a href="">企业相册</a></dd>
+                <dd><a href="">联系我们</a></dd>
+            </dl>
+            <dl>
+                <dt><img src="img/erweima.png"></dt>
+                <dd>扫一扫，加关注！</dd>
+            </dl>
+            <p>Copyright © 2017 奇妙科技有限公司 鲁ICP备17024217号，OAO321.com</p>
+        </div>
+    </div>
+    <!-- 底部 结束 -->
+</div>
+<div class="hidden-xs right-menu">
+    <a href="#" class="user-center">
+        <img src="img/avatar.png">
+        <h5>用户名</h5>
+    </a>
+    <a href="shoping_cart.html" class="shop-cart-right">
+        <i class="iconfont icon-gouwuche"></i><br>
+        购<br>物<br>车
+        <span class="label">2</span>
+    </a>
+    <a onclick="show_list();">
+        <i class="iconfont icon-shoucang"></i>
+    </a>
+    <a onclick="show_list();">
+        <i class="iconfont icon-zujix"></i>
+    </a>
+    <a class="totop">
+        <i class="iconfont icon-huidaodingbu"></i>
+    </a>
+</div>
+<div class="right-list">
+    <h4>我的足迹</h4>
+    <ul>
+        <li class="col-sm-6">
+            <a href="" class="overflow">
+                <img src="img/news_tu.png" width="100%">
+                <div>
+                    <h5>康烯圣养产品</h5>
+                    <p class="red">￥200</p>
+                </div>
+            </a>
+        </li>
+        <li class="col-sm-6">
+            <a href="">
+                <img src="img/news_tu.png" width="100%">
+                <div>
+                    <h5>康烯圣养产品</h5>
+                    <p class="red">￥200</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="js/swiper.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".navbar-toggle").click(function () {
+            $(".menu").toggleClass("open");
+        })
+    });
+
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+        observer: true,
+        speed: 1000,
+        loop: true,
+        observeParents: true,
+        autoplayDisableOnInteraction: false,
+        autoplay: 3500
+    });
+
+
+
+    function show_list() {
+        $(".right-list").toggle();
+    }
+    $(function () {
+        $(".totop").on('click', function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+        });
+
+    });
+</script>
+
+</body>
+</html>
