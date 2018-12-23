@@ -1,0 +1,72 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="header"}
+{include file="base/nav"}
+{/block}
+
+{block name="main"}
+<div class="user">
+    <div class="container">
+        <div class="clearfix"> </div>
+        <div class="user_left">
+            <h4 class="agileits_w3layouts_sub">金丰年</h4>
+            <h2 class="w3_agileits_head w3_agileits_head1">用户中心</h2>
+            <div class="w3_mail_grids">
+                <div class="row">
+                    <div class="col-md-3 w3ls_services_grid col-xs-3">
+                        <div class="w3ls_services_grid_right">
+                            <h3>充值与提现</h3>
+                            <ul>
+                                <li ><a href="javascript:;">充值</a></li>
+                                <li><a href="javascript:;">提现</a></li>
+                            </ul>
+                            <hr>
+                            <h3>我的记录</h3>
+                            <ul>
+                                <li ><a href="javascript:;">财务记录</a></li>
+                                <li><a href="javascript:;">抢购记录</a></li>
+                                <li><a href="javascript:;">申请记录</a></li>
+                            </ul>
+                            <hr>
+                            <h3>管理</h3>
+                            <ul>
+                                <li ><a href="javascript:;" class="active">账户管理</a></li>
+                                <li ><a href="javascript:;" >个人信息</a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-9 col-xs-9">
+                        <div class="panel panel-info userPanel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"></h3>
+                            </div>
+                            <div class="panel-body"></div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="footer"}
+{include file="base/footer"}
+{/block}
+{block name="my-js"}
+<script>
+$(function () {
+    $('.w3ls_services_grid_right li').click(function () {
+        $('.panel-title').html($(this).text());
+        $.get("info", function(result){
+            $(".panel-body").html(result);
+        });
+    });
+    $('.w3ls_services_grid_right li a.active').click();
+});
+</script>
+{/block}

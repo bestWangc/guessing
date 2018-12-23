@@ -3,84 +3,150 @@
 {block name="title"}金丰年{/block}
 
 {block name="header"}
-{include file="base/nav"}
+
 {/block}
 
 {block name="main"}
-<div class="mail">
-    <div class="container">
-        <div class="clearfix"> </div>
-        <div class="">
-            <h4 class="agileits_w3layouts_sub">金丰年</h4>
-            <h2 class="w3_agileits_head w3_agileits_head1">登录</h2>
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
 
-            <div class="w3_mail_grids">
-                <form action="#" method="post" onsubmit="return false;">
-					<span class="input input--jiro">
-						<input class="input__field input__field--jiro" type="text" id="input-10" name="user_account" placeholder="输入账号" required=""/>
-						<label class="input__label input__label--jiro" for="input-10">
-							<span class="input__label-content input__label-content--jiro">用户名</span>
-						</label>
-					</span>
-                    <span class="input input--jiro">
-						<input class="input__field input__field--jiro" type="password" id="input-11" name="user_pwd" placeholder="输入密码" required=""/>
-						<label class="input__label input__label--jiro" for="input-11">
-							<span class="input__label-content input__label-content--jiro">密码</span>
-						</label>
-					</span>
-                    <input type="submit" class="submitBtn" value="Submit">
-                </form>
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="index.html">首页</a>
+                        <span class="breadcrumb-item active">登录</span>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="content" class="main-content-wrapper">
+
+        <!-- Start of Login Wrapper -->
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <main id="primary" class="site-main">
+                            <div class="user-login">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        <div class="section-title left-aligned with-border">
+                                            <h2>login</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
+                                        <div class="login-form mt-half">
+                                            <form action="" onsubmit="return false;" class="loginForm">
+                                                <div class="form-group row align-items-center mb-4">
+                                                    <label for="email" class="col-12 col-sm-12 col-md-4 col-form-label">输入帐号</label>
+                                                    <div class="col-12 col-sm-12 col-md-8">
+                                                        <input type="text" class="form-control" id="email" name="account" placeholder="Account" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row align-items-center mb-4">
+                                                    <label for="c-password" class="col-12 col-sm-12 col-md-4 col-form-label">输入密码</label>
+                                                    <div class="col-12 col-sm-12 col-md-8">
+                                                        <input type="password" class="form-control" name="password" id="c-password" placeholder="Password" required>
+                                                    </div>
+                                                </div>
+                                                <div class="login-box mt-5 text-center">
+                                                    <button type="submit" class="default-btn tiny-btn mt-4">登录</button>
+                                                </div>
+                                                <div class="text-center mt-half pt-half top-bordered">
+                                                    <p>还没有帐号? <a href="{:url('index/login/register')}">点这里创建</a>.</p>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {include file="base/footer"}
 </div>
+
+    <div id="to_top">
+        <i class="ion ion-ios-arrow-forward"></i>
+        <i class="ion ion-ios-arrow-forward"></i>
+    </div>
+</div>
+
 {/block}
 
-{block name="footer"}
-{include file="base/footer"}
-{/block}
 {block name="my-js"}
 <script>
     $(function () {
-        $("input[name='user_account']").keydown(function(){
-            this.value = this.value.replace(/[^A-Za-z0-9]/i,'');
-        });
-        $('.submitBtn').click(function () {
-            var user_name = $('input[name="user_account"]').val();
-            var user_pwd = $('input[name="user_pwd"]').val();
-            if(user_name == ''){
-                layer.msg('请填写用户名',{time: 1000});
-                return false;
-            }
-            if(user_pwd == ''){
-                layer.msg('请填写密码',{time: 1000});
-                return false;
-            }
-            $.ajax({
-                url : '/service/login/index',
-                type : "POST",
-                dataType : "json",
-                cache : false,
-                data : {
-                    username : user_name,
-                    userpwd : user_pwd,
-                    type:1
-                },
-                success : function(data){
-                    var callingBack = '';
-                    if(data.code == 1){
-                        callingBack = function(){
-                            location.href='/index/user';
-                        };
-                    }
-                    layer.msg(data.msg,{time: 1000},callingBack);
-                },
-                error : function(data){
-                    console.log(data);
-                }
-            });
-            return false;
-        });
+        setInterval('autoAddRow("#synamicTbl")', 3000);
     });
+
+    function autoAddRow(obj) {
+        var randNum = Math.floor(Math.random() * 10);
+        var randNum2 = Math.floor(Math.random() * 4);
+        var randNum3 = Math.floor(Math.random() * 2);
+        var account = '';
+        if(randNum%2){
+            account = getMoblieNum();
+        }else{
+            account = getRandomString(11);
+        }
+
+        var priceArr = ['88','128','188','268'];
+        var choseArr = ['瑞雪','丰年'];
+        var listr = '<tr>\n' +
+            '<td>'+account+'</td>\n' +
+            '<td>'+priceArr[randNum2]+'</td>\n' +
+            '<td>'+choseArr[randNum3]+'</td>\n' +
+            '</tr>'
+        $(obj).children('tbody').prepend(listr);
+        $(obj).find('tbody tr').each(function(index){
+            if(index >5){
+                $(this).remove();
+            }
+        });
+    };
+
+    function getMoblieNum(){
+        var numArray = ["139","138","137","136","135","134","159","158","157","150","151","152","188","187","182","183","184","178","130","131","132","156","155","186","185","176","133","153","189","180","181","177"];
+        var arraryLength = numArray.length;
+        var i = parseInt( Math.random() * arraryLength);
+        var phoneNum = numArray[i];
+
+        for ( var j = 0; j < 8; j++){
+            if(j >= 0 && j < 4){
+                phoneNum += '*';
+            }else{
+                phoneNum = phoneNum + Math.floor(Math.random() * 10);
+            }
+        }
+        return phoneNum;
+    };
+
+    function getRandomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+        var maxPos = $chars.length;
+        var randomStr = '';
+        for (i = 0; i < len; i++) {
+            if(i >4){
+                randomStr += '*';
+            }else{
+                randomStr += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+        }
+        return randomStr.toLowerCase();
+    };
 </script>
 {/block}

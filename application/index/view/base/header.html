@@ -1,0 +1,66 @@
+<header class="header bgc-white">
+    <div class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 align-self-center">
+                    <div class="logo">
+                        <a href="index.html"><img src="/static/index/images/logo3.png" alt="Logo" class="img-fluid"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    <div class="top-header">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 order-md-1 order-lg-2">
+                                <ul class="list-inline">
+                                    <li class="top-links list-inline-item">
+                                        <div class="btn-group dropdown">
+                                            <button class="btn-link dropdown-toggle">我的账户 <i class="fa fa-angle-down"></i></button>
+                                            <div class="dropdown-menu">
+                                                <ul>
+                                                    <li><a href="checkout.html">注销登录</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="language list-inline-item">
+                                        <div class="btn-group">
+                                            <button class="btn-link "><a href="{:url('index/login/register')}">注册</a></button>
+                                        </div>
+                                    </li>
+                                    <li class="currency list-inline-item">
+                                        <div class="btn-group">
+                                            <button class="btn-link"> <a href="{:url('index/login/index')}">登录</a> </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-nav-area">
+        <div class="container">
+            <nav id="main_nav" class="stellarnav">
+                <!--<ul class="text-left">-->
+                <ul>
+                    <li><a href="{:url('index/index')}"><span>首页</span></a></li>
+                    <li><a href="{:url('index/index/faqs')}"><span>玩法介绍</span></a></li>
+                    <li><a href="{:url('award/index')}"><span>开奖结果</span></a></li>
+                    <li><a href="javascript:;"><span>排行榜</span></a>
+                        <ul>
+                            <li><a href="{:url('order/rank')}">日榜</a></li>
+                            <li><a href="{:url('order/rank')}">周榜</a></li>
+                            <li><a href="{:url('order/rank')}">月榜</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{:url('index/user')}"><span>个人中心</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</header>
+<div class="fixed-header-space"></div>

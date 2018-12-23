@@ -12,7 +12,7 @@ class Index extends Controller
         return $this->fetch();
     }
 
-    public function dynamic(){
+    public function faqs(){
         return $this->fetch();
     }
 

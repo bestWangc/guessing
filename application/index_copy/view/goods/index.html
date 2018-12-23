@@ -1,0 +1,154 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="header"}
+{include file="base/nav"}
+{/block}
+
+{block name="main"}
+<div class="single">
+    <div class="container">
+        <h4 class="agileits_w3layouts_sub">金丰年</h4>
+        <h2 class="w3_agileits_head w3_agileits_head1">商品详情</h2>
+        <br>
+        <div class="col-md-5 w3_agileits_single_left">
+            <img src="{$goodsInfo.pic_url}" alt=" " class="img-responsive">
+        </div>
+        <div class="col-md-7 w3_agileits_single_left_grid1_right">
+            <h3 class="item_name">{$goodsInfo.name}</h3>
+            <hr>
+            <input type="hidden" class="goodsId" value="{$goodsInfo.id}">
+            <div class="single-price">
+                <ul>
+                    <li>￥{$goodsInfo.price}</li>
+                    <li><del>￥{$goodsInfo.success_price}</del></li>
+                    <li><span class="w3off">{$goodsInfo.success_price-$goodsInfo.price} OFF</span></li>
+                    <li>升级成功可退款{$goodsInfo.success_price}</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">数量</button>
+                            </span>
+                        <input type="text" class="form-control goodsNum" value="1" placeholder="输入数量">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">升级选择</button>
+                            </span>
+                        <select class="form-control chooseUpdate">
+                            <option></option>
+                            <option value="0">瑞雪</option>
+                            <option value="1">丰年</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p>距本期结束：<strong><span id="minute_show">0分</span><span id="second_show">0秒</span></strong></p>
+            <p>小提示： </p>
+            <p>开奖前2分钟不允许下单，</p>
+            <p>网络高峰期可能出现开奖延迟，耐心等待即可。</p>
+
+            <button type="button" class="btn btn-info buyButton">立即抢购</button>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+{/block}
+
+{block name="footer"}
+{include file="base/footer"}
+{/block}
+{block name="my-js"}
+<script>
+    $(function () {
+        $('.buyButton').click(function () {
+            var currentHour = (new Date()).getHours();
+            if(currentHour >= 22 || currentHour < 10){
+                layer.msg('竞猜时间为10点-22点，请稍候',{time:1500});
+                return false;
+            }
+            if($('#minute_show')[0].innerText.substring(1,2) < 2){
+                layer.msg('现在不允许购买，请稍候',{time:1500});
+                return false;
+            }
+            var goodsNum = $('.goodsNum').val();
+            var goodsId = $('.goodsId').val();
+            var chooseUpdate = $('.chooseUpdate').val();
+            if(goodsId == ''){
+                layer.msg('错误，请重试',{time:1500});
+                return false;
+            }
+            if(goodsNum == ''){
+                layer.msg('请选择数量',{time:1500});
+                return false;
+            }
+            if(chooseUpdate == ''){
+                layer.msg('请选择升级选项',{time:1500});
+                return false;
+            }
+
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url : 'buyThis',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    buy_num : goodsNum,
+                    goods_id : goodsId,
+                    choose: chooseUpdate
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function () {
+                            location.href='/mapp/index';
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        });
+    });
+    //倒计时
+    window.setInterval(function () {
+        //倒计时总秒数量
+        var now_time = new Date();
+        var time_value = [];
+        var specified_time = [10,20,30,40,50,60];
+        specified_time.forEach(function (value,index) {
+            if(value-now_time.getMinutes() > 0){
+                time_value.push(value-now_time.getMinutes());
+            }
+        });
+        var intDiffs = Math.min.apply(null, time_value);
+        intDiffs = intDiffs*60-now_time.getSeconds();
+        intDiff = parseInt(intDiffs);
+
+        if (intDiff > 0) {
+            minute = Math.floor(intDiff / 60);
+            second = intDiff-(minute*60);
+        }
+        if (minute <= 9) minute = '0' + minute;
+        if (second <= 9) second = '0' + second;
+        $('#minute_show').html( minute + '分');
+        $('#second_show').html( second + '秒');
+        intDiff--;
+    }, 1000);
+</script>
+{/block}

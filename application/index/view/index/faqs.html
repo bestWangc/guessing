@@ -1,0 +1,229 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="header"}
+
+{/block}
+
+{block name="main"}
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
+    <div class="fixed-header-space"></div>
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="index.html">首页</a>
+                        <span class="breadcrumb-item active">玩法介绍</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="content" class="main-content-wrapper">
+
+        <!-- Start of About US Section -->
+        <section class="faqs-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <div class="faqs-intro mb-half">
+                            <div class="section-title left-aligned with-border">
+                                <h2>欢迎来到金丰年商城玩法介绍</h2>
+                            </div>
+
+                            专业的团队分析，跟随老师下单不贪心，日入800+
+                            <p>支付宝或微信充值RMB(秒到账)，选择商品购买，选择升级选项，坐等开奖。</p>
+                            <p>留意升级结果列表，对照自己的选择。</p>
+                            <p>升级成功，按照原价全额退款，升级失败，超值商品带回家。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <div class="faqs-area">
+                            <div class="faqs-accordion" id="faqs_accordion">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                我不想投钱怎么办？
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqs_accordion">
+                                        <div class="card-body">
+                                            <p>团队分红机制，团长独享整个团队分红</p>
+                                            <p>张三有一个20人团队，那么他是3级团长，每周可分红团队的30%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingTwo">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                专业的大数据分析团队
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqs_accordion">
+                                        <div class="card-body">
+                                            <p>我们组建了专业的大数据团队，虽然不会100%准确，但是成功几率还是大于失败几率，依然稳赚不赔</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingThree">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                购买小实例
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqs_accordion">
+                                        <div class="card-body">
+                                            <p>张三购买原价272的商品花费188元，升级成功立即退款272。稳赚84元，so easy!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" id="headingFour">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                团队等级
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqs_accordion">
+                                        <div class="card-body">
+                                            <p>一级团 ： 1-5人，分红比例 10%</p>
+                                            <p>二级团 ： 6-15人，分红比例 20%</p>
+                                            <p>三级团 ： 16-30人，分红比例 30%</p>
+                                            <p>四级团 ： 31-50人，分红比例 40%</p>
+                                            <p>更多等级敬请期待</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {include file="base/footer"}
+</div>
+
+    <div id="to_top">
+        <i class="ion ion-ios-arrow-forward"></i>
+        <i class="ion ion-ios-arrow-forward"></i>
+    </div>
+</div>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="my-js"}
+<script>
+    $(function () {
+        setInterval('autoAddRow("#synamicTbl")', 3000);
+    });
+
+    function autoAddRow(obj) {
+        var randNum = Math.floor(Math.random() * 10);
+        var randNum2 = Math.floor(Math.random() * 4);
+        var randNum3 = Math.floor(Math.random() * 2);
+        var account = '';
+        if(randNum%2){
+            account = getMoblieNum();
+        }else{
+            account = getRandomString(11);
+        }
+
+        var priceArr = ['88','128','188','268'];
+        var choseArr = ['瑞雪','丰年'];
+        var listr = '<tr>\n' +
+            '<td>'+account+'</td>\n' +
+            '<td>'+priceArr[randNum2]+'</td>\n' +
+            '<td>'+choseArr[randNum3]+'</td>\n' +
+            '</tr>'
+        $(obj).children('tbody').prepend(listr);
+        $(obj).find('tbody tr').each(function(index){
+            if(index >5){
+                $(this).remove();
+            }
+        });
+    };
+
+    function getMoblieNum(){
+        var numArray = ["139","138","137","136","135","134","159","158","157","150","151","152","188","187","182","183","184","178","130","131","132","156","155","186","185","176","133","153","189","180","181","177"];
+        var arraryLength = numArray.length;
+        var i = parseInt( Math.random() * arraryLength);
+        var phoneNum = numArray[i];
+
+        for ( var j = 0; j < 8; j++){
+            if(j >= 0 && j < 4){
+                phoneNum += '*';
+            }else{
+                phoneNum = phoneNum + Math.floor(Math.random() * 10);
+            }
+        }
+        return phoneNum;
+    };
+
+    function getRandomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+        var maxPos = $chars.length;
+        var randomStr = '';
+        for (i = 0; i < len; i++) {
+            if(i >4){
+                randomStr += '*';
+            }else{
+                randomStr += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+        }
+        return randomStr.toLowerCase();
+    };
+</script>
+{/block}
