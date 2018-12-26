@@ -6425,7 +6425,7 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
 }
 
 .user-info .user-name span {
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 500;
 }
 
@@ -6442,7 +6442,12 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
 }
 
 .user-info p {
-    line-height: 1.65;
+    line-height: 2;
+    font-size: 1rem;
+}
+
+.user-info i {
+    font-size: 1.5rem;
 }
 
 .dashboard-list li > a {
