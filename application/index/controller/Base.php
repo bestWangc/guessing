@@ -11,13 +11,13 @@ class Base extends Controller
     protected function initialize()
     {
         parent::initialize();
-        //$this->checkLogin();
-        //$this->uid = session('uid');
+        $this->checkLogin();
+        $this->uid = session('u_id');
     }
 
     public function checkLogin(){
         //seeion没有user_id 重新登录
-        if(!session('uid')) $this->redirect('/index/login');
+        if(!session('u_id')) $this->redirect('/index/login');
     }
 
 }

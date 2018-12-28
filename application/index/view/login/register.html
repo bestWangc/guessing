@@ -49,35 +49,35 @@
                                                 <div class="form-group row">
                                                     <label for="f-name" class="col-12 col-sm-12 col-md-4 col-form-label">登录帐号</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                        <input type="text" class="form-control" id="f-name" required="" placeholder="请牢记帐号">
+                                                        <input type="text" class="form-control" id="f-name" placeholder="不能少于8位">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="email" class="col-12 col-sm-12 col-md-4 col-form-label">邮箱地址</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                        <input type="email" class="form-control" id="email" required="" placeholder="邮箱作为找回密码使用">
+                                                        <input type="email" class="form-control" id="email" placeholder="邮箱作为找回密码使用">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="newpassword" class="col-12 col-sm-12 col-md-4 col-form-label">密码</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                        <input type="password" class="form-control" id="newpassword" required="" placeholder="请牢记密码">
+                                                        <input type="password" class="form-control" id="newpassword" placeholder="请牢记密码">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="c-password" class="col-12 col-sm-12 col-md-4 col-form-label">确认密码</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                        <input type="password" class="form-control" id="c-password" required="" placeholder="再次输入密码">
+                                                        <input type="password" class="form-control" id="c-password" placeholder="再次输入密码">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="birth" class="col-12 col-sm-12 col-md-4 col-form-label">推荐人ID</label>
                                                     <div class="col-12 col-sm-12 col-md-8 col-lg-8">
-                                                        <input type="number" class="form-control" id="birth" placeholder="没有可不写">
+                                                        <input type="text" class="form-control" id="birth" placeholder="没有可不写">
                                                     </div>
                                                 </div>
                                                 <div class="register-box d-flex justify-content-end mt-half">
-                                                    <button type="submit" class="default-btn tiny-btn">注册</button>
+                                                    <button type="submit" class="default-btn tiny-btn submit_btn">注册</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -105,64 +105,65 @@
 {block name="my-js"}
 <script>
     $(function () {
-        setInterval('autoAddRow("#synamicTbl")', 3000);
-    });
-
-    function autoAddRow(obj) {
-        var randNum = Math.floor(Math.random() * 10);
-        var randNum2 = Math.floor(Math.random() * 4);
-        var randNum3 = Math.floor(Math.random() * 2);
-        var account = '';
-        if(randNum%2){
-            account = getMoblieNum();
-        }else{
-            account = getRandomString(11);
-        }
-
-        var priceArr = ['88','128','188','268'];
-        var choseArr = ['瑞雪','丰年'];
-        var listr = '<tr>\n' +
-            '<td>'+account+'</td>\n' +
-            '<td>'+priceArr[randNum2]+'</td>\n' +
-            '<td>'+choseArr[randNum3]+'</td>\n' +
-            '</tr>'
-        $(obj).children('tbody').prepend(listr);
-        $(obj).find('tbody tr').each(function(index){
-            if(index >5){
-                $(this).remove();
-            }
+        $("#f-name").keyup(function(){
+            this.value=this.value.replace(/[^a-z0-9_]/g,'');
         });
-    };
+        $("#birth").keyup(function(){
+            $(this).val($(this).val().replace(/\D|^0/g,''));
+        }).bind("paste",function(){
+            $(this).val($(this).val().replace(/\D|^0/g,''));
+        });
 
-    function getMoblieNum(){
-        var numArray = ["139","138","137","136","135","134","159","158","157","150","151","152","188","187","182","183","184","178","130","131","132","156","155","186","185","176","133","153","189","180","181","177"];
-        var arraryLength = numArray.length;
-        var i = parseInt( Math.random() * arraryLength);
-        var phoneNum = numArray[i];
+        $('.submit_btn').click(function () {
+            var user_name = $('#f-name').val();
+            var user_pwd = $('#newpassword').val();
+            var re_user_pwd = $('#c-password').val();
+            var email = $('#email').val();
+            var parent = $('#birth').val();
 
-        for ( var j = 0; j < 8; j++){
-            if(j >= 0 && j < 4){
-                phoneNum += '*';
-            }else{
-                phoneNum = phoneNum + Math.floor(Math.random() * 10);
+            if(user_name == ''){
+                layer.msg('帐号不能为空',{time:1000});
+                return false;
             }
-        }
-        return phoneNum;
-    };
-
-    function getRandomString(len) {
-        len = len || 32;
-        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
-        var maxPos = $chars.length;
-        var randomStr = '';
-        for (i = 0; i < len; i++) {
-            if(i >4){
-                randomStr += '*';
-            }else{
-                randomStr += $chars.charAt(Math.floor(Math.random() * maxPos));
+            if(user_name.length < 8){
+                layer.msg('帐号不能少于8位',{time:1000});
+                return false;
             }
-        }
-        return randomStr.toLowerCase();
-    };
+            if(email == ''){
+                layer.msg('邮箱不能为空',{time:1000});
+                return false;
+            }
+            if(user_pwd != re_user_pwd){
+                layer.msg('两次密码输入不一致',{time:1000});
+                return false;
+            }
+
+            $.ajax({
+                url : '/service/register/index',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    username : user_name,
+                    userpwd : user_pwd,
+                    email : email,
+                    parent: parent
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function(){
+                            location.href='/index/login';
+                        };
+                    }
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+    });
 </script>
 {/block}

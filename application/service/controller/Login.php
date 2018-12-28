@@ -9,7 +9,8 @@
 namespace app\service\controller;
 
 use app\tools\M3result;
-
+use think\facade\Session;
+use think\Db;
 
 class Login extends Base
 {
@@ -23,7 +24,7 @@ class Login extends Base
             $m3_result->msg = '用户名或者密码不能为空';
             return json($m3_result->toArray());
         }
-        $userArr = db('users')
+        $userArr = Db::name('users')
             ->where('name',$userName)
             ->whereOr('email',$userName)
             ->field('id,name,passwd,role,status')
@@ -41,13 +42,15 @@ class Login extends Base
         }
         if($userPwd = md5($userPwd.'jfn') == $userArr['passwd']){
             //将user id 存入session中
-            if($type){
-                session('uid',$userArr['id']);
-            }else{
-                session('user_id',$userArr['id']);
+            if($type == 1){
+                Session::set('uid',$userArr['id']);
+            } elseif ($type == 0){
+                Session::set('user_id',$userArr['id']);
+            } elseif ($type == 3){
+                Session::set('u_id',$userArr['id']);
             }
-            session('user_role',$userArr['role']);
-            session('user_name',$userArr['name']);
+            Session::set('user_role',$userArr['role']);
+            Session::set('user_name',$userArr['name']);
 
             $m3_result->code = 1;
             $m3_result->msg = '登录成功';

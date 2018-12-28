@@ -17,7 +17,7 @@
                                             <button class="btn-link dropdown-toggle">我的账户 <i class="fa fa-angle-down"></i></button>
                                             <div class="dropdown-menu">
                                                 <ul>
-                                                    <li><a href="checkout.html">注销登录</a></li>
+                                                    <li id="logout"><a href="javascript:;">注销登录</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -64,3 +64,33 @@
 
 </header>
 <div class="fixed-header-space"></div>
+<script>
+    $(function () {
+        $('#logout').click(function () {
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+            $.ajax({
+                url : '/service/logout/index',
+                type : "GET",
+                dataType : "json",
+                cache : false,
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function () {
+                            window.location.reload();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        });
+
+    });
+</script>
