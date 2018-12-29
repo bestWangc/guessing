@@ -11,13 +11,12 @@ class Award extends Controller
         $awardInfo = Db::name('award_info')
             ->whereNotNull('result')
             ->order('id desc')
-            ->limit(20)
+            ->limit(30)
             ->field('term_num,result,updated_date,win')
             ->select();
         if(!empty($awardInfo)){
             foreach ($awardInfo as $key => &$value){
                 $value['updated_date'] = date('Y-m-d H:i:s',$value['updated_date']);
-                $value['win'] = $value['win'] ? '丰年' : '瑞雪';
             }
         }
         $this->assign('awardInfo',$awardInfo);
