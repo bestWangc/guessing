@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-12">
                     <nav class="breadcrumb">
-                        <a class="breadcrumb-item" href="index.html">首页</a>
+                        <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
                         <span class="breadcrumb-item active">排行榜</span>
                     </nav>
                 </div>
@@ -25,13 +25,14 @@
         <div class="wishlist-wrapper">
             <div class="container">
                 <div class="row">
+                    <input type="hidden" id="type" value="{$type}">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <main id="primary" class="site-main">
                             <div class="wishlist">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                         <div class="section-title left-aligned with-border">
-                                            <h2>日榜</h2>
+                                            <h2>{$title}</h2>
                                         </div>
 
                                         <div class="table-responsive">
@@ -39,48 +40,20 @@
                                                 <thead>
                                                 <tr>
                                                     <td>用户名</td>
-                                                    <td>官方结果</td>
-                                                    <td>开奖时间</td>
-                                                    <td>获胜方</td>
+                                                    <td>订单数量</td>
+                                                    <td>抢购商品数量</td>
+                                                    <td>订单总金额</td>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                {volist name="rankData" id="vo"}
                                                 <tr>
-                                                    <td>
-                                                        <a href="single-product.html">test</a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="single-product.html">Cas Meque Metus</a>
-                                                    </td>
-                                                    <td>3</td>
-                                                    <td>
-                                                        <div class="price">$430.00</div>
-                                                    </td>
+                                                    <td><a href="javascript:;"><img src="{$vo.photo}" alt="" title="photo">{$vo.name}</a></td>
+                                                    <td>{$vo.orderNum}</td>
+                                                    <td>{$vo.goods_num}</td>
+                                                    <td>{$vo.amounts}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href="single-product.html"><img src="assets/images/products/best/products-6-1.jpg" alt="Wishlist Product Image" title="Proin Lectus Ipsum"></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="single-product.html">Proin Lectus Ipsum</a>
-                                                    </td>
-                                                    <td>3</td>
-                                                    <td>
-                                                        <div class="green">$440.00</div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href="single-product.html"><img src="assets/images/products/best/products-8-2.jpg" alt="Wishlist Product Image" title="Aliquam Consequat"></a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="single-product.html">Aliquam Consequat</a>
-                                                    </td>
-                                                    <td>3</td>
-                                                    <td>
-                                                        <div class="price">$200.00</div>
-                                                    </td>
-                                                </tr>
+                                                {/volist}
                                                 </tbody>
                                             </table>
                                         </div>
