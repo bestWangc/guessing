@@ -33,17 +33,17 @@
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info ">
                                                 <p class="user-name">
-                                                    你好, <span class="text-muted">John Doe</span>
+                                                    你好, <span class="text-muted">{$uname}</span>
                                                     <br>
-                                                    职称：<span class="text-muted">会员</span>
+                                                    职称：<span class="text-muted">{$rname}</span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info text-lg-center">
-                                                <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>100</strong></span> 元
+                                                <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>{$money}</strong></span> 元
                                                     <br>
-                                                    <i class="fa fa-btc" aria-hidden="true"></i>&nbsp;金币 ： <span class="text-primary"><strong>100</strong></span> 个
+                                                    <i class="fa fa-btc" aria-hidden="true"></i>&nbsp;金币 ： <span class="text-primary"><strong>{$gold}</strong></span> 个
                                                 </p>
                                             </div>
 
@@ -51,20 +51,39 @@
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info">
                                                 <p>
-                                                    <i class="fa fa-weixin" aria-hidden="true"></i>&nbsp;微信：<span class="text-muted">John Doe</span>
+                                                    <i class="fa fa-weixin" aria-hidden="true"></i>&nbsp;
+                                                    微信：
+                                                    <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     <br>
-                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;支付宝：<span class="text-muted">54845456456</span>
+                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;
+                                                    支付宝：
+                                                    {if(empty($alipayAccount))}
+                                                    <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
+                                                    {else /}
+                                                    <span class="text-muted">{$alipayAccount}</span>
+                                                    {/if}
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info ">
                                                 <p>
-                                                    <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;手机：<span class="text-muted">John Doe</span>
+                                                    <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
+                                                    手机：
+                                                    {if(empty($alipayAccount))}
+                                                    <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
+                                                    {else /}
+                                                    <span class="text-muted">{$phone}</span>
+                                                    {/if}
                                                     <br>
-                                                    <i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;地址：<span class="text-muted">54845456456</span>
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
+                                                    邮箱：
+                                                    {if(empty($alipayAccount))}
+                                                    <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
+                                                    {else /}
+                                                    <span class="text-muted">{$email}</span>
+                                                    {/if}
                                                 </p>
-
                                             </div>
                                         </div>
                                     </div> <!-- end of row -->
@@ -74,22 +93,41 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-2">
                                             <ul class="nav flex-column dashboard-list" role="tablist">
-                                                <li><a class="nav-link active" data-toggle="tab" href="#dashboard">充值</a></li>
+                                                <li><a class="nav-link active" data-toggle="tab" href="#recharge">充值</a></li>
                                                 <li><a class="nav-link" data-toggle="tab" href="#downloads">提现</a></li>
                                                 <li> <a class="nav-link" data-toggle="tab" href="#orders">订单</a></li>
-                                                <!--<li><a class="nav-link" data-toggle="tab" href="#address">收货地址</a></li>-->
                                                 <li><a class="nav-link" data-toggle="tab" href="#account-details">帐号信息</a></li>
-                                                <!--<li><a class="nav-link" href="login.html">logout</a></li>-->
                                             </ul> <!-- end of dashboard-list -->
                                         </div>
 
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-10">
                                             <!-- Tab panes -->
                                             <div class="tab-content dashboard-content">
-                                                <div id="dashboard" class="tab-pane fade show active">
-                                                    <h3>Dashboard </h3>
-                                                    <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
-                                                </div> <!-- end of tab-pane -->
+                                                <div id="recharge" class="tab-pane fade show active">
+                                                    <h3>支付宝/微信 </h3>
+                                                    <div class="row">
+                                                        <div class="form-group col-12 col-sm-12 col-md-6">
+                                                            <label for="recharge_money">充值金额 <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="recharge_money">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-12 col-sm-12 col-md-12">
+                                                            <label>充值方式 <span class="text-danger">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row rechargeWay">
+                                                        <div class="col-6 col-sm-6 col-md-6">
+                                                            <span data-val="1"><img src="/static/index/images/zhifubao.png" alt="">支付宝支付</span>
+                                                        </div>
+                                                        <div class="col-6 col-sm-6 col-md-6">
+                                                            <span data-val="2"><img src="/static/index/images/weixin.png" alt="">微信支付</span>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="btn btn-outline-info btn-lg pull-right">充值</button>
+                                                    <div class="clearfix"> </div>
+                                                </div>
 
                                                 <div id="orders" class="tab-pane fade">
                                                     <h3>Orders</h3>
@@ -273,5 +311,11 @@
 {/block}
 
 {block name="my-js"}
-
+<script>
+$(function () {
+    $('.rechargeWay div').click(function () {
+        $(this).addClass('active').siblings('div').removeClass('active');
+    });
+});
+</script>
 {/block}

@@ -7066,3 +7066,27 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
     background-color: #000;
     z-index: 9950;
 }
+
+.rechargeWay .active{
+    border: 2px solid #2f9ef7;
+    background-image: url(../images/recharge_true.png);
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.rechargeWay div{
+    height: 6rem;
+}
+.rechargeWay span{
+    display: inline-block;
+    margin: 1rem .8rem;
+    font-size: 1.2rem;
+}
+
+.rechargeWay img{
+    margin-right: 1.8rem;
+}
+
+#recharge button{
+    margin-top: 2rem;
+}
