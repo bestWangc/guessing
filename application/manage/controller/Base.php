@@ -20,12 +20,12 @@ class Base extends Controller
         parent::initialize();
         $this->checkLogin();
         $this->checkRole();
-        $this->uid = session('user_id');
+        $this->uid = session('uid');
     }
 
     public function checkLogin(){
         //seeion没有user_id 重新登录
-        if(!session('user_id')) $this->redirect('/manage/login');
+        if(!session('uid')) $this->redirect('/manage/login');
     }
 
     //禁止翻墙登录

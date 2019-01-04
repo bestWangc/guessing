@@ -42,12 +42,17 @@ class Login extends Base
         }
         if($userPwd = md5($userPwd.'jfn') == $userArr['passwd']){
             //将user id 存入session中
+            /*
+             * mapp  user_id 1
+             * index  u_id 2
+             * manage  uid 3
+            */
             if($type == 1){
-                Session::set('uid',$userArr['id']);
-            } elseif ($type == 0){
                 Session::set('user_id',$userArr['id']);
-            } elseif ($type == 3){
+            } elseif ($type == 2){
                 Session::set('u_id',$userArr['id']);
+            } elseif ($type == 3){
+                Session::set('uid',$userArr['id']);
             }
             Session::set('user_role',$userArr['role']);
             Session::set('user_name',$userArr['name']);

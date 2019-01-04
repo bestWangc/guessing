@@ -3,7 +3,7 @@
 namespace app\index\controller;
 
 
-class Extract extends Bases
+class Extract extends Base
 {
     public function index(){
         return $this->fetch();

@@ -30,7 +30,7 @@
                             <div class="user-dashboard">
                                 <div class="user-info">
                                     <div class="row align-items-center no-gutters">
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info ">
                                                 <p class="user-name">
                                                     你好, <span class="text-muted">{$uname}</span>
@@ -39,7 +39,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info text-lg-center">
                                                 <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>{$money}</strong></span> 元
                                                     <br>
@@ -48,7 +48,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info">
                                                 <p>
                                                     <i class="fa fa-weixin" aria-hidden="true"></i>&nbsp;
@@ -65,7 +65,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info ">
                                                 <p>
                                                     <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
@@ -94,7 +94,7 @@
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-2">
                                             <ul class="nav flex-column dashboard-list" role="tablist">
                                                 <li><a class="nav-link active" data-toggle="tab" href="#recharge">充值</a></li>
-                                                <li><a class="nav-link" data-toggle="tab" href="#downloads">提现</a></li>
+                                                <li><a class="nav-link" data-toggle="tab" href="#extract">提现</a></li>
                                                 <li> <a class="nav-link" data-toggle="tab" href="#orders">订单</a></li>
                                                 <li><a class="nav-link" data-toggle="tab" href="#account-details">帐号信息</a></li>
                                             </ul> <!-- end of dashboard-list -->
@@ -129,6 +129,61 @@
                                                     <div class="clearfix"> </div>
                                                 </div>
 
+                                                <div id="extract" class="tab-pane fade">
+                                                    <h3>余额/金币提现</h3>
+                                                    <a href="{:url('extract/record')}" class="pull-right">提现记录</a>
+                                                    <div class="clearfix"></div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
+                                                            <div class="login-form mt-half">
+                                                                <form action="" onsubmit="return false;" class="moneyForm">
+                                                                    <div class="form-group row align-items-center mb-4">
+                                                                        <label class="col-12 col-sm-12 col-md-3 col-form-label">可用余额：</label>
+                                                                        <div class="col-12 col-sm-12 col-md-8">
+                                                                            <p> <strong><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">52</span>.00 元</strong></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row align-items-center mb-4">
+                                                                        <label for="ext_money" class="col-12 col-sm-12 col-md-3 col-form-label">金额：</label>
+                                                                        <div class="col-12 col-sm-12 col-md-8">
+                                                                            <input type="text" class="form-control" id="ext_money" placeholder="请输入提现金额" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="login-box mt-5 text-center">
+                                                                        <button type="submit" class="btn btn-outline-primary mt-4 submitMoney">余额提现</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr style="margin-top: 2.5rem">
+
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
+                                                            <div class="login-form mt-half">
+                                                                <form action="" onsubmit="return false;" class="goldForm">
+                                                                    <div class="form-group row align-items-center mb-4">
+                                                                        <label class="col-12 col-sm-12 col-md-3 col-form-label">可用金币：</label>
+                                                                        <div class="col-12 col-sm-12 col-md-8">
+                                                                            <p> <strong><i class="fa fa-btc" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">5</span>个</strong></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row align-items-center mb-4">
+                                                                        <label for="ext_gold" class="col-12 col-sm-12 col-md-3 col-form-label">数量：</label>
+                                                                        <div class="col-12 col-sm-12 col-md-8">
+                                                                            <input type="text" class="form-control" id="ext_gold" placeholder="请输入提现金币个数" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="login-box mt-5 text-center">
+                                                                        <button type="submit" class="btn btn-outline-primary mt-4 submitGold">金币提现</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div id="orders" class="tab-pane fade">
                                                     <h3>Orders</h3>
                                                     <div class="table-responsive">
@@ -160,37 +215,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                </div> <!-- end of tab-pane -->
-
-                                                <div id="downloads" class="tab-pane fade">
-                                                    <h3>Downloads</h3>
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Product</th>
-                                                                <th>Downloads</th>
-                                                                <th>Expires</th>
-                                                                <th>Download</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td>Volga - Ecommerce Bootstrap Template</td>
-                                                                <td>August 10, 2018</td>
-                                                                <td>Never</td>
-                                                                <td><a class="btn btn-secondary" href="#">Download File</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Gatcomart - Ecommerce HTML Template</td>
-                                                                <td>September 11, 2018</td>
-                                                                <td>Never</td>
-                                                                <td><a class="btn btn-secondary" href="#">Download File</a></td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div> <!-- end of tab-pane -->
+                                                </div>
 
                                                 <div id="address" class="tab-pane">
                                                     <p>The following addresses will be used on the checkout page by default.</p>
@@ -198,7 +223,7 @@
                                                     <a class="btn btn-secondary my-4" href="#">edit</a>
                                                     <p>Ororus Themes</p>
                                                     <p>Bangladesh</p>
-                                                </div> <!-- end of tab-pane -->
+                                                </div>
 
                                                 <div id="account-details" class="tab-pane fade">
                                                     <h3>Account details </h3>
