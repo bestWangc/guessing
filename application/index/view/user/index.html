@@ -41,6 +41,8 @@
                                         </div>
                                         <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info text-lg-center">
+                                                <input type="hidden" id="userMoney" value="{$money}">
+                                                <input type="hidden" id="userGold" value="{$gold}">
                                                 <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>{$money}</strong></span> 元
                                                     <br>
                                                     <i class="fa fa-btc" aria-hidden="true"></i>&nbsp;金币 ： <span class="text-primary"><strong>{$gold}</strong></span> 个
@@ -70,7 +72,7 @@
                                                 <p>
                                                     <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
                                                     手机：
-                                                    {if(empty($alipayAccount))}
+                                                    {if(empty($phone))}
                                                     <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     {else /}
                                                     <span class="text-muted">{$phone}</span>
@@ -78,7 +80,7 @@
                                                     <br>
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
                                                     邮箱：
-                                                    {if(empty($alipayAccount))}
+                                                    {if(empty($email))}
                                                     <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     {else /}
                                                     <span class="text-muted">{$email}</span>
@@ -140,13 +142,13 @@
                                                                     <div class="form-group row align-items-center mb-4">
                                                                         <label class="col-12 col-sm-12 col-md-3 col-form-label">可用余额：</label>
                                                                         <div class="col-12 col-sm-12 col-md-8">
-                                                                            <p> <strong><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">52</span>.00 元</strong></p>
+                                                                            <p> <strong><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$money}</span> 元</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row align-items-center mb-4">
                                                                         <label for="ext_money" class="col-12 col-sm-12 col-md-3 col-form-label">金额：</label>
                                                                         <div class="col-12 col-sm-12 col-md-8">
-                                                                            <input type="text" class="form-control" id="ext_money" placeholder="请输入提现金额" required>
+                                                                            <input type="text" class="form-control" id="ext_money" placeholder="请输入提现金额">
                                                                         </div>
                                                                     </div>
                                                                     <div class="login-box mt-5 text-center">
@@ -166,7 +168,7 @@
                                                                     <div class="form-group row align-items-center mb-4">
                                                                         <label class="col-12 col-sm-12 col-md-3 col-form-label">可用金币：</label>
                                                                         <div class="col-12 col-sm-12 col-md-8">
-                                                                            <p> <strong><i class="fa fa-btc" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">5</span>个</strong></p>
+                                                                            <p> <strong><i class="fa fa-btc" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$gold}</span>个</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row align-items-center mb-4">
@@ -226,94 +228,64 @@
                                                 </div>
 
                                                 <div id="account-details" class="tab-pane fade">
-                                                    <h3>Account details </h3>
+                                                    <h3>账户信息 </h3>
                                                     <div class="login-form">
-                                                        <form action="#">
+                                                        <form action="" onsubmit="return false;" class="userForm">
                                                             <div class="form-group row align-items-center">
-                                                                <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Title</label>
+                                                                <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">推荐人ID</label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                                     <div class="form-row">
-                                                                        <div class="col-6 col-sm-3">
-                                                                            <div class="custom-radio">
-                                                                                <input class="form-check-input" type="radio" name="gender" id="male">
-                                                                                <span class="checkmark"></span>
-                                                                                <label class="form-check-label" for="male">Mr.</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-6 col-sm-3">
-                                                                            <div class="custom-radio">
-                                                                                <input class="form-check-input" type="radio" name="gender" id="female">
-                                                                                <span class="checkmark"></span>
-                                                                                <label class="form-check-label" for="female">Mrs.</label>
-                                                                            </div>
-                                                                        </div>
+                                                                        <p class="form-control-plaintext">11111</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="f-name" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">First Name</label>
+                                                                <label for="phone" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">手机号<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="f-name" required>
+                                                                    <input type="text" class="form-control" id="phone" value="{$phone ? $phone : ''}" placeholder="请输入手机号">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="l-name" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                                                <label for="email" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">邮箱地址<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="l-name" required>
+                                                                    <input type="text" class="form-control" id="email" value="{$email}">
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="form-group row">
+                                                                <label for="alipayAccount" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收款账号<span class="text-danger">*</span></label>
+                                                                <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                                    <input type="text" class="form-control" id="alipayAccount" placeholder="填写支付宝帐号" value="{$alipayAccount}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="email" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Email Address</label>
+                                                                <label for="alipayName" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收款人姓名<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="email" required>
+                                                                    <input type="text" class="form-control" id="alipayName" placeholder="填写支付宝姓名" value="{$alipayName}">
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="form-group row">
+                                                                <label for="expressName" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收货人姓名<span class="text-danger">*</span></label>
+                                                                <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                                    <input type="text" class="form-control" id="expressName" placeholder="快递接收人姓名" value="{$expressName}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="inputpassword" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                                <label for="expressPhone" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收货人手机号<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="password" class="form-control" id="inputpassword" required>
+                                                                    <input type="text" class="form-control" id="expressPhone" placeholder="快递接收人手机号" value="{$expressPhone}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
-                                                                <label for="newpassword" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">New Password</label>
+                                                                <label for="expressAddress" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">详细地址<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="password" class="form-control" id="newpassword" required>
-                                                                    <button class="pass-show-btn" type="button">Show</button>
+                                                                    <input type="text" class="form-control" id="expressAddress" placeholder="请填写快递详细地址" value="{$expressDetails}">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row">
-                                                                <label for="c-password" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Confirm Password</label>
-                                                                <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="password" class="form-control" id="c-password" required>
-                                                                    <button class="pass-show-btn" type="button">Show</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label for="birth" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">Birthdate (Optional)</label>
-                                                                <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="birth" placeholder="MM / DD / YYYY" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-check row p-0 mt-5">
-                                                                <div class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-6 offset-lg-3">
-                                                                    <div class="custom-checkbox">
-                                                                        <input class="form-check-input" type="checkbox" id="offer">
-                                                                        <span class="checkmark"></span>
-                                                                        <label class="form-check-label" for="offer">Receive offers from our partners</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-check row p-0 mt-4">
-                                                                <div class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-6 offset-lg-3">
-                                                                    <div class="custom-checkbox">
-                                                                        <input class="form-check-input" type="checkbox" id="subscribe" required>
-                                                                        <span class="checkmark"></span>
-                                                                        <label class="form-check-label" for="subscribe">Sign up for our newsletter<br>Subscribe to our newsletters now and stay up-to-date with new collections, the latest lookbooks and exclusive offers..</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="register-box d-flex justify-content-end mt-half">
-                                                                <button type="submit" class="btn btn-secondary">Save</button>
+                                                                <button type="submit" class="btn btn-secondary userBtn">保存信息</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -340,6 +312,111 @@
 $(function () {
     $('.rechargeWay div').click(function () {
         $(this).addClass('active').siblings('div').removeClass('active');
+    });
+
+    $('.submitMoney').click(function () {
+        let money = $('#ext_money').val();
+        let userMoney = parseInt($('#userMoney').val());
+        if(money === ''){
+            layer.msg('请输入提现金额。',{time:1000});
+            return false;
+        }
+        let errorNum = textChecked(money);
+        if(errorNum > 0){
+            layer.msg('请输入正确的提现金额',{time:1000});
+            return false;
+        }
+
+        money = parseInt(money);
+        if(money > userMoney){
+            layer.msg('金额不足，请重试',{time:1000});
+            return false;
+        }
+
+        $.ajax({
+            url : 'extract/doMoneyExtract',
+            type : "POST",
+            dataType : "json",
+            cache : false,
+            data : {
+                ext_money : money
+            },
+            success : function(data){
+                console.log(data);
+                var callingBack = '';
+                if(data.code == 1){
+                    callingBack = function(){
+                        window.location.reload();
+                    };
+                }
+                layer.msg(data.msg,{time: 1500},callingBack);
+            },
+            error : function(data){
+                console.log(data);
+            }
+        });
+
+    });
+    
+    $('.userBtn').click(function () {
+        console.log();
+        let tel = $('#phone').val();
+        let pattern = /^1[34578]\d{9}$/;
+        if(!pattern.test(tel)){
+            layer.msg('请填写正确的手机号',{time:1000});
+            return false;
+        }
+        let email = $('#email').val();
+        if(email.length == 0 || email.indexOf('@') < 0){
+            layer.msg('请填写正确的邮箱',{time:1000});
+            return false;
+        }
+        let alipayAccount = $('#alipayAccount').val();
+        let alipayName = $('#alipayName').val();
+        let expressName = $('#expressName').val();
+        let expressPhone = $('#expressPhone').val();
+        let expressAddress = $('#expressAddress').val();
+
+        if(alipayAccount.length == 0 || alipayName == 0){
+            layer.msg('请填写支付宝收款信息',{time:1000});
+            return false;
+        }
+        if(expressName.length == 0 || expressAddress == 0){
+            layer.msg('请填写收货人信息',{time:1000});
+            return false;
+        }
+        if(!pattern.test(expressPhone)){
+            layer.msg('请填写正确的收货人手机号',{time:1000});
+            return false;
+        }
+        $.ajax({
+            url : 'user/saveUserInfo',
+            type : "POST",
+            dataType : "json",
+            cache : false,
+            data : {
+                tel : tel,
+                email : email,
+                alipayAccount : alipayAccount,
+                alipayName : alipayName,
+                expressName : expressName,
+                expressPhone : expressPhone,
+                expressAddress : expressAddress
+            },
+            success : function(data){
+                console.log(data);
+                var callingBack = '';
+                if(data.code == 1){
+                    callingBack = function(){
+                        window.location.reload();
+                    };
+                }
+                layer.msg(data.msg,{time: 1500},callingBack);
+            },
+            error : function(data){
+                console.log(data);
+            }
+        });
     });
 });
 </script>

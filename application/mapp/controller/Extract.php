@@ -41,14 +41,14 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
-        $extractCount = db('extract')
+        /*$extractCount = db('extract')
             ->where('user_id', $this->uid)
             ->count();
         if($extractCount){
             $m3_result->code = 0;
             $m3_result->msg = '还有提现未处理，请等待';
             return json($m3_result->toArray());
-        }
+        }*/
 
         $data = [
             'user_id' => $this->uid,
