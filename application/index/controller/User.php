@@ -32,7 +32,7 @@ class User extends Base
     //获取简单用户信息
     public function getSimpleInfo()
     {
-        $fieldList = 'u.name as account,u.money,u.gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ul.role_name,a.name as express_name,a.phone,a.details';
+        $fieldList = 'u.name as account,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ul.role_name,a.name as express_name,a.phone,a.details';
         $res = Db::name('users')
             ->alias('u')
             ->join('address a','a.user_id = u.id','left')

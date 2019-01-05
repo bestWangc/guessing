@@ -66,7 +66,7 @@ class Extract extends Base
         if($res){
             $updateAmount = db('users')
                 ->where('id',$this->uid)
-                ->setField('frozen_money',$ext_money);
+                ->setInc('frozen_money',$ext_money);
             if($updateAmount){
                 $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
@@ -77,7 +77,6 @@ class Extract extends Base
         $m3_result->code = 0;
         $m3_result->msg = '提现失败';
         return json($m3_result->toArray());
-
     }
 
     //提现记录
@@ -131,7 +130,7 @@ class Extract extends Base
         if($res){
             $updateGold = db('users')
                 ->where('id',$this->uid)
-                ->setField('frozen_gold',$ext_gold);
+                ->setInc('frozen_gold',$ext_gold);
             if($updateGold){
                 $m3_result->code = 1;
                 $m3_result->msg = '提交成功';
