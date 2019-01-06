@@ -36,7 +36,7 @@ class Extract extends Base
         }
 
         //检查余额是否足够
-        $userAmount = User::getSurplus('money-frozen_money',$this->uid);
+        $userAmount = User::getSurplus('money-frozen_money as money',$this->uid);
         if($userAmount < $ext_money){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足';
@@ -93,7 +93,7 @@ class Extract extends Base
         }
 
         //检查余额是否足够
-        $userAmount = User::getSurplus('gold-frozen_gold',$this->uid);
+        $userAmount = User::getSurplus('gold-frozen_gold as gold',$this->uid);
         if($userAmount < $ext_gold){
             $m3_result->code = 0;
             $m3_result->msg = '金币不足';
@@ -105,8 +105,7 @@ class Extract extends Base
             'created_date' => time(),
             'purpose' => 3,
             'status' => 0,
-            'gold' => $ext_gold,
-            'alipay_id' => $alipayId
+            'gold' => $ext_gold
         ];
 
         $res = Db::name('apply')->insert($data);

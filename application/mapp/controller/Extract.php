@@ -128,8 +128,7 @@ class Extract extends Base
             'created_date' => time(),
             'purpose' => 3,
             'status' => 0,
-            'gold' => $ext_gold,
-            'alipay_id' => $alipayId
+            'gold' => $ext_gold
         ];
 
         $res = db('apply')
