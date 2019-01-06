@@ -78,6 +78,7 @@ class Term extends Command
             }
         }
         $output->writeln('term end.');
+        $html_dom->clear();
         return true;
     }
 }
