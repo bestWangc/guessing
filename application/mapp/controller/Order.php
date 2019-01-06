@@ -112,7 +112,7 @@ class Order extends Base
 
         $gold = $orderInfo['amount'];
         $oldGold = db('users')
-            ->where('id', $user_id)
+            ->where('id', $this->uid)
             ->value('gold');
         $gold = intval(($gold+$oldGold)/10);
         $res = db('users')

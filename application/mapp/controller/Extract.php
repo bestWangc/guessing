@@ -34,7 +34,7 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
-        $userAmount = $this->getSurplus('money');
+        $userAmount = $this->getSurplus('money-frozen_money');
         if($userAmount < $ext_money){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足';
@@ -113,6 +113,13 @@ class Extract extends Base
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
+            return json($m3_result->toArray());
+        }
+
+        $userGold = $this->getSurplus('gold-frozen_gold');
+        if($userGold < $ext_gold){
+            $m3_result->code = 0;
+            $m3_result->msg = '金币不足';
             return json($m3_result->toArray());
         }
 

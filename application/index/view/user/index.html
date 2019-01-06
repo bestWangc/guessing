@@ -314,6 +314,7 @@ $(function () {
         $(this).addClass('active').siblings('div').removeClass('active');
     });
 
+    //余额提现
     $('.submitMoney').click(function () {
         let money = $('#ext_money').val();
         let userMoney = parseInt($('#userMoney').val());
@@ -358,6 +359,51 @@ $(function () {
 
     });
     
+    //金币提现
+    $('.submitGold').click(function () {
+        let gold = $('#ext_gold').val();
+        let userGold = parseInt($('#userGold').val());
+        if(gold === ''){
+            layer.msg('请输入金币数量',{time:1000});
+            return false;
+        }
+        let errorNum = textChecked(gold);
+        if(errorNum > 0){
+            layer.msg('请输入正确的金币数量',{time:1000});
+            return false;
+        }
+
+        gold = parseInt(gold);
+        if(gold > userGold){
+            layer.msg('金币不足，请重试',{time:1000});
+            return false;
+        }
+
+        $.ajax({
+            url : 'extract/doGoldExtract',
+            type : "POST",
+            dataType : "json",
+            cache : false,
+            data : {
+                ext_gold : gold
+            },
+            success : function(data){
+                console.log(data);
+                var callingBack = '';
+                if(data.code == 1){
+                    callingBack = function(){
+                        window.location.reload();
+                    };
+                }
+                layer.msg(data.msg,{time: 1500},callingBack);
+            },
+            error : function(data){
+                console.log(data);
+            }
+        });
+    });
+    
+    //保存用户信息
     $('.userBtn').click(function () {
         console.log();
         let tel = $('#phone').val();
@@ -390,7 +436,7 @@ $(function () {
             return false;
         }
         $.ajax({
-            url : 'user/saveUserInfo',
+            url : 'saveUserInfo',
             type : "POST",
             dataType : "json",
             cache : false,
