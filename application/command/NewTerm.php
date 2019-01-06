@@ -26,7 +26,7 @@ class NewTerm extends Command
         }
         if($nowTime == '10:00' || $nowTime == '10:01'){
             $data = [
-                'term_num' => date('Ymd').'024',
+                'term_num' => date('ymd').'-024',
                 'created_date' => time()
             ];
         }else{
@@ -34,9 +34,11 @@ class NewTerm extends Command
                 ->order('id desc')
                 ->field('term_num')
                 ->find();
-            $term_num = floatval($termInfo['term_num']);
+
+            $termInfo['term_num']++;
+            $term_num = $termInfo['term_num'];
             $data = [
-                'term_num' => $term_num+1,
+                'term_num' => $term_num,
                 'created_date' => time()
             ];
         }

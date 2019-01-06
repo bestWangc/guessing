@@ -7,6 +7,7 @@ use think\console\Input;
 use think\console\Output;
 use \simple_html_dom\simple_html_dom;
 use think\Db;
+use think\facade\Log;
 
 class Term extends Command
 {
@@ -22,7 +23,8 @@ class Term extends Command
         $endTime = strtotime($endTime);
         if(time() > $endTime) return false;
 
-        $url = 'https://www.km28.com/gp_chart/cqssc/0.html';
+        //$url = 'https://www.km28.com/gp_chart/cqssc/0.html';
+        $url = 'https://chart.cp.360.cn/zst/ssccq';
 
         $output->writeln('term start.');
         $ch = curl_init();
@@ -38,13 +40,16 @@ class Term extends Command
 
         $html_dom = new simple_html_dom(); //new simple_html_dom对象
         $html_dom->load($response, true); //加载html
-        $table_tr = $html_dom->find('.t_tr2'); //获取tr
+        //$table_tr = $html_dom->find('.t_tr2'); //获取tr
+        $table_tr = $html_dom->find('#data-tab tr'); //获取tr
         $count = count($table_tr);
         foreach ($table_tr as $key => $value) {
             // if($key == ($count-2) || $key == ($count-1)){
             if($key >= ($count-3)){
-                $term_num = $value->children(1)->plaintext;
+                $term_num = $value->children(0)->plaintext;
+
                 $result = $value->children(2)->plaintext;
+                $result = explode(' ',$result)[0];
 
                 $output->writeln($term_num);
 
@@ -53,9 +58,8 @@ class Term extends Command
                 }
                 $isHasTerm = db('award_info')
                     ->where('term_num',$term_num)
-                    ->field('result')
-                    ->select();
-                if(!empty($isHasTerm['result'])) continue;
+                    ->value('result');
+                if(!empty($isHasTerm)) continue;
 
                 $win = substr($result,-1);
                 $win = $win%2 ==1 ? 1 : 0;
@@ -65,6 +69,7 @@ class Term extends Command
                     'win' => $win,
                     'updated_date' => time()
                 ];
+                var_dump($data);
                 $update = db('award_info')
                     ->where('term_num',$term_num)
                     ->update($data);
