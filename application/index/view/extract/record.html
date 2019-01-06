@@ -1,0 +1,93 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="main"}
+{load href="/static/common/js/layui/css/layui.css" /}
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
+
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
+                        <span class="breadcrumb-item active">提现记录</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="main-content-wrapper">
+
+        <!-- Start of Wishlist Wrapper -->
+        <div class="wishlist-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <main id="primary" class="site-main">
+                            <div class="wishlist">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="section-title left-aligned with-border">
+                                            <h2>提现记录</h2>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="recordTbl" lay-filter="recordTbl"></table>
+                                            <!--<table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <td>升级期号</td>
+                                                    <td>官方结果</td>
+                                                    <td>开奖时间</td>
+                                                    <td>获胜方</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {include file="base/footer"}
+</div>
+
+{load href="/static/common/js/layui/layui.js" /}
+{/block}
+
+{block name="my-js"}
+<script>
+    layui.use('table', function(){
+        let table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#recordTbl'
+            ,url: '/demo/table/user/'
+            ,page: true
+            ,cols: [[
+                {field: 'id', title: 'ID'}
+                ,{field: 'username', title: '用户名'}
+                ,{field: 'sex', title: '性别'}
+                ,{field: 'city', title: '城市'}
+                ,{field: 'sign', title: '签名'}
+                ,{field: 'experience', title: '积分'}
+                ,{field: 'score', title: '评分'}
+                ,{field: 'classify', title: '职业'}
+                ,{field: 'wealth', title: '财富'}
+            ]]
+        });
+
+    });
+</script>
+{/block}
