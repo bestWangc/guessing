@@ -4,6 +4,11 @@
 
 {block name="main"}
 {load href="/static/common/js/layui/css/layui.css" /}
+<style>
+    .layui-laypage{
+        float: right;
+    }
+</style>
 <div id="whole" class="whole-site-wrapper color-scheme-three">
     {include file="base/header"}
 
@@ -28,6 +33,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <main id="primary" class="site-main">
+                            <input type="hidden" id="recordType" value="{$type}">
                             <div class="wishlist">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -36,18 +42,6 @@
                                         </div>
                                         <div class="table-responsive">
                                             <table id="recordTbl" lay-filter="recordTbl"></table>
-                                            <!--<table class="table table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <td>升级期号</td>
-                                                    <td>官方结果</td>
-                                                    <td>开奖时间</td>
-                                                    <td>获胜方</td>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>-->
                                         </div>
                                     </div>
                                 </div>
@@ -70,21 +64,30 @@
     layui.use('table', function(){
         let table = layui.table;
 
+        let recordType = parseInt($('#recordType').val());
+        let url = '';
+        if(recordType == 1){
+            url = '/index/extract/moneyRecordData';
+        } else if(recordType == 2){
+            url = '/index/extract/goldRecordData';
+        }
         //第一个实例
         table.render({
             elem: '#recordTbl'
-            ,url: '/demo/table/user/'
-            ,page: true
+            ,url: url
+            ,page: {
+                layout:['prev', 'page', 'next', 'count'],
+                groups:5,
+                count:'count',
+                limit:15
+            }
             ,cols: [[
-                {field: 'id', title: 'ID'}
-                ,{field: 'username', title: '用户名'}
-                ,{field: 'sex', title: '性别'}
-                ,{field: 'city', title: '城市'}
-                ,{field: 'sign', title: '签名'}
-                ,{field: 'experience', title: '积分'}
-                ,{field: 'score', title: '评分'}
-                ,{field: 'classify', title: '职业'}
-                ,{field: 'wealth', title: '财富'}
+                {field: 'id', title: '订单ID'}
+                ,{field: 'amount', title: '提现金额'}
+                ,{field: 'way', title: '收款方式'}
+                ,{field: 'created_date', title: '申请时间'}
+                ,{field: 'status', title: '状态'}
+                ,{field: 'refuse_reason', title: '备注'}
             ]]
         });
 

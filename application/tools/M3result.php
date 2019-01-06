@@ -14,12 +14,24 @@ class M3result
     public $code = 0;
     public $msg = '';
     public $data = [];
+    public $count = 0;
 
-    public function toArray(){
+    public function toArray()
+    {
         return [
             'code' => $this->code,
             'msg' => $this->msg,
             'data' => $this->data
+        ];
+    }
+
+    public function toLayArray()
+    {
+        return [
+            'code' => $this->code,
+            'msg' => $this->msg,
+            'data' => $this->data,
+            'count' => $this->count
         ];
     }
 }

@@ -14,8 +14,10 @@ class Extract extends Base
     }
 
     //提现记录
-    public function record()
+    public function record(Request $request)
     {
+        $type = $request::param('type');
+        $this->assign('type',$type);
         return $this->fetch();
     }
 
@@ -139,5 +141,87 @@ class Extract extends Base
             ->value('id');
         if(!empty($alipayId)) return $alipayId;
         return '';
+    }
+
+    //余额提现记录数据
+    public function moneyRecordData(Request $request)
+    {
+        $page = $request::post('page',1);
+        $limit = $request::post('limit',15);
+        $res = Db::name('extract')
+            ->where('user_id',$this->uid)
+            ->field('id,amount,way,status,created_date,refuse_reason')
+            ->order('created_date desc')
+            ->paginate($limit,false,[
+                'page' => $page
+            ]);
+        $total = $res->total();
+
+        $res = $res->all();
+        if(!empty($res)){
+            foreach ($res as $key => &$val) {
+                $val['created_date'] = date('Y-m-d H:i:s',$val['created_date']);
+                switch ($val['status']){
+                    case 0:
+                        $val['status'] = '失败';
+                        break;
+                    case 1:
+                        $val['status'] = '成功';
+                        break;
+                    default:
+                        $val['status'] = '待处理';
+                }
+            }
+        }
+
+        $m3_result = new M3result();
+        $m3_result->code = 0;
+        $m3_result->count = $total;
+        $m3_result->data = $res;
+        $m3_result->msg = 'success';
+
+        return json($m3_result->toLayArray());
+    }
+
+    //金币提现记录数据
+    public function goldRecordData(Request $request)
+    {
+        $page = $request::post('page',1);
+        $limit = $request::post('limit',15);
+        $res = Db::name('apply')
+            ->where('user_id',$this->uid)
+            ->where('purpose',3)
+            ->field('id,gold as amount,status,created_date')
+            ->order('created_date desc')
+            ->paginate($limit,false,[
+                'page' => $page
+            ]);
+        $total = $res->total();
+
+        $res = $res->all();
+        if(!empty($res)){
+            foreach ($res as $key => &$val) {
+                $val['created_date'] = date('Y-m-d H:i:s',$val['created_date']);
+                switch ($val['status']){
+                    case 0:
+                        $val['status'] = '失败';
+                        break;
+                    case 1:
+                        $val['status'] = '成功';
+                        break;
+                    default:
+                        $val['status'] = '待处理';
+                }
+                $val['way'] = '支付宝';
+            }
+        }
+
+        $m3_result = new M3result();
+        $m3_result->code = 0;
+        $m3_result->count = $total;
+        $m3_result->data = $res;
+        $m3_result->msg = 'success';
+
+        return json($m3_result->toLayArray());
     }
 }
