@@ -18,7 +18,7 @@ class Extract extends Base
     //提现
     public function doMoneyExtract(){
         $m3_result = new M3result();
-        $ext_money = (int)input('ext_money',0);
+        $ext_money = input('ext_money/d',0);
         $real_money = (int)bcmul($ext_money, '0.9');
 
         if(empty($ext_money)){
@@ -34,7 +34,7 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
-        $userAmount = $this->getSurplus('money-frozen_money');
+        $userAmount = $this->getSurplus('money-frozen_money as money');
         if($userAmount < $ext_money){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足';

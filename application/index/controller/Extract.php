@@ -13,6 +13,12 @@ class Extract extends Base
         return $this->fetch();
     }
 
+    //提现记录
+    public function record()
+    {
+        return $this->fetch();
+    }
+
     //余额提现
     public function doMoneyExtract(Request $request)
     {
