@@ -127,7 +127,7 @@ class Extract extends Base
             'user_id' => $this->uid,
             'created_date' => time(),
             'purpose' => 3,
-            'status' => 0,
+            'status' => 2,
             'gold' => $ext_gold
         ];
 
