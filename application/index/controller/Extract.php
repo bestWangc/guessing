@@ -112,7 +112,7 @@ class Extract extends Base
             'user_id' => $this->uid,
             'created_date' => time(),
             'purpose' => 3,
-            'status' => 0,
+            'status' => 2,
             'gold' => $ext_gold
         ];
 
@@ -146,8 +146,9 @@ class Extract extends Base
     //余额提现记录数据
     public function moneyRecordData(Request $request)
     {
-        $page = $request::post('page',1);
-        $limit = $request::post('limit',15);
+        $page = $request::get('page',1);
+        $limit = $request::get('limit',15);
+
         $res = Db::name('extract')
             ->where('user_id',$this->uid)
             ->field('id,amount,way,status,created_date,refuse_reason')
@@ -155,6 +156,7 @@ class Extract extends Base
             ->paginate($limit,false,[
                 'page' => $page
             ]);
+
         $total = $res->total();
 
         $res = $res->all();
@@ -186,8 +188,8 @@ class Extract extends Base
     //金币提现记录数据
     public function goldRecordData(Request $request)
     {
-        $page = $request::post('page',1);
-        $limit = $request::post('limit',15);
+        $page = $request::get('page',1);
+        $limit = $request::get('limit',15);
         $res = Db::name('apply')
             ->where('user_id',$this->uid)
             ->where('purpose',3)
