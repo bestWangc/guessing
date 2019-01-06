@@ -69,7 +69,7 @@ class Term extends Command
                     'win' => $win,
                     'updated_date' => time()
                 ];
-                var_dump($data);
+
                 $update = db('award_info')
                     ->where('term_num',$term_num)
                     ->update($data);
