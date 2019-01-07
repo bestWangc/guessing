@@ -33,19 +33,19 @@
                                         <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                             <div class="single-info ">
                                                 <p class="user-name">
-                                                    你好, <span class="text-muted">{$uname}</span>
+                                                    你好, <span class="text-muted">{$userInfo.account}</span>
                                                     <br>
-                                                    职称：<span class="text-muted">{$rname}</span>
+                                                    职称：<span class="text-muted">{$userInfo.role_name}</span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div class="col-6 col-sm-6 col-md-6 col-lg-2 col-xl-2">
                                             <div class="single-info">
-                                                <input type="hidden" id="userMoney" value="{$money}">
-                                                <input type="hidden" id="userGold" value="{$gold}">
-                                                <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>{$money}</strong></span> 元
+                                                <input type="hidden" id="userMoney" value="{$userInfo.money}">
+                                                <input type="hidden" id="userGold" value="{$userInfo.gold}">
+                                                <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;余额： <span class="text-primary"><strong>{$userInfo.money}</strong></span> 元
                                                     <br>
-                                                    <i class="fa fa-btc" aria-hidden="true"></i>&nbsp;金币 ： <span class="text-primary"><strong>{$gold}</strong></span> 个
+                                                    <i class="fa fa-btc" aria-hidden="true"></i>&nbsp;金币 ： <span class="text-primary"><strong>{$userInfo.gold}</strong></span> 个
                                                 </p>
                                             </div>
 
@@ -72,18 +72,18 @@
                                                 <p>
                                                     <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;
                                                     手机：
-                                                    {if(empty($phone))}
+                                                    {if(empty($userInfo.tel))}
                                                     <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     {else /}
-                                                    <span class="text-muted">{$phone}</span>
+                                                    <span class="text-muted">{$userInfo.tel}</span>
                                                     {/if}
                                                     <br>
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
                                                     邮箱：
-                                                    {if(empty($email))}
+                                                    {if(empty($userInfo.email))}
                                                     <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     {else /}
-                                                    <span class="text-muted">{$email}</span>
+                                                    <span class="text-muted">{$userInfo.email}</span>
                                                     {/if}
                                                 </p>
                                             </div>
@@ -107,6 +107,9 @@
                                             <div class="tab-content dashboard-content">
                                                 <div id="recharge" class="tab-pane fade show active">
                                                     <h3>支付宝/微信 </h3>
+                                                    <a href="{:url('/index/recharge/record')}" class="pull-right">充值记录</a>
+                                                    <div class="clearfix"></div>
+
                                                     <div class="row">
                                                         <div class="form-group col-12 col-sm-12 col-md-6">
                                                             <label for="recharge_money">充值金额 <span class="text-danger">*</span></label>
@@ -142,7 +145,7 @@
                                                                     <div class="form-group row align-items-center mb-4">
                                                                         <label class="col-12 col-sm-12 col-md-3 col-form-label">可用余额：</label>
                                                                         <div class="col-12 col-sm-12 col-md-8">
-                                                                            <p> <strong><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$money}</span> 元</strong></p>
+                                                                            <p> <strong><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$userInfo.money}</span> 元</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row align-items-center mb-4">
@@ -170,7 +173,7 @@
                                                                     <div class="form-group row align-items-center mb-4">
                                                                         <label class="col-12 col-sm-12 col-md-3 col-form-label">可用金币：</label>
                                                                         <div class="col-12 col-sm-12 col-md-8">
-                                                                            <p> <strong><i class="fa fa-btc" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$gold}</span>个</strong></p>
+                                                                            <p> <strong><i class="fa fa-btc" aria-hidden="true"></i>&nbsp;<span class="text-primary" style="font-size: 2rem">{$userInfo.gold}</span>个</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row align-items-center mb-4">
@@ -189,7 +192,10 @@
                                                 </div>
 
                                                 <div id="orders" class="tab-pane fade">
-                                                    <h3>Orders</h3>
+                                                    <h3>订单</h3>
+                                                    <a href="{:url('/index/order/list')}" class="pull-right">更多 & 操作</a>
+                                                    <div class="clearfix"></div>
+
                                                     <div class="table-responsive">
                                                         <table class="table">
                                                             <thead>
@@ -221,14 +227,6 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="address" class="tab-pane">
-                                                    <p>The following addresses will be used on the checkout page by default.</p>
-                                                    <h4 class="billing-address">Billing address</h4>
-                                                    <a class="btn btn-secondary my-4" href="#">edit</a>
-                                                    <p>Ororus Themes</p>
-                                                    <p>Bangladesh</p>
-                                                </div>
-
                                                 <div id="account-details" class="tab-pane fade">
                                                     <h3>账户信息 </h3>
                                                     <div class="login-form">
@@ -237,52 +235,52 @@
                                                                 <label class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">推荐人ID</label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
                                                                     <div class="form-row">
-                                                                        <p class="form-control-plaintext">11111</p>
+                                                                        <p class="form-control-plaintext">{$userInfo.parent_id}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="phone" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">手机号<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="phone" value="{$phone ? $phone : ''}" placeholder="请输入手机号">
+                                                                    <input type="text" class="form-control" id="phone" value="{$userInfo.tel ? $userInfo.tel : ''}" placeholder="请输入手机号">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="email" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">邮箱地址<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="email" value="{$email}">
+                                                                    <input type="text" class="form-control" id="email" value="{$userInfo.email}">
                                                                 </div>
                                                             </div>
                                                             <hr>
                                                             <div class="form-group row">
                                                                 <label for="alipayAccount" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收款账号<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="alipayAccount" placeholder="填写支付宝帐号" value="{$alipayAccount}">
+                                                                    <input type="text" class="form-control" id="alipayAccount" placeholder="填写支付宝帐号" value="{$userInfo.alipay_account}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="alipayName" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收款人姓名<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="alipayName" placeholder="填写支付宝姓名" value="{$alipayName}">
+                                                                    <input type="text" class="form-control" id="alipayName" placeholder="填写支付宝姓名" value="{$userInfo.alipay_name}">
                                                                 </div>
                                                             </div>
                                                             <hr>
                                                             <div class="form-group row">
                                                                 <label for="expressName" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收货人姓名<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="expressName" placeholder="快递接收人姓名" value="{$expressName}">
+                                                                    <input type="text" class="form-control" id="expressName" placeholder="快递接收人姓名" value="{$userInfo.express_name}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="expressPhone" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收货人手机号<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="expressPhone" placeholder="快递接收人手机号" value="{$expressPhone}">
+                                                                    <input type="text" class="form-control" id="expressPhone" placeholder="快递接收人手机号" value="{$userInfo.phone}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row">
                                                                 <label for="expressAddress" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">详细地址<span class="text-danger">*</span></label>
                                                                 <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-                                                                    <input type="text" class="form-control" id="expressAddress" placeholder="请填写快递详细地址" value="{$expressDetails}">
+                                                                    <input type="text" class="form-control" id="expressAddress" placeholder="请填写快递详细地址" value="{$userInfo.details}">
                                                                 </div>
                                                             </div>
 

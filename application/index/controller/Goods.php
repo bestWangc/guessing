@@ -59,7 +59,7 @@ class Goods extends Controller
             $goodsPrice = Db::name('goods')->where('id',$goods_id)->value('price');
             $amount = $buy_num*$goodsPrice;
             $userMoney = db('users')
-                ->where('id',$this->uid)
+                ->where('id',$uid)
                 ->field('money,frozen_money')
                 ->find();
             if($userMoney['money']-$userMoney['frozen_money'] < $amount){

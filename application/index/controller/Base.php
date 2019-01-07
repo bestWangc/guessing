@@ -7,12 +7,12 @@ use think\Controller;
 class Base extends Controller
 {
 
-    protected $uid;
+    protected static $uid;
     protected function initialize()
     {
         parent::initialize();
         $this->checkLogin();
-        $this->uid = session('u_id');
+        $this::$uid = session('u_id');
     }
 
     public function checkLogin(){

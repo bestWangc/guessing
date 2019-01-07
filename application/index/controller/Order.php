@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use app\tools\M3result;
 use think\Db;
 // use think\Request;
 use think\facade\Request;
@@ -13,17 +14,43 @@ class Order extends Base
         return $this->fetch();
     }
 
-    public function info(){
+    //获取订单记录
+    public static function getList(Request $request)
+    {
+        $page = $request::param('page',1);
+        $limit = $request::param('limit',10);
+
+        $m3_result = new M3result();
+        $orders = Db::name('order')
+            ->alias('o')
+            ->join('goods g','g.id = o.goods_id')
+            ->join('award_info ai','ai.id = o.award_id')
+            ->where('user_id',parent::$uid)
+            ->field('o.id,o.goods_num,o.status,g.name as goods_name,g.price,g.success_price,g.pic_url')
+            ->order('o.created_date desc')
+            ->paginate($limit,false,[
+                'page' => $page
+            ]);
+        $total = $orders->total();
+        $orders = $orders->getCollection()->all();
+        $m3_result->code = 0;
+        $m3_result->count = $total;
+        $m3_result->data = $orders;
+        $m3_result->msg = 'success';
+        return json($m3_result->toLayArray());
+    }
+
+    /*public function info(){
         $res = Db::name('users')
             ->alias('u')
             ->join('address a','a.user_id = u.id','left')
             ->join('alipay ali','ali.user_id = u.id','left')
             ->field('u.name as account,u.parent_id,u.tel,u.email,ali.alipay_account,ali.alipay_name,a.name as uname,a.phone,a.details')
-            ->where('u.id',$this->uid)
+            ->where('u.id',$this::$uid)
             ->find();
         $this->assign('info',$res);
         return $this->fetch();
-    }
+    }*/
 
     //订单排行
     public function rank(Request $request){

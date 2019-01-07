@@ -36,7 +36,7 @@ class Extract extends Base
         }
 
         //检车是否绑定支付宝
-        $alipayId = self::checkAlipay($this->uid);
+        $alipayId = self::checkAlipay($this::$uid);
         if(empty($alipayId)){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
@@ -44,7 +44,7 @@ class Extract extends Base
         }
 
         //检查余额是否足够
-        $userAmount = User::getSurplus('money-frozen_money as money',$this->uid);
+        $userAmount = User::getSurplus('money-frozen_money as money',$this::$uid);
         if($userAmount < $ext_money){
             $m3_result->code = 0;
             $m3_result->msg = '余额不足';
@@ -52,7 +52,7 @@ class Extract extends Base
         }
 
         $data = [
-            'user_id' => $this->uid,
+            'user_id' => $this::$uid,
             'amount' => $ext_money,
             'real_amount' => $real_money,
             'way' => '支付宝',
@@ -65,7 +65,7 @@ class Extract extends Base
 
         if($res){
             $updateAmount = Db::name('users')
-                ->where('id',$this->uid)
+                ->where('id',$this::$uid)
                 ->setInc('frozen_money',$ext_money);
             if($updateAmount){
                 $m3_result->code = 1;
@@ -93,7 +93,7 @@ class Extract extends Base
             return json($m3_result->toArray());
         }
 
-        $alipayId = $this->checkAlipay($this->uid);
+        $alipayId = $this->checkAlipay($this::$uid);
         if(!$alipayId){
             $m3_result->code = 0;
             $m3_result->msg = '未绑定支付宝';
@@ -101,7 +101,7 @@ class Extract extends Base
         }
 
         //检查余额是否足够
-        $userAmount = User::getSurplus('gold-frozen_gold as gold',$this->uid);
+        $userAmount = User::getSurplus('gold-frozen_gold as gold',$this::$uid);
         if($userAmount < $ext_gold){
             $m3_result->code = 0;
             $m3_result->msg = '金币不足';
@@ -109,7 +109,7 @@ class Extract extends Base
         }
 
         $data=[
-            'user_id' => $this->uid,
+            'user_id' => $this::$uid,
             'created_date' => time(),
             'purpose' => 3,
             'status' => 2,
@@ -119,7 +119,7 @@ class Extract extends Base
         $res = Db::name('apply')->insert($data);
         if($res){
             $updateGold = Db::name('users')
-                ->where('id',$this->uid)
+                ->where('id',$this::$uid)
                 ->setInc('frozen_gold',$ext_gold);
             if($updateGold){
                 $m3_result->code = 1;
@@ -150,7 +150,7 @@ class Extract extends Base
         $limit = $request::get('limit',15);
 
         $res = Db::name('extract')
-            ->where('user_id',$this->uid)
+            ->where('user_id',$this::$uid)
             ->field('id,amount,way,status,created_date,refuse_reason')
             ->order('created_date desc')
             ->paginate($limit,false,[
@@ -191,7 +191,7 @@ class Extract extends Base
         $page = $request::get('page',1);
         $limit = $request::get('limit',15);
         $res = Db::name('apply')
-            ->where('user_id',$this->uid)
+            ->where('user_id',$this::$uid)
             ->where('purpose',3)
             ->field('id,gold as amount,status,created_date')
             ->order('created_date desc')

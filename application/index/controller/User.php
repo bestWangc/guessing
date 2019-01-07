@@ -10,21 +10,18 @@ use think\facade\Request;
 
 class User extends Base
 {
-    public function index()
+    public function index(Request $request)
     {
         $userInfo = $this->getSimpleInfo();
+        $orderInfo = Order::getList($request);
+        $orderInfo = $orderInfo->getData();
+        $orderListInfo = [];
+        if($orderInfo['code'] == 0){
+            $orderListInfo = $orderInfo['data'];
+        }
         $this->assign([
-            'uname' => $userInfo['account'],
-            'rname' => $userInfo['role_name'],
-            'money' => $userInfo['money'],
-            'gold' => $userInfo['gold'],
-            'phone' => $userInfo['tel'],
-            'alipayAccount' => $userInfo['alipay_account'],
-            'alipayName' => $userInfo['alipay_name'],
-            'email' => $userInfo['email'],
-            'expressName' => $userInfo['express_name'],
-            'expressPhone' => $userInfo['phone'],
-            'expressDetails' => $userInfo['details']
+            'userInfo' => $userInfo,
+            'orderInfo' => $orderListInfo
         ]);
         return $this->fetch();
     }
@@ -32,14 +29,14 @@ class User extends Base
     //获取简单用户信息
     public function getSimpleInfo()
     {
-        $fieldList = 'u.name as account,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ul.role_name,a.name as express_name,a.phone,a.details';
+        $fieldList = 'u.name as account,u.parent_id,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ul.role_name,a.name as express_name,a.phone,a.details';
         $res = Db::name('users')
             ->alias('u')
             ->join('address a','a.user_id = u.id','left')
             ->join('alipay ali','ali.user_id = u.id','left')
             ->join('user_role ul','ul.id = u.role','left')
             ->field($fieldList)
-            ->where('u.id',$this->uid)
+            ->where('u.id',$this::$uid)
             ->find();
         return $res;
     }
@@ -98,18 +95,18 @@ class User extends Base
                 'tel' => $tel,
                 'email' => $email
             ];
-            Db::name('users')->where('id',$this->uid)->update($data);
+            Db::name('users')->where('id',$this::$uid)->update($data);
 
             $data = [
                 'alipay_name' => $alipayName,
                 'alipay_account' => $alipayAccount
             ];
-            $alipayId = Extract::checkAlipay($this->uid);
+            $alipayId = Extract::checkAlipay($this::$uid);
             if(empty($alipayId)){
-                $data['user_id'] = $this->uid;
+                $data['user_id'] = $this::$uid;
                 Db::name('alipay')->insert($data);
             } else {
-                Db::name('alipay')->where('user_id',$this->uid)->update($data);
+                Db::name('alipay')->where('user_id',$this::$uid)->update($data);
             }
 
             $data = [
@@ -117,12 +114,12 @@ class User extends Base
                 'phone' => $expressPhone,
                 'details' => $expressAddress
             ];
-            $addressId = Address::checkAddress($this->uid);
+            $addressId = Address::checkAddress($this::$uid);
             if(empty($addressId)){
-                $data['user_id'] = $this->uid;
+                $data['user_id'] = $this::$uid;
                 Db::name('address')->insert($data);
             } else {
-                Db::name('address')->where('user_id',$this->uid)->update($data);
+                Db::name('address')->where('user_id',$this::$uid)->update($data);
             }
             unset($data);
             // 提交事务
