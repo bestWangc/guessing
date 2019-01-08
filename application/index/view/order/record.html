@@ -1,0 +1,123 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="main"}
+{load href="/static/common/js/layui/css/layui.css" /}
+<style>
+    .layui-laypage{
+        float: right;
+    }
+</style>
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
+
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
+                        <span class="breadcrumb-item active">订单详情</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="main-content-wrapper">
+
+        <!-- Start of Wishlist Wrapper -->
+        <div class="wishlist-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <main id="primary" class="site-main">
+                            <div class="wishlist">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="section-title left-aligned with-border">
+                                            <h2>订单详情</h2>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="recordTbl" lay-filter="recordTbl"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {include file="base/footer"}
+</div>
+<script type="text/html" id="goodsName">
+    <a href="/index/goods/{{d.goods_id}}" class="layui-table-link">
+        <img src="{{d.pic_url}}" style="width: 2rem" alt="">
+    </a>
+</script>
+
+<script type="text/html" id="guessing">
+    {{# if (d.win == null){ }}
+    <p>未开奖</p>
+    {{# }else if(d.guessing == d.win){ }}
+    <p class="text-primary">大胜</p>
+    {{# }else{ }}
+    <p class="text-danger">惜败</p>
+    {{# } }}
+
+</script>
+
+<script type="text/html" id="gstatus">
+    {{# if (d.guessing){ }}
+    丰年
+    {{# }else{ }}
+    瑞雪
+    {{# } }}
+</script>
+
+<script type="text/html" id="barDemo">
+    <button type="button" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</button>
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</button>
+    <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit">编辑</button>
+    <button type="button" class="layui-btn layui-btn-xs" lay-event="del">删除</button>
+</script>
+
+{load href="/static/common/js/layui/layui.js" /}
+{/block}
+
+{block name="my-js"}
+<script>
+    layui.use('table', function(){
+        let table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#recordTbl'
+            ,url: 'getList'
+            ,page: {
+                layout:['prev', 'page', 'next', 'count'],
+                groups:5,
+                count:'count',
+                limit:15
+            }
+            ,cols: [[
+                {field: 'id', title: '订单 ID',align:'center',width:'10%'}
+                ,{field: 'amount', title: '商品',templet: '#goodsName',align:'center',width:'10%'}
+                ,{field: 'goods_num', title: '数量',align:'center',width:'8%'}
+                ,{field: 'amount', title: '金额',align:'center',width:'10%'}
+                ,{field: 'amount', title: '成功返额',width:'10%',align:'center',templet:function (d) {
+                        return d.success_price*d.goods_num;
+                    }}
+                ,{field: 'guessing', title: '选择',align:'center',width:'10%',templet:'#guessing'}
+                ,{field: 'created_date', title: '抢购时间',width:'10%',align:'center'}
+                ,{field: 'status', title: '状态',width:'10%',align:'center',templet:'#gstatus'}
+                ,{title: '操作',align:'center',toolbar: '#barDemo'}
+            ]]
+        });
+    });
+</script>
+{/block}

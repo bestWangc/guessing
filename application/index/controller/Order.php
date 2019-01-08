@@ -10,7 +10,14 @@ use think\facade\Request;
 class Order extends Base
 {
 
-    public function index(){
+    public function index()
+    {
+        return $this->fetch();
+    }
+
+    // 订单详情页面
+    public function record()
+    {
         return $this->fetch();
     }
 
@@ -26,7 +33,7 @@ class Order extends Base
             ->join('goods g','g.id = o.goods_id')
             ->join('award_info ai','ai.id = o.award_id')
             ->where('user_id',parent::$uid)
-            ->field('o.id,o.goods_num,o.status,g.name as goods_name,g.price,g.success_price,g.pic_url')
+            ->field('o.id,o.goods_num,o.status,o.amount,o.goods_id,o.guessing,FROM_UNIXTIME(o.created_date) AS created_date,g.name as goods_name,g.price,g.success_price,g.pic_url,ai.win')
             ->order('o.created_date desc')
             ->paginate($limit,false,[
                 'page' => $page
