@@ -5,7 +5,6 @@ namespace app\command;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
-use \simple_html_dom\simple_html_dom;
 use think\Db;
 use think\facade\Log;
 
@@ -30,7 +29,7 @@ class NewTerm extends Command
                 'created_date' => time()
             ];
         }else{
-            $termInfo = db('award_info')
+            $termInfo = Db::name('award_info')
                 ->order('id desc')
                 ->field('term_num')
                 ->find();
@@ -43,8 +42,27 @@ class NewTerm extends Command
             ];
         }
 
-        db('award_info')->insert($data);
+        $status = false;
+        while (!$status){
+            $status = $this->insertDB($data);
+        }
+
         $output->writeln('new term end.');
         return true;
+    }
+
+    protected function insertDB($data)
+    {
+        Db::startTrans();
+        $res = false;
+        try {
+            $res = Db::name('award_info')->insert($data);
+            // 提交事务
+            Db::commit();
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+        }
+        return $res;
     }
 }
