@@ -3,7 +3,6 @@
 {block name="title"}金丰年{/block}
 
 {block name="main"}
-{load href="/static/common/js/layui/css/layui.css" /}
 <style>
     .layui-laypage{
         float: right;
@@ -60,18 +59,17 @@
     </a>
 </script>
 
-<script type="text/html" id="guessing">
+<script type="text/html" id="gresult">
     {{# if (d.win == null){ }}
     <p>未开奖</p>
     {{# }else if(d.guessing == d.win){ }}
-    <p class="text-primary">大胜</p>
+    <p class="text-success">大胜</p>
     {{# }else{ }}
     <p class="text-danger">惜败</p>
     {{# } }}
-
 </script>
 
-<script type="text/html" id="gstatus">
+<script type="text/html" id="guessing">
     {{# if (d.guessing){ }}
     丰年
     {{# }else{ }}
@@ -80,19 +78,28 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <button type="button" class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail">查看</button>
-    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</button>
-    <button type="button" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edit">编辑</button>
-    <button type="button" class="layui-btn layui-btn-xs" lay-event="del">删除</button>
+    {{# if(d.status == 0){ }}
+        {{# if (d.win != null && d.guessing == d.win){ }}
+        <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="money">退款</button>
+        {{# } else { }}
+        <button type="button" class="layui-btn layui-btn-disabled layui-btn-xs">退款</button>
+        {{# } }}
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="gold">转为金币</button>
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="take">提货</button>
+    {{# }else{ }}
+    <button type="button" class="layui-btn layui-btn-disabled layui-btn-xs">退款</button>
+    <button type="button" class="layui-btn layui-btn-disabled layui-btn-xs">转为金币</button>
+    <button type="button" class="layui-btn layui-btn-disabled layui-btn-xs">提货</button>
+    {{# } }}
 </script>
 
-{load href="/static/common/js/layui/layui.js" /}
 {/block}
 
 {block name="my-js"}
 <script>
-    layui.use('table', function(){
-        let table = layui.table;
+    layui.use(['table','layer'], function(){
+        var table = layui.table;
+        var layer = layui.layer;
 
         //第一个实例
         table.render({
@@ -107,17 +114,93 @@
             ,cols: [[
                 {field: 'id', title: '订单 ID',align:'center',width:'10%'}
                 ,{field: 'amount', title: '商品',templet: '#goodsName',align:'center',width:'10%'}
-                ,{field: 'goods_num', title: '数量',align:'center',width:'8%'}
                 ,{field: 'amount', title: '金额',align:'center',width:'10%'}
                 ,{field: 'amount', title: '成功返额',width:'10%',align:'center',templet:function (d) {
                         return d.success_price*d.goods_num;
                     }}
                 ,{field: 'guessing', title: '选择',align:'center',width:'10%',templet:'#guessing'}
+                ,{field: 'status', title: '结果',width:'10%',align:'center',templet:'#gresult'}
+                ,{field: 'status', title: '状态',align:'center',width:'8%',templet:function (d) {
+                        let str = '';
+                        switch(d.status){
+                            case 1:
+                                str = '<span class="text-primary">退款中</span>';
+                                break;
+                            case 2:
+                                str = '<span class="text-info">提货中</span>';
+                                break;
+                            case 3:
+                                str = '<span class="text-info">已提货</span>';
+                                break;
+                            case 4:
+                                str = '<span class="text-primary">已退款</span>';
+                                break;
+                            case 5:
+                                str = '<span class="text-muted">已转金币</span>';
+                                break;
+                            default:
+                                str = '<span>未操作</span>';
+                        };
+                        return str;
+                    }}
                 ,{field: 'created_date', title: '抢购时间',width:'10%',align:'center'}
-                ,{field: 'status', title: '状态',width:'10%',align:'center',templet:'#gstatus'}
                 ,{title: '操作',align:'center',toolbar: '#barDemo'}
             ]]
         });
+
+        table.on('tool(recordTbl)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+
+            if(layEvent === 'money'){ //退款
+                console.log(data);
+                layer.confirm('确定要退款？', function(index){
+                    layer.close(index);
+                    let url = '/service/order/toGold';
+                    let ppstData = {
+                        order_id : data.id,
+                        type:2
+                    };
+                    ajaxPost(url,ppstData);
+                });
+            } else if(layEvent === 'gold'){ //转为金币
+                layer.confirm('真的删除行么', function(index){
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'take'){ //提货
+                //同步更新缓存对应的值
+                obj.update({
+                    username: '123'
+                    ,title: 'xxx'
+                });
+            }
+        });
+
+        var ajaxPost = function (url,data) {
+            $.ajax({
+                url : url,
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : data,
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 0){
+                        callingBack = function(){
+                            window.location.reload();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        };
     });
 </script>
 {/block}

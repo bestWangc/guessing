@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/static/index/css/ionicons.min.css">
     <link rel="stylesheet" href="/static/index/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/index/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="/static/common/js/layui/css/layui.css">
 
     <!-- Plugins stylesheet -->
     <link rel="stylesheet" href="/static/index/css/plugins.css">
@@ -33,11 +34,18 @@
 
 {block name="main"}{/block}
 
+
 <script src="/static/index/js/popper.min.js"></script>
 <script src="/static/index/js/bootstrap.min.js"></script>
 <script src="/static/index/js/plugins.js"></script>
 <script src="/static/index/js/main.js"></script>
-<script type="text/javascript" src="/static/index/js/layer/layer.js"></script>
+<script src="/static/common/js/layui/layui.js"></script>
+
+<script>
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+</script>
 {block name="my-js"}{/block}
 </body>
 </html>

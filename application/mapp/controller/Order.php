@@ -4,6 +4,7 @@ namespace app\mapp\controller;
 
 use app\tools\M3result;
 
+
 class Order extends Base
 {
     public function index(){
@@ -95,7 +96,7 @@ class Order extends Base
     }
 
     //转为金币
-    public function toGold(){
+    /*public function toGold(){
         $m3_result = new M3result();
         $order_id = input('order_id','');
         if(empty($order_id)){
@@ -112,10 +113,7 @@ class Order extends Base
 
         $gold = (int)$orderInfo['amount'];
         $gold = (int)($gold/10);
-        /*$oldGold = db('users')
-            ->where('id', $this->uid)
-            ->value('gold');*/
-        // $gold = intval(($gold+$oldGold)/10);
+
         $res = db('users')
             ->where('id',$this->uid)
             ->lock()
@@ -132,7 +130,7 @@ class Order extends Base
         $m3_result->code = 0;
         $m3_result->msg = '失败';
         return json($m3_result->toArray());
-    }
+    }*/
 
 
     //提现记录

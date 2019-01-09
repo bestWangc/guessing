@@ -44,13 +44,13 @@
                     {if($vo.status)}
                         {switch $vo.status }
                             {case 1 }
-                                <a class="b_buy_again take" href="javascript:;">退货中</a>
+                                <a class="b_buy_again take" href="javascript:;">退款中</a>
                             {/case}
                             {case 2}
                                 <a class="b_buy_again take" href="javascript:;">提货中</a>
                             {/case}
                             {case 3}
-                                <a class="b_buy_again take" href="javascript:;">已退货</a>
+                                <a class="b_buy_again take" href="javascript:;">已退款</a>
                             {/case}
                             {case 4}
                                 <a class="b_buy_again take" href="javascript:;">已提货</a>
@@ -94,16 +94,17 @@
                 shade: [0.5,'#fff']
             });
             $.ajax({
-                url : 'toGold',
+                url : '/service/order/toGold',
                 type : "POST",
                 dataType : "json",
                 cache : false,
                 data : {
-                    order_id : order_id
+                    order_id : order_id,
+                    type:1
                 },
                 success : function(data){
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };

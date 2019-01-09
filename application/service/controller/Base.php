@@ -9,7 +9,6 @@
 namespace app\service\controller;
 
 use think\Controller;
-use think\Db;
 
 class Base extends Controller
 {
