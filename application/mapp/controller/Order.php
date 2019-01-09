@@ -110,14 +110,16 @@ class Order extends Base
             ->where('o.id',$order_id)
             ->find();
 
-        $gold = $orderInfo['amount'];
-        $oldGold = db('users')
+        $gold = (int)$orderInfo['amount'];
+        $gold = (int)($gold/10);
+        /*$oldGold = db('users')
             ->where('id', $this->uid)
-            ->value('gold');
-        $gold = intval(($gold+$oldGold)/10);
+            ->value('gold');*/
+        // $gold = intval(($gold+$oldGold)/10);
         $res = db('users')
             ->where('id',$this->uid)
-            ->setField('gold',$gold);
+            ->lock()
+            ->setInc('gold',$gold);
 
         if($res){
             $toStatus = db('order')->where('id',$order_id)->setField('status',5);
