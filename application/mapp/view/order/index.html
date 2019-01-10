@@ -129,13 +129,14 @@
                 shade: [0.5,'#fff']
             });
             $.ajax({
-                url : 'takeGoods',
+                url : '/service/order/takeGoods',
                 type : "POST",
                 dataType : "json",
                 cache : false,
                 data : {
                     order_id : order_id,
-                    purpose : 2
+                    purpose : 2,
+                    type:1
                 },
                 success : function(data){
                     var callingBack = '';
@@ -164,13 +165,14 @@
                 shade: [0.5,'#fff']
             });
             $.ajax({
-                url : 'takeGoods',
+                url : '/service/order/takeGoods',
                 type : "POST",
                 dataType : "json",
                 cache : false,
                 data : {
                     order_id : order_id,
-                    purpose : 1
+                    purpose : 1,
+                    type:1
                 },
                 success : function(data){
                     var callingBack = '';

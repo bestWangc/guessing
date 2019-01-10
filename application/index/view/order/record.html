@@ -156,6 +156,17 @@
                 console.log(data);
                 layer.confirm('确定要退款？', function(index){
                     layer.close(index);
+                    let url = '/service/order/takeGoods';
+                    let ppstData = {
+                        order_id : data.id,
+                        type:2,
+                        purpose : 1
+                    };
+                    ajaxPost(url,ppstData);
+                });
+            } else if(layEvent === 'gold'){ //转为金币
+                layer.confirm('确定要转为金币？', function(index){
+                    layer.close(index);
                     let url = '/service/order/toGold';
                     let ppstData = {
                         order_id : data.id,
@@ -163,44 +174,45 @@
                     };
                     ajaxPost(url,ppstData);
                 });
-            } else if(layEvent === 'gold'){ //转为金币
-                layer.confirm('真的删除行么', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
             } else if(layEvent === 'take'){ //提货
-                //同步更新缓存对应的值
-                obj.update({
-                    username: '123'
-                    ,title: 'xxx'
+                layer.confirm('确定要提取商品？', function(index){
+                    layer.close(index);
+                    let url = '/service/order/takeGoods';
+                    let ppstData = {
+                        order_id : data.id,
+                        type:2,
+                        purpose : 2
+                    };
+                    ajaxPost(url,ppstData);
                 });
             }
         });
-
-        var ajaxPost = function (url,data) {
-            $.ajax({
-                url : url,
-                type : "POST",
-                dataType : "json",
-                cache : false,
-                data : data,
-                success : function(data){
-                    var callingBack = '';
-                    if(data.code == 0){
-                        callingBack = function(){
-                            window.location.reload();
-                        };
-                    }
-                    layer.closeAll('loading');
-                    layer.msg(data.msg,{time: 1000},callingBack);
-                },
-                error : function(data){
-                    layer.closeAll('loading');
-                    console.log(data);
-                }
-            });
-        };
     });
+    function ajaxPost(url,data) {
+        layer.load(0, {
+            shade: [0.1,'#fff']
+        });
+        $.ajax({
+            url : url,
+            type : "POST",
+            dataType : "json",
+            cache : false,
+            data : data,
+            success : function(data){
+                var callingBack = '';
+                if(data.code == 0){
+                    callingBack = function(){
+                        // window.location.reload();
+                    };
+                }
+                layer.closeAll('loading');
+                layer.msg(data.msg,{time: 1000},callingBack);
+            },
+            error : function(data){
+                layer.closeAll('loading');
+                console.log(data);
+            }
+        });
+    };
 </script>
 {/block}

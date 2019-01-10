@@ -95,44 +95,6 @@ class Order extends Base
         return json($m3_result->toArray());
     }
 
-    //转为金币
-    /*public function toGold(){
-        $m3_result = new M3result();
-        $order_id = input('order_id','');
-        if(empty($order_id)){
-            $m3_result->code = 0;
-            $m3_result->msg = '订单编号不能为空';
-            return json($m3_result->toArray());
-        }
-
-        $orderInfo = db('order o')
-            ->join('award_info ai','ai.id = o.award_id','left')
-            ->field('o.amount,o.guessing,ai.win')
-            ->where('o.id',$order_id)
-            ->find();
-
-        $gold = (int)$orderInfo['amount'];
-        $gold = (int)($gold/10);
-
-        $res = db('users')
-            ->where('id',$this->uid)
-            ->lock()
-            ->setInc('gold',$gold);
-
-        if($res){
-            $toStatus = db('order')->where('id',$order_id)->setField('status',5);
-            if($toStatus){
-                $m3_result->code = 1;
-                $m3_result->msg = '成功';
-                return json($m3_result->toArray());
-            }
-        }
-        $m3_result->code = 0;
-        $m3_result->msg = '失败';
-        return json($m3_result->toArray());
-    }*/
-
-
     //提现记录
     public function record(){
         return $this->fetch();
