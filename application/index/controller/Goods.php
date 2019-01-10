@@ -10,13 +10,13 @@ use think\Exception;
 class Goods extends Controller
 {
     public function index(){
-        $goodsId = input('id');
+        /*$goodsId = input('id');
         $goodsInfo = [];
         if(!empty($goodsId)){
             $goodsInfo = $this->getGoodsInfo($goodsId);
             $goodsInfo = $goodsInfo[0];
         }
-        $this->assign('goodsInfo',$goodsInfo);
+        $this->assign('goodsInfo',$goodsInfo);*/
         return $this->fetch();
     }
 

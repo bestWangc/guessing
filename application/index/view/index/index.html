@@ -120,18 +120,18 @@
                                 <div class="section-title left-aligned with-border">
                                     <h2>推荐产品</h2>
                                 </div>
+
                                 <div class="product-carousel-wrapper pos-r mb-half">
-                                    <div class="product-carousel with-border with-narrow-margin" data-visible-slide="2" data-visible-lg-slide="2" data-visible-md-slide="1" data-visible-sm-slide="1" data-loop="true" data-speed="1000" data-space-between="20">
-                                        <!-- Slides -->
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide product-layout product-list">
+                                    <div class="product-carousel with-border with-narrow-margin" data-visible-slide="2" data-visible-lg-slide="2" data-visible-md-slide="1" data-visible-sm-slide="1" data-space-between="20">
+                                        <div class=" product-layout product-list row">
+                                            {volist name="goodsInfo" id="vo"}
+                                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 goodsiItem">
                                                 <div class="product-list-single">
                                                     <div class="product-thumb">
                                                         <div class="product-inner media align-items-center">
                                                             <div class="product-image mr-3 mr-sm-3 mr-md-5 mr-lg-3 mr-xl-3">
-                                                                <a href="single-product.html" class="border">
-                                                                    <img src="/static/index/images/products/goods/goods_1.png" alt="Proin Lectus Ipsum" class="hover-image">
-                                                                    <img src="/static/index/images/products/goods/goods_1.png" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                <a href="/index/goods/index/{$vo.id}" class="border">
+                                                                    <img src="{$vo.pic_url}" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
                                                                 </a>
                                                             </div>
 
@@ -147,140 +147,19 @@
                                                                         </ul>
                                                                     </div>
                                                                 </div>
-                                                                <h4 class="product-name"><a href="single-product.html">尚品柠檬红茶</a></h4>
+                                                                <h4 class="product-name"><a href="/index/goods/index/{$vo.id}">{$vo.name}</a></h4>
                                                                 <p class="product-price">
-                                                                    <span class="price-old">￥330.00</span>
-                                                                    <span class="price-new">￥120.00</span>
+                                                                    <span class="price-old">￥ &nbsp;{$vo.success_price}</span>
+                                                                    <span class="price-new">￥ &nbsp;{$vo.price}</span>
                                                                 </p>
-                                                                <!--<div class="action-links">
-                                                                    <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-                                                                    <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
-                                                                    <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                                </div>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="product-list-single">
-                                                    <div class="product-thumb">
-                                                        <div class="product-inner media align-items-center">
-                                                            <div class="product-image mr-3 mr-sm-3 mr-md-5 mr-lg-3 mr-xl-3">
-                                                                <a href="single-product.html" class="border">
-                                                                    <img src="/static/index/images/products/goods/goods_2.png" alt="Proin Lectus Ipsum" class="hover-image">
-                                                                    <img src="/static/index/images/products/goods/goods_2.png" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
-                                                                </a>
-                                                            </div> <!-- end of product-image -->
-
-                                                            <div class="product-caption media-body">
-                                                                <div class="product-ratings">
-                                                                    <div class="rating-box">
-                                                                        <ul class="rating d-flex justify-content-start">
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <h4 class="product-name"><a href="single-product.html">桐木关金骏眉</a></h4>
-                                                                <p class="product-price">
-                                                                    <span class="price-old">$330.00</span>
-                                                                    <span class="price-new">$120.00</span>
-                                                                </p>
-                                                                <!--<div class="action-links">
-                                                                    <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-                                                                    <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
-                                                                    <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="swiper-slide product-layout product-list">
-                                                <div class="product-list-single">
-                                                    <div class="product-thumb">
-                                                        <div class="product-inner media align-items-center">
-                                                            <div class="product-image mr-3 mr-sm-3 mr-md-5 mr-lg-3 mr-xl-3">
-                                                                <a href="single-product.html" class="border">
-                                                                    <img src="/static/index/images/products/goods/goods_3.png" alt="Proin Lectus Ipsum" class="hover-image">
-                                                                    <img src="/static/index/images/products/goods/goods_3.png" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
-                                                                </a>
-                                                            </div> <!-- end of product-image -->
-
-                                                            <div class="product-caption media-body">
-                                                                <div class="product-ratings">
-                                                                    <div class="rating-box">
-                                                                        <ul class="rating d-flex justify-content-start">
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <h4 class="product-name"><a href="single-product.html">清香手工铁观音</a></h4>
-                                                                <p class="product-price">
-                                                                    <span class="price-old">$330.00</span>
-                                                                    <span class="price-new">$120.00</span>
-                                                                </p>
-                                                                <!--<div class="action-links">
-                                                                    <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-                                                                    <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
-                                                                    <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                                </div>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="product-list-single">
-                                                    <div class="product-thumb">
-                                                        <div class="product-inner media align-items-center">
-                                                            <div class="product-image mr-3 mr-sm-3 mr-md-5 mr-lg-3 mr-xl-3">
-                                                                <a href="single-product.html" class="border">
-                                                                    <img src="/static/index/images/products/goods/goods_4.png" alt="Proin Lectus Ipsum" class="hover-image">
-                                                                    <img src="/static/index/images/products/goods/goods_4.png" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
-                                                                </a>
-                                                            </div> <!-- end of product-image -->
-
-                                                            <div class="product-caption media-body">
-                                                                <div class="product-ratings">
-                                                                    <div class="rating-box">
-                                                                        <ul class="rating d-flex justify-content-start">
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                            <li><i class="fa fa-star"></i></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <h4 class="product-name"><a href="single-product.html">特级烟熏正山小种</a></h4>
-                                                                <p class="product-price">
-                                                                    <span class="price-old">$330.00</span>
-                                                                    <span class="price-new">$120.00</span>
-                                                                </p>
-                                                                <!--<div class="action-links">
-                                                                    <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-                                                                    <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
-                                                                    <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
-                                                                </div>-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            {/volist}
                                         </div>
 
-                                        <!-- Navigation -->
-                                        <div class="swiper-arrow top-nav next"><i class="fa fa-angle-right"></i></div>
-                                        <div class="swiper-arrow top-nav prev"><i class="fa fa-angle-left"></i></div>
                                     </div>
                                 </div>
                             </div>
