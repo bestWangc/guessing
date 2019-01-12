@@ -9,9 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-
-// Route::get('manage/login', 'manage/login/index');
-Route::get('download', 'index/download/download');
+Route::get('/download', 'index/download/download');
 
 Route::get('/index/extract/record/:type','index/extract/record');
 
