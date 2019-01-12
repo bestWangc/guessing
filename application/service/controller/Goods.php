@@ -27,7 +27,7 @@ class Goods extends Base
 
         $uid = $this->getUid($type);
         if(empty($uid)){
-            $m3_result->code = 0;
+            $m3_result->code = 3;
             $m3_result->msg = '请先登录再购买';
             return json($m3_result->toArray());
         }

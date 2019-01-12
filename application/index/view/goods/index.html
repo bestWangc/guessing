@@ -37,7 +37,6 @@
                                         <img src="{$goodsInfo.pic_url}" alt="Product Image">
                                     </div>
                                     <input type="hidden" id="goods_id" value="{$goodsInfo.id}">
-                                    <input type="hidden" id="goods_price" value="{$goodsInfo.price}">
                                     <div class="col-12 col-md-6 col-lg-6">
                                         <div class="product-details">
                                             <h3 class="product-name">{$goodsInfo.name}</h3>
@@ -164,7 +163,6 @@
             }
             let buy_num = $('.quantity').val();
             let goods_id = $('#goods_id').val();
-            let goods_price = $('#goods_price').val();
             let award_num = $('.nice-select').val();
             if(award_num == ''){
                 layer.msg('请选择升级选项',{time:1500});
@@ -195,6 +193,10 @@
                     if(data.code == 1){
                         callingBack = function () {
                             window.location.reload();
+                        };
+                    }else if(data.code == 3){
+                        callingBack = function () {
+                            location.href='/index/login';
                         };
                     }
                     layer.closeAll('loading');
