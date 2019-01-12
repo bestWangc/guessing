@@ -158,7 +158,7 @@ class Order extends Base
     }
 
     //从缓存中获取uid
-    private function getUid($type)
+    /*private function getUid($type)
     {
         $uid = '';
         if($type == 1){
@@ -167,5 +167,5 @@ class Order extends Base
             $uid = Session::get('u_id');
         }
         return $uid;
-    }
+    }*/
 }

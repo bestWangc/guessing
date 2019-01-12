@@ -15,8 +15,8 @@ class Goods extends Base
         $this->assign([
             'goods_id' => $goods_id,
             'goods_info' => $goods_info,
-            'nowTermNum' => $termInfo[0]['term_num'],
-            'award_id' => $termInfo[0]['id'],
+            /*'nowTermNum' => $termInfo[0]['term_num'],
+            'award_id' => $termInfo[0]['id'],*/
         ]);
         return $this->fetch();
     }

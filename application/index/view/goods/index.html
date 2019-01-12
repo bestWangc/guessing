@@ -36,6 +36,8 @@
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                         <img src="{$goodsInfo.pic_url}" alt="Product Image">
                                     </div>
+                                    <input type="hidden" id="goods_id" value="{$goodsInfo.id}">
+                                    <input type="hidden" id="goods_price" value="{$goodsInfo.price}">
                                     <div class="col-12 col-md-6 col-lg-6">
                                         <div class="product-details">
                                             <h3 class="product-name">{$goodsInfo.name}</h3>
@@ -60,7 +62,7 @@
                                                 <div class="product-size clearfix">
                                                     <label>升级选择</label>
                                                     <select class="nice-select">
-                                                        <option>选择升级选项</option>
+                                                        <option value="">选择升级选项</option>
                                                         <option value="0">瑞雪</option>
                                                         <option value="1">丰年</option>
                                                     </select>
@@ -69,9 +71,6 @@
                                                     <ul class="color-list">
                                                         <li>
                                                             <label>距离本期结束</label>
-                                                            <div class="time-item1">
-
-                                                            </div>
                                                             <p class="text-info" style="font-size: 1.5rem">
                                                                 <span id="minute_show">00分</span>
                                                                 <span id="second_show">00秒</span>
@@ -88,7 +87,7 @@
                                                             </form>
                                                         </li>
                                                         <li>
-                                                            <button type="button" class="default-btn">立即购买</button>
+                                                            <button type="button" class="default-btn submitBuy">立即购买</button>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -125,32 +124,6 @@
                                                     </ul>
                                                 </div>
                                                 <div class="tab-pane fade" id="tab_review" role="tabpanel" aria-labelledby="nav_review">
-                                                    <!--<div class="product-review">
-                                                        <div class="customer-review">
-                                                            <table class="table table-striped table-bordered">
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td><strong>Ororus Themes</strong></td>
-                                                                    <td>09/04/2018</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="2">
-                                                                        <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</p>
-                                                                        <div class="product-ratings d-flex justify-content-center">
-                                                                            <ul class="rating d-flex mr-4">
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star"></i></li>
-                                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                                <li><i class="fa fa-star-o"></i></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>-->
                                                     <ul class="text-center">
                                                         <li class="text-muted">1) &nbsp;开奖前2分钟不允许购买下单。</li>
                                                         <li class="text-muted">2) &nbsp;根据时时彩结果判定升级，公平公正。</li>
@@ -178,5 +151,61 @@
 
 {block name="my-js"}
 <script>
+    $(function () {
+        $('.submitBuy').click(function() {
+            let currentHour = (new Date()).getHours();
+            if(currentHour >= 22 || currentHour < 10){
+                layer.msg('购买时间为10点-22点，请稍候',{time:1500});
+                return false;
+            }
+            if($('#minute_show')[0].innerText.substring(1,2) < 2){
+                layer.msg('现在不允许购买，请稍候',{time:1500});
+                return false;
+            }
+            let buy_num = $('.quantity').val();
+            let goods_id = $('#goods_id').val();
+            let goods_price = $('#goods_price').val();
+            let award_num = $('.nice-select').val();
+            if(award_num == ''){
+                layer.msg('请选择升级选项',{time:1500});
+                return false;
+            }
+            if(buy_num == ''){
+                layer.msg('请选择抢购数量',{time:1500});
+                return false;
+            }
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+
+            $.ajax({
+                url : '/service/goods/buyGoods',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    buy_num : buy_num,
+                    award_num : award_num,
+                    goods_id : goods_id,
+                    type:2
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 1){
+                        callingBack = function () {
+                            window.location.reload();
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        });
+    });
 </script>
 {/block}
