@@ -34,7 +34,13 @@ class Income extends Base
         if(!empty($result)){
             $finalData['income'] = array_column($result,'income');
             $finalData['out'] = array_column($result,'out');
+            $finalData['out'] = array_map(function ($item) {
+                return $item < 0 ? $item : -$item;
+            }, $finalData['out']);
             $finalData['netIncome'] = array_column($result,'net_income');
+            $finalData['netIncome'] = array_map(function ($item) {
+                return bcdiv($item,1,2);
+            }, $finalData['netIncome']);
             $xAxisData = array_column($result,'created_date');
             foreach ($xAxisData as &$key){
                 $key = date('m/d',$key);
