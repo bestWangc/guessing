@@ -1912,9 +1912,6 @@ body .color-offset {
 }
 
 body .color-white,
-body .bg-facebook,
-body .bg-facebook:hover,
-body .bg-facebook:focus,
 body .bg-twitter,
 body .bg-twitter:hover,
 body .bg-twitter:focus,
@@ -3312,7 +3309,7 @@ to a reusable component.
 
 .product-details .product-actions .nice-select {
     padding-right: 40px;
-    width: 75px;
+    /*width: 75px;*/
 }
 
 .product-details .product-actions .nice-select .current {
@@ -3361,7 +3358,7 @@ to a reusable component.
     color: #232323;
     padding: 11px;
     border: 1px solid #ededed;
-    width: 70px;
+    /*width: 70px;*/
     height: 40px;
 }
 
@@ -6052,7 +6049,7 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
     content: "\f165";
 }
 
-.single-product-wrapper .gallery-with-thumbs .swiper-arrow {
+.single-product-wrapper .swiper-arrow {
     bottom: 65px;
 }
 
@@ -6940,7 +6937,7 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
 
 .feedback-wrapper .feedback-socials .list-inline-item a i {
     margin-right: 0;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /************************************************************

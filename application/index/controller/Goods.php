@@ -6,17 +6,20 @@ use app\tools\M3result;
 use think\Controller;
 use think\Db;
 use think\Exception;
+use think\facade\Request;
 
 class Goods extends Controller
 {
-    public function index(){
-        /*$goodsId = input('id');
+    public function index(Request $request)
+    {
+        $goodsId = $request::param('id',1);
         $goodsInfo = [];
         if(!empty($goodsId)){
             $goodsInfo = $this->getGoodsInfo($goodsId);
+            var_dump($goodsInfo);
             $goodsInfo = $goodsInfo[0];
         }
-        $this->assign('goodsInfo',$goodsInfo);*/
+        $this->assign('goodsInfo',$goodsInfo);
         return $this->fetch();
     }
 
@@ -112,7 +115,7 @@ class Goods extends Controller
         }
         $res = Db::name('goods')
             ->where($where)
-            ->field('id,name,price,success_price,pic_url')
+            ->field('id,name,price,success_price,pic_url,success_price-price as dprice')
             ->select();
         return $res;
     }
