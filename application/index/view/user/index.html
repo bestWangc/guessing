@@ -269,6 +269,15 @@
                                                                     <input type="text" class="form-control" id="alipayName" placeholder="填写支付宝姓名" value="{$userInfo.alipay_name}">
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group row">
+                                                                <label for="alipayPic" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收款二维码<span class="text-danger">*</span></label>
+                                                                <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+                                                                    <input type="file" class="form-control" id="alipayPic" data-val="{$userInfo.alipay_pic}" title="jpg/png图片">
+                                                                    {if(!empty($userInfo.alipay_pic))}
+                                                                    <img src="{$userInfo.alipay_pic}" alt="" style="width: 10rem">
+                                                                    {/if}
+                                                                </div>
+                                                            </div>
                                                             <hr>
                                                             <div class="form-group row">
                                                                 <label for="expressName" class="col-12 col-sm-12 col-md-4 col-lg-3 col-form-label">收货人姓名<span class="text-danger">*</span></label>
@@ -435,6 +444,10 @@ $(function () {
         let expressName = $('#expressName').val();
         let expressPhone = $('#expressPhone').val();
         let expressAddress = $('#expressAddress').val();
+        let alipayPic = $('#alipayPic')[0].files[0];
+        if(alipayPic == undefined){
+            alipayPic = $('#alipayPic').data('val');
+        }
 
         if(alipayAccount.length == 0 || alipayName == 0){
             layer.msg('请填写支付宝收款信息',{time:1000});
@@ -448,24 +461,33 @@ $(function () {
             layer.msg('请填写正确的收货人手机号',{time:1000});
             return false;
         }
+        if(alipayPic == undefined){
+            layer.msg('请上传支付宝收款二维码',{time:1000});
+            return false;
+        }
 
+        let postData = new FormData();
+        postData.append('tel',tel);
+        postData.append('email',email);
+        postData.append('alipayAccount',alipayAccount);
+        postData.append('alipayName',alipayName);
+        postData.append('alipayPic',alipayPic);
+        postData.append('expressName',expressName);
+        postData.append('expressPhone',expressPhone);
+        postData.append('expressAddress',expressAddress);
+
+        // return false;
         layer.load(0, {
             shade: [0.1,'#fff']
         });
         $.ajax({
-            url : 'saveUserInfo',
+            url : '/index/user/saveUserInfo',
             type : "POST",
             dataType : "json",
             cache : false,
-            data : {
-                tel : tel,
-                email : email,
-                alipayAccount : alipayAccount,
-                alipayName : alipayName,
-                expressName : expressName,
-                expressPhone : expressPhone,
-                expressAddress : expressAddress
-            },
+            data : postData,
+            processData: false,  // 告诉jQuery不要去处理发送的数据
+            contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
             success : function(data){
                 console.log(data);
                 var callingBack = '';

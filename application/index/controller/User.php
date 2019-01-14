@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use app\tools\M3result;
 use think\Db;
+use think\Exception;
 use think\facade\Log;
 use think\facade\Session;
 use think\facade\Request;
@@ -29,7 +30,7 @@ class User extends Base
     //获取简单用户信息
     public function getSimpleInfo()
     {
-        $fieldList = 'u.name as account,u.parent_id,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ul.role_name,a.name as express_name,a.phone,a.details';
+        $fieldList = 'u.name as account,u.parent_id,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ali.alipay_pic,ul.role_name,a.name as express_name,a.phone,a.details';
         $res = Db::name('users')
             ->alias('u')
             ->join('address a','a.user_id = u.id','left')
@@ -72,10 +73,21 @@ class User extends Base
         $expressName = $request::post('expressName');
         $expressPhone = $request::post('expressPhone');
         $expressAddress = $request::post('expressAddress');
+        $alipayPic = $request::file('alipayPic');
+
         if(empty($alipayAccount) || empty($alipayName)){
             $m3_result->code = 0;
             $m3_result->msg = '请填写支付宝收款信息';
             return json($m3_result->toArray());
+        }
+
+        if(is_null($alipayPic)){
+            $alipayPic = $request::post('alipayPic');
+            if(empty($alipayPic)){
+                $m3_result->code = 0;
+                $m3_result->msg = '请上支付宝收款二维码';
+                return json($m3_result->toArray());
+            }
         }
 
         if(empty($expressAddress) || empty($expressName)){
@@ -88,7 +100,6 @@ class User extends Base
             $m3_result->msg = '请填写正确的收货人手机号';
             return json($m3_result->toArray());
         }
-
         Db::startTrans();
         try {
             $data = [
@@ -97,16 +108,27 @@ class User extends Base
             ];
             Db::name('users')->where('id',$this::$uid)->update($data);
 
-            $data = [
-                'alipay_name' => $alipayName,
-                'alipay_account' => $alipayAccount
-            ];
-            $alipayId = Extract::checkAlipay($this::$uid);
-            if(empty($alipayId)){
-                $data['user_id'] = $this::$uid;
-                Db::name('alipay')->insert($data);
-            } else {
-                Db::name('alipay')->where('user_id',$this::$uid)->update($data);
+            if(gettype($alipayPic) != 'string'){
+                $upload = $this->uploadPic($alipayPic,$this::$uid.'alipay');
+            }else{
+                $upload = $alipayPic;
+            }
+
+            if(!empty($upload)){
+                $data = [
+                    'alipay_name' => $alipayName,
+                    'alipay_account' => $alipayAccount,
+                    'alipay_pic' => $upload
+                ];
+                $alipayId = Extract::checkAlipay($this::$uid);
+                if(empty($alipayId)){
+                    $data['user_id'] = $this::$uid;
+                    Db::name('alipay')->insert($data);
+                } else {
+                    Db::name('alipay')->where('user_id',$this::$uid)->update($data);
+                }
+            }else{
+                throw new Exception('error');
             }
 
             $data = [
@@ -134,5 +156,18 @@ class User extends Base
             $m3_result->msg = '错误，请重试';
             return json($m3_result->toArray());
         }
+    }
+
+    public function uploadPic($file,$name)
+    {
+        $fileName = '/uploads/alipay/';
+        $name = md5($name);
+        $info = $file->validate(['ext'=>'jpg,png'])->move('./uploads/alipay',$name);
+        if($info){
+            $fileName .= $info->getSaveName();
+            return $fileName;
+        }
+
+        return '';
     }
 }
