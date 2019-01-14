@@ -18,10 +18,6 @@ window.setInterval(function () {
         second = intDiff-(minute*60);
     }
 
-    if(minute == 0 || second ==0){
-        window.location.reload();
-    }
-
     if (minute <= 9) minute = '0' + minute;
     if (second <= 9) second = '0' + second;
     $('#minute_show').html('<s></s>' + minute + '分');
