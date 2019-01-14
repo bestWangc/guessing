@@ -51,7 +51,7 @@ class Extract extends Base
             ->join('users su','su.id = se.user_id')
             ->join('alipay sa','sa.id = se.alipay_id')
             ->where('se.status',2)
-            ->field('se.id,su.name,se.user_id,se.amount,se.real_amount,se.way,se.status,se.created_date,sa.alipay_account,sa.alipay_name')
+            ->field('se.id,su.name,se.user_id,se.amount,se.real_amount,se.way,se.status,se.created_date,sa.alipay_account,sa.alipay_name,sa.alipay_pic')
             ->order('se.created_date asc')
             ->select();
         if(!empty($result)){

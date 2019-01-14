@@ -1,7 +1,7 @@
 {extend name="layout/layout"}
 {block name="title"}提现申请{/block}
 {block name="body"}
-<body class="gray-bg">
+<body class="gray-bg" style="height: 100%">
 <div class="wrapper wrapper-content">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -88,7 +88,14 @@
 
         window.operateEvents = {
             'click .agree': function (e, value, row) {
-                commonOperate(row.id,row.user_id,row.amount,1);
+                console.log(row);
+                let imgStr = '<img src="'+row.alipay_pic+'" style="width: 22rem">';
+                layer.confirm(imgStr, {
+                    btn: ['已支付','关闭'],
+                    offset: '5rem' //距离顶部
+                }, function(){
+                    commonOperate(row.id,row.user_id,row.amount,1);
+                });
             },
             'click .refuse': function (e, value, row) {
                 layer.prompt({title: '拒绝原因', formType: 2}, function(text, index){
