@@ -34,3 +34,19 @@ function jsonRes($code,$msg,$data=[]){
     $m3_result->data = $data;
     return json($m3_result->toArray());
 }
+
+//上传图片
+function uploadPic($file,$name)
+{
+
+    $fileName = '/uploads/alipay/';
+    $name = md5($name);
+    $info = $file->validate(['ext'=>'jpg,png'])->move('./uploads/alipay',$name);
+
+    if($info){
+        $fileName .= $info->getSaveName();
+        return $fileName;
+    }
+
+    return '';
+}

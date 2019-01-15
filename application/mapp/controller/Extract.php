@@ -162,13 +162,13 @@ class Extract extends Base
         return $this->fetch();
     }
 
-    //检车是否绑定支付宝
-    public function checkAlipay($user_id){
+    //检查是否绑定支付宝
+    public static function checkAlipay($user_id){
         $alipayId = db('alipay')
             ->where('user_id',$user_id)
-            ->field('id')
-            ->find();
-        if(!empty($alipayId)) return $alipayId['id'];
+            ->value('id');
+
+        if(!empty($alipayId)) return $alipayId;
         return '';
     }
 

@@ -85,7 +85,7 @@ class User extends Base
             $alipayPic = $request::post('alipayPic');
             if(empty($alipayPic)){
                 $m3_result->code = 0;
-                $m3_result->msg = '请上支付宝收款二维码';
+                $m3_result->msg = '请选择支付宝收款二维码';
                 return json($m3_result->toArray());
             }
         }
@@ -109,7 +109,7 @@ class User extends Base
             Db::name('users')->where('id',$this::$uid)->update($data);
 
             if(gettype($alipayPic) != 'string'){
-                $upload = $this->uploadPic($alipayPic,$this::$uid.'alipay');
+                $upload = uploadPic($alipayPic,$this::$uid.'alipay');
             }else{
                 $upload = $alipayPic;
             }
@@ -158,16 +158,4 @@ class User extends Base
         }
     }
 
-    public function uploadPic($file,$name)
-    {
-        $fileName = '/uploads/alipay/';
-        $name = md5($name);
-        $info = $file->validate(['ext'=>'jpg,png'])->move('./uploads/alipay',$name);
-        if($info){
-            $fileName .= $info->getSaveName();
-            return $fileName;
-        }
-
-        return '';
-    }
 }

@@ -21,7 +21,18 @@
                 <input type="text" name="alipay_name" placeholder="请输入支付宝用户名" value="{if (isset($name) && !empty($name))}{$name}{/if}">
             </div>
         </label>
+
+        <label>
+            <div>
+                <span>点击上传收款二维码</span>
+                <input type="file" accept="image/*" style="opacity: 0" id="cameraImage" data-val="{$alipay_pic}">
+            </div>
+        </label>
     </form>
+    <div style="text-align: center">
+        <img src="{$alipay_pic}" alt="" style="width: 3rem;">
+    </div>
+
 </div>
 <div class="tijiao">
     <span>保存</span>
@@ -34,8 +45,13 @@
 <script>
     $(function () {
         $('.tijiao').click(function(){
-            var account = $('input[name="alipay_account"]').val();
-            var name = $('input[name="alipay_name"]').val();
+            let account = $('input[name="alipay_account"]').val();
+            let name = $('input[name="alipay_name"]').val();
+            let aliPic = $('#cameraImage')[0].files[0];
+
+            if(aliPic == undefined){
+                aliPic = $('#cameraImage').data('val');
+            }
 
             if(account == ''){
                 layer.msg('请填写支付宝账号',{time:1500});
@@ -46,15 +62,24 @@
                 return false;
             }
 
+            if(aliPic == ''){
+                layer.msg('请选择收款二维码',{time:1500});
+                return false;
+            }
+
+            let postData = new FormData();
+            postData.append('account',account);
+            postData.append('name',name);
+            postData.append('alipayPic',aliPic);
+
             $.ajax({
                 url : 'alipayInfo',
                 type : "POST",
                 dataType : "json",
                 cache : false,
-                data : {
-                    account : account,
-                    name : name
-                },
+                data : postData,
+                processData: false,  // 告诉jQuery不要去处理发送的数据
+                contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
                 success : function(data){
                     var callingBack = '';
                     if(data.code == 1){
