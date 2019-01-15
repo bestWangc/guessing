@@ -13,7 +13,6 @@ use think\facade\Session;
 
 class Base extends Controller
 {
-
     //从缓存中获取uid
     protected function getUid($type)
     {
