@@ -113,7 +113,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-12 col-sm-12 col-md-6">
                                                             <label for="recharge_money">充值金额 <span class="text-danger">*</span></label>
-                                                            <input type="text" class="form-control" id="recharge_money">
+                                                            <input type="text" class="form-control" id="recharge_money" placeholder="最低充值10元">
                                                         </div>
                                                     </div>
 
@@ -127,10 +127,10 @@
                                                             <span data-val="1"><img src="/static/index/images/zhifubao.png" alt="">支付宝支付</span>
                                                         </div>
                                                         <div class="col-6 col-sm-6 col-md-6">
-                                                            <span data-val="2"><img src="/static/index/images/weixin.png" alt="">微信支付</span>
+                                                            <span data-val="0"><img src="/static/index/images/weixin.png" alt="">微信支付</span>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-outline-info btn-lg pull-right">充值</button>
+                                                    <button type="button" class="btn btn-outline-info btn-lg pull-right rechargeBtn">充值</button>
                                                     <div class="clearfix"> </div>
                                                 </div>
 
@@ -328,12 +328,67 @@ $(function () {
         $(this).addClass('active').siblings('div').removeClass('active');
     });
 
+    //充值
+    $('.rechargeBtn').click(function () {
+        let recharge_money = $('#recharge_money').val();
+        if(recharge_money == ''){
+            layer.msg('充值金额不能为空',{time:1000});
+            return false;
+        }
+        let errorNum = textChecked(recharge_money);
+        if(errorNum > 0){
+            layer.msg('充值金额只能为数字',{time:1000});
+            return false;
+        }
+        recharge_money = parseInt(recharge_money);
+        if(recharge_money < 10){
+            layer.msg('最少充值10元',{time:1000});
+            return false;
+        }
+
+        let recharge_way = $('.rechargeWay div.active').children('span').data('val');
+        if(recharge_way == undefined){
+            layer.msg('请选择充值方式',{time:1000});
+            return false;
+        }
+
+        layer.load(0, {
+            shade: [0.1,'#fff']
+        });
+        $.ajax({
+            url : '/index/recharge/createRecharge',
+            type : "POST",
+            dataType : "json",
+            cache : false,
+            data : {
+                recharge_money : recharge_money,
+                recharge_way : recharge_way
+            },
+            success : function(data){
+                console.log(data);
+                var callingBack = '';
+                if(data.code == 1){
+                    callingBack = function(){
+                        //window.location.reload();
+                    };
+                }
+                layer.closeAll('loading');
+                layer.msg(data.msg,{time: 1500},callingBack);
+            },
+            error : function(data){
+                console.log(data);
+            }
+        });
+
+
+    });
+
     //余额提现
     $('.submitMoney').click(function () {
         let money = $('#ext_money').val();
         let userMoney = parseInt($('#userMoney').val());
         if(money === ''){
-            layer.msg('请输入提现金额。',{time:1000});
+            layer.msg('请输入提现金额',{time:1000});
             return false;
         }
         let errorNum = textChecked(money);
@@ -374,7 +429,6 @@ $(function () {
                 console.log(data);
             }
         });
-
     });
     
     //金币提现

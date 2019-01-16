@@ -3,6 +3,7 @@
 namespace app\mapp\controller;
 
 use app\tools\M3result;
+use app\service\controller\Recharge as sRecharge;
 
 class Recharge extends Base
 {
@@ -17,11 +18,8 @@ class Recharge extends Base
         //充值方式，0为微信，1为支付宝
         $pay_way = input('pay_way',0);
 
-        $m3_result = new M3result();
         if($moeny_amount == 0){
-            $m3_result->code = 0;
-            $m3_result->msg = '充值金额不能为0';
-            return json($m3_result->toArray());
+            return jsonRes(1,'充值金额不能为0');
         }
         $data = [
             'user_id' => $this->uid,
@@ -32,12 +30,8 @@ class Recharge extends Base
         ];
         $res = db('recharge')->insert($data);
         if($res){
-            $m3_result->code = 1;
-            $m3_result->msg = '充值记录创建成功';
-            return json($m3_result->toArray());
+            return jsonRes(0,'充值记录创建成功');
         }
-        $m3_result->code = 0;
-        $m3_result->msg = '未知错误，请重试';
-        return json($m3_result->toArray());
+        return jsonRes(1,'未知错误，请重试');
     }
 }

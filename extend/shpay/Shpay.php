@@ -1,22 +1,22 @@
 <?php
 namespace shpay;
 
+
 class Shpay
 {
     //生产环境地址
-    // const URL = 'https://showmoney.cn/scanpay/unified';
-    const URL = 'https://116.236.215.18:10017/scanpay/unified';
+    const URL = 'https://showmoney.cn/scanpay/unified';
     static $mchntid = '250451653110005';//商户号
     static $inscd = '92501888';//  //机构号
-    static $terminalid = 'CLCPAY';//终端号
-    static $key = 'xxxxxxxxxxxxxxxxxxxxxxxx';
+    static $terminalid = 'ygcs11';//终端号
+    static $key = 'c61e3d40ee1f3ff48191c6f543f07cff';
 
     static $conf = [
         'version'   =>  '2.1',
         'signType'  =>  'SHA256',
         'charset'   =>  'utf-8',
-        'backUrl'   =>  'http://pay.clcbec.cn/nofity',
-        'frontUrl'  =>  'http://pay.clcbec.cn/front'
+        'backUrl'   =>  'http://baidu.com/nofity',
+        'frontUrl'  =>  'http://baidu.com/front'
     ];
 
     /**
@@ -25,34 +25,35 @@ class Shpay
      * @param unknown $input
      * @return bool
      */
-    public function createOrder($orderNum,$needPay,$attach='') {
+    public function createOrder($orderNum,$needPay,$way,$attach='') {
 
-        $postData['attach'] = $attach;//附加数据原样返回
-        $postData['orderNum'] = $orderNum;
-        $postData['txamt'] = str_pad( ( $needPay*100 ), 12, "0", STR_PAD_LEFT );
+        $postData['attach']=$attach;//附加数据原样返回
+        $postData['orderNum']=$orderNum;
+        $postData['txamt']=str_pad( ( $needPay*100 ), 12, "0", STR_PAD_LEFT );
 
-        $postData['txndir'] = "Q";
-        $postData['busicd'] = 'PAUT';//预下单
-        $postData['chcd'] = 'ALP';//ALP：支付宝，WXP：微信
 
-        $postData['backUrl'] = static::$conf['backUrl'];
-        //$postData['frontUrl'] = static::$conf['frontUrl'];
-        $postData['version'] = static::$conf['version'];
-        $postData['signType'] = static::$conf['signType'];
-        $postData['charset'] = static::$conf['charset'];
-        $postData['terminalid'] = static::$terminalid;//终端号
-        $postData['mchntid'] = static::$mchntid;//商户号
-        $postData['inscd'] = static::$inscd;//机构号
+        $postData['txndir']="Q";
+        $postData['busicd']='PAUT';//预下单
+        //$postData['chcd']='ALP';//ALP：支付宝，WXP：微信
+        $postData['chcd']=$way;//ALP：支付宝，WXP：微信
+
+        $postData['backUrl']=static::$conf['backUrl'];
+        //$postData['frontUrl']=static::$conf['frontUrl'];
+        $postData['version']=static::$conf['version'];
+        $postData['signType']=static::$conf['signType'];
+        $postData['charset']=static::$conf['charset'];
+        $postData['terminalid']=static::$terminalid;//终端号
+        $postData['mchntid']=static::$mchntid;//商户号
+        $postData['inscd']=static::$inscd;//机构号
         $postData['sign'] = self::sign($postData);
         $reqPar =json_encode($postData);
         $res = self::curlPost(self::URL, $reqPar);
         if (self::checkSign(json_decode($res,true))) {
             return $res;
         }else{
-            return 'error';
+            return '';
         }
     }
-
     /**
      *	H5支付接口
      *
@@ -67,7 +68,7 @@ class Shpay
 
         //$postData['txndir']="Q";
         $postData['busicd']='WPAY';//H5支付
-        $postData['chcd']='ALP';//ALP：支付宝，WXP：微信
+        $postData['chcd']='WXP';//ALP：支付宝，WXP：微信
 
         $postData['backUrl']=static::$conf['backUrl'];
         $postData['frontUrl']=static::$conf['frontUrl'];
@@ -81,7 +82,6 @@ class Shpay
         $requestURL = self::URL. "?data=".base64_encode($reqPar);
         return $requestURL;
     }
-
     /**
      * 功能：订单状态查询
      *
@@ -107,6 +107,9 @@ class Shpay
         return json_decode($res);
     }
 
+
+
+    /************************工具类方法***************************/
     final static protected function crateData($method,$biz_content){
         if (is_array($biz_content)&& count($biz_content)>2) {
 
@@ -128,8 +131,14 @@ class Shpay
         //echo self::SinParamsToString($retruData);
         //exit;
         return $retruData;
+        # code...
     }
-
+    /**
+     * 功能： 生成签名
+     *
+     * @param unknown $data
+     * @return string
+     */
     final static protected function sign( &$data ) {
         $signPars = "";
         ksort($data);
@@ -144,7 +153,6 @@ class Shpay
         $sign=bin2hex($sign);
         return $sign;
     }
-
     /**
      * 功能： 签名验证
      *
@@ -192,4 +200,6 @@ class Shpay
             return false;
         }
     }
+
+
 }
