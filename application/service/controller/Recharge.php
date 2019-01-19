@@ -9,6 +9,7 @@ class Recharge extends Base
 {
     public static function createRecharge($uid,$rMoney,$rWay)
     {
+        // return jsonRes(0,'success',['url' => "https://qr.alipay.com/bax08125jckhnx0bl0lo20f6",'way' => $rWay]);
         if($rMoney == 0){
             return jsonRes(1,'请输入正确的金额');
         }
@@ -26,6 +27,7 @@ class Recharge extends Base
             'created_date' => time(),
             'way' => $rWay
         ];
+
         Db::startTrans();
         try {
             $result = Db::name('recharge')
@@ -38,9 +40,11 @@ class Recharge extends Base
                     $way = 'WXP'; //微信
                 }
                 $resUrl = $shpay->createOrder($orderNum,$rMoney,$way);
-                var_dump($resUrl);
                 if(!empty($resUrl)){
-
+                    $resUrl = json_decode($resUrl);
+                    if(property_exists($resUrl,'qrcode') && !empty($resUrl->qrcode)){
+                        $result = ['url' => $resUrl->qrcode,'way' => $rWay];
+                    }
                 }else{
                     throw new Exception('充值失败,请重试');
                 }
@@ -49,7 +53,7 @@ class Recharge extends Base
             }
             // 提交事务
             Db::commit();
-
+            return jsonRes(0,'success',$result);
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();

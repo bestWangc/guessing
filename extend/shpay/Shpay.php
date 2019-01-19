@@ -2,7 +2,11 @@
 namespace shpay;
 
 
-class Shpay
+use think\Controller;
+use think\facade\Config;
+use think\facade\Env;
+
+class Shpay extends Controller
 {
     //生产环境地址
     const URL = 'https://showmoney.cn/scanpay/unified';
@@ -15,9 +19,17 @@ class Shpay
         'version'   =>  '2.1',
         'signType'  =>  'SHA256',
         'charset'   =>  'utf-8',
-        'backUrl'   =>  'http://baidu.com/nofity',
-        'frontUrl'  =>  'http://baidu.com/front'
+        'backUrl'   =>  '',
+        'frontUrl'  =>  ''
     ];
+
+    //初始化方法
+    protected function initialize()
+    {
+        /* 消息通知地址 */
+        self::$conf['backUrl'] = "http://{$_SERVER['HTTP_HOST']}/service/pay/payBack";
+        self::$conf['frontUrl'] = "http://{$_SERVER['HTTP_HOST']}/service/pay/payFront";;
+    }
 
     /**
      *	预下单
@@ -30,7 +42,6 @@ class Shpay
         $postData['attach']=$attach;//附加数据原样返回
         $postData['orderNum']=$orderNum;
         $postData['txamt']=str_pad( ( $needPay*100 ), 12, "0", STR_PAD_LEFT );
-
 
         $postData['txndir']="Q";
         $postData['busicd']='PAUT';//预下单
@@ -107,9 +118,6 @@ class Shpay
         return json_decode($res);
     }
 
-
-
-    /************************工具类方法***************************/
     final static protected function crateData($method,$biz_content){
         if (is_array($biz_content)&& count($biz_content)>2) {
 
@@ -200,6 +208,4 @@ class Shpay
             return false;
         }
     }
-
-
 }

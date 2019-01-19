@@ -7086,3 +7086,13 @@ header.header-type-2 .header-cart-area .dropdown-toggle .cart-text {
 #recharge button{
     margin-top: 2rem;
 }
+
+.rechargeModal{
+    margin: 2rem 1rem;
+    display: none;
+}
+.rechargeModal p{
+    margin: 1rem 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+}
