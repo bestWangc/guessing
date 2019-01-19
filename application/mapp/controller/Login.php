@@ -13,10 +13,4 @@ class Login extends Controller
     public function register(){
         return $this->fetch();
     }
-
-    //找回密码
-    public function findpw(){
-        return '找回密码';
-    }
-
 }

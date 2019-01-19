@@ -51,7 +51,7 @@
                     }
             }
             if(ext_money > money_num){
-                layer.msg('提现金额过大',{time:1500});
+                layer.msg('金额不足',{time:1500});
                 return false;
             }
 
@@ -65,7 +65,7 @@
                 },
                 success : function(data){
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };

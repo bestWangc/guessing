@@ -143,8 +143,9 @@
         $('.submit_tel').click(function() {
             var telNum = $(this).prev().val();
             if(telNum != ''){
-                if(telNum.length != 11){
-                    layer.msg('请填写正确的手机号',{time:1500});
+                let pattern = /^1[34578]\d{9}$/;
+                if(!pattern.test(telNum)){
+                    layer.msg('请填写正确的手机号',{time:1000});
                     return false;
                 }
                 //加载遮罩层
@@ -190,13 +191,13 @@
                 },
                 cache : false,
                 success : function(data){
+                    layer.closeAll('loading');
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function () {
                             window.location.reload();
                         };
                     }
-                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){

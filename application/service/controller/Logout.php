@@ -8,7 +8,6 @@
 
 namespace app\service\controller;
 
-use app\tools\M3result;
 use think\facade\Session;
 use think\Request;
 
@@ -29,9 +28,7 @@ class Logout extends Base
                 break;
         }
         session(null);
-        $m3_result = new M3result();
-        $m3_result->code = 1;
-        $m3_result->msg = '注销成功';
-        return json($m3_result->toArray());
+
+        return jsonRes(0,'注销成功');
     }
 }

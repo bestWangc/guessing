@@ -2,7 +2,6 @@
 
 namespace app\index\controller;
 
-use app\tools\M3result;
 use think\Db;
 use think\facade\Request;
 
@@ -26,7 +25,6 @@ class Order extends Base
         $page = $request::param('page',1);
         $limit = $request::param('limit',10);
 
-        $m3_result = new M3result();
         $orders = Db::name('order')
             ->alias('o')
             ->join('goods g','g.id = o.goods_id')
@@ -39,11 +37,8 @@ class Order extends Base
             ]);
         $total = $orders->total();
         $orders = $orders->getCollection()->all();
-        $m3_result->code = 0;
-        $m3_result->count = $total;
-        $m3_result->data = $orders;
-        $m3_result->msg = 'success';
-        return json($m3_result->toLayArray());
+
+        return jsonLayRes(0,'success',$total,$orders);
     }
 
     //订单排行
@@ -97,71 +92,4 @@ class Order extends Base
             ->select();
         return $data;
     }
-
-    //提货、退货
-    public function takeGoods()
-    {
-        $m3_result = new M3result();
-        $order_id = input('order_id','');
-        $purpose = input('purpose',0);
-        if(empty($order_id)){
-            $m3_result->code = 0;
-            $m3_result->msg = '订单编号不能为空';
-            return json($m3_result->toArray());
-        }
-        $applyOrderNum = db('apply')
-            ->where('order_id',$order_id)
-            ->count();
-        if($applyOrderNum > 0){
-            $m3_result->code = 0;
-            $m3_result->msg = '订单请勿重复提交';
-            return json($m3_result->toArray());
-        }
-        $addressInfo = db('address')
-            ->where('user_id',$this->uid)
-            ->field('id')
-            ->count();
-        if(!$addressInfo){
-            $m3_result->code = 0;
-            $m3_result->msg = '未设置收货地址';
-            return json($m3_result->toArray());
-        }
-
-        if ($purpose == 2){
-            //查询余额是否够10元
-            $balance = db('users')
-                ->where('user_id',$this->uid)
-                ->field('money')
-                ->find();
-            if($balance['money'] < 10){
-                $m3_result->code = 0;
-                $m3_result->msg = '金额不足10元，无法提货';
-                return json($m3_result->toArray());
-            }
-        }
-
-        $data=[
-            'order_id' => $order_id,
-            'user_id' => $this->uid,
-            'created_date' => time(),
-            'purpose' => $purpose,
-            'status' => 2
-        ];
-        $res = db('apply')
-            ->insert($data);
-
-        if($res){
-            $changeOrderStatus = db('order')->where('id',$order_id)->setField('status',$purpose);
-            if($changeOrderStatus){
-                $m3_result->code = 1;
-                $m3_result->msg = '提交成功';
-                return json($m3_result->toArray());
-            }
-        }
-
-        $m3_result->code = 0;
-        $m3_result->msg = '未知错误，请重试';
-        return json($m3_result->toArray());
-    }
-
 }

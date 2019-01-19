@@ -2,18 +2,18 @@
 
 namespace app\mapp\controller;
 
-use app\tools\M3result;
 use think\facade\Request;
 use think\Db;
 use think\Exception;
 
 class User extends Base
 {
-    public function index(){
+    public function index()
+    {
         $userInfo = $this->getUserInfo();
 
-        $adressNum = db('address')
-            ->where('user_id', session('user_id'))
+        $adressNum = Db::name('address')
+            ->where('user_id', $this->uid)
             ->count();
 
         $this->assign([
@@ -30,8 +30,9 @@ class User extends Base
 
     //获取user信息
     //获取用户信息
-    public function getUserInfo(){
-        $userInfo = db('users')
+    public function getUserInfo()
+    {
+        $userInfo = Db::name('users')
             ->where('id', $this->uid)
             ->field('name,gold,photo,money,tel,email,frozen_money,frozen_gold')
             ->find();
@@ -39,9 +40,10 @@ class User extends Base
     }
 
     //支付宝信息
-    public function alipay(){
-        $alipayInfo = db('alipay')
-            ->where('user_id',session('user_id'))
+    public function alipay()
+    {
+        $alipayInfo = Db::name('alipay')
+            ->where('user_id',$this->uid)
             ->field('alipay_account,alipay_name,alipay_pic')
             ->find();
 
@@ -62,24 +64,18 @@ class User extends Base
         $alipay_name = $request::post('name','');
         $alipayPic = $request::file('alipayPic');
 
-        $m3_result = new M3result();
         if(empty($alipay_account) || empty($alipay_name)){
-            $m3_result->code = 0;
-            $m3_result->msg = '信息内容不能为空';
-            return json($m3_result->toArray());
+            return jsonRes(1,'信息内容不能为空');
         }
         if(is_null($alipayPic)){
             $alipayPic = $request::post('alipayPic');
             if(empty($alipayPic)){
-                $m3_result->code = 0;
-                $m3_result->msg = '请选择支付宝收款二维码';
-                return json($m3_result->toArray());
+                return jsonRes(1,'请选择支付宝收款二维码');
             }
         }
 
         Db::startTrans();
         try {
-
             if(gettype($alipayPic) != 'string'){
                 $upload = uploadPic($alipayPic,$this->uid.'alipay');
             }else{
@@ -106,38 +102,34 @@ class User extends Base
             unset($data);
             // 提交事务
             Db::commit();
-            $m3_result->code = 1;
-            $m3_result->msg = '保存成功';
-            return json($m3_result->toArray());
+            return jsonRes(0,'保存成功');
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
-            $m3_result->code = 0;
-            $m3_result->msg = '错误，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(1,'错误，请重试');
         }
     }
 
     //添加手机号
-    public function addTel(){
-        $tel_num = input('tel_num','');
-        $m3_result = new M3result();
+    public function addTel(Request $request)
+    {
+        $tel_num = $request::param('tel_num','');
+
         if(empty($tel_num)){
-            $m3_result->code = 0;
-            $m3_result->msg = '手机号不能为空';
-            return json($m3_result->toArray());
+            return jsonRes(1,'手机号不能为空');
         }
-        $res = db('users')
+        $pattern = '/^1[34578]\d{9}$/';
+        if(!preg_match($pattern,$tel_num)){
+            return jsonRes(1,'请填写正确的手机号');
+        }
+
+        $res = Db::name('users')
             ->where('id', $this->uid)
             ->setField('tel', $tel_num);
         if($res){
-            $m3_result->code = 1;
-            $m3_result->msg = '保存成功';
-            return json($m3_result->toArray());
+            return jsonRes(0,'保存成功');
         }
-        $m3_result->code = 0;
-        $m3_result->msg = '没有任何修改';
-        return json($m3_result->toArray());
-    }
 
+        return jsonRes(1,'没有任何修改');
+    }
 }

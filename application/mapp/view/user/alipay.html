@@ -82,7 +82,7 @@
                 contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
                 success : function(data){
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };

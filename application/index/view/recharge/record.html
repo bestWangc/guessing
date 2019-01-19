@@ -1,0 +1,87 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="main"}
+{load href="/static/common/js/layui/css/layui.css" /}
+<style>
+    .layui-laypage{
+        float: right;
+    }
+</style>
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
+
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
+                        <span class="breadcrumb-item active">充值记录</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="main-content-wrapper">
+
+        <!-- Start of Wishlist Wrapper -->
+        <div class="wishlist-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <main id="primary" class="site-main">
+                            <div class="wishlist">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="section-title left-aligned with-border">
+                                            <h2>充值记录</h2>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="rechargeTbl" lay-filter="rechargeTbl"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {include file="base/footer"}
+</div>
+
+{load href="/static/common/js/layui/layui.js" /}
+{/block}
+
+{block name="my-js"}
+<script>
+    layui.use('table', function(){
+        let table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#rechargeTbl'
+            ,url: '/index/recharge/goldRecordData'
+            ,page: {
+                layout:['prev', 'page', 'next', 'count'],
+                groups:5,
+                count:'count',
+                limit:15
+            }
+            ,cols: [[
+                {field: 'id', title: '编号'}
+                ,{field: 'amount', title: '提现金额'}
+                ,{field: 'way', title: '收款方式'}
+                ,{field: 'created_date', title: '申请时间'}
+                ,{field: 'updated_date', title: '到账时间'}
+                ,{field: 'status', title: '状态'}
+            ]]
+        });
+    });
+</script>
+{/block}

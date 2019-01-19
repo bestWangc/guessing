@@ -1,18 +1,18 @@
 <?php
-
 namespace app\mapp\controller;
 
-use app\tools\M3result;
 use app\service\controller\Recharge as sRecharge;
 
 class Recharge extends Base
 {
-    public function index(){
+    public function index()
+    {
         return $this->fetch();
     }
 
     //创建充值记录
-    public function createRecharge(){
+    public function createRecharge()
+    {
         //充值金额，默认是0
         $moeny_amount = input('moeny_amount',0);
         //充值方式，0为微信，1为支付宝

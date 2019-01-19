@@ -1,13 +1,9 @@
 <?php
-
 namespace app\index\controller;
 
-use app\tools\M3result;
 use think\Controller;
 use think\Db;
-use think\Exception;
 use think\facade\Request;
-use think\facade\Session;
 
 class Goods extends Controller
 {

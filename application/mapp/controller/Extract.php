@@ -1,13 +1,13 @@
 <?php
-
 namespace app\mapp\controller;
 
-use app\tools\M3result;
+use think\facade\Request;
+use think\Db;
 
 class Extract extends Base
 {
-    public function index(){
-
+    public function index()
+    {
         $money = $this->getSurplus('money-frozen_money as surplus_money');
         $this->assign([
             'money' => $money
@@ -16,39 +16,25 @@ class Extract extends Base
     }
 
     //提现
-    public function doMoneyExtract(){
-        $m3_result = new M3result();
-        $ext_money = input('ext_money/d',0);
+    public function doMoneyExtract(Request $request)
+    {
+
+        $ext_money = $request::param('ext_money/d',0);
         $real_money = (int)bcmul($ext_money, '0.9');
 
         if(empty($ext_money)){
-            $m3_result->code = 0;
-            $m3_result->msg = '提现金额不能为0';
-            return json($m3_result->toArray());
+            return jsonRes(1,'提现金额不能为0');
         }
 
         $alipayId = $this->checkAlipay($this->uid);
         if(!$alipayId){
-            $m3_result->code = 0;
-            $m3_result->msg = '未绑定支付宝';
-            return json($m3_result->toArray());
+            return jsonRes(1,'未绑定支付宝');
         }
 
         $userAmount = $this->getSurplus('money-frozen_money as money');
         if($userAmount < $ext_money){
-            $m3_result->code = 0;
-            $m3_result->msg = '余额不足';
-            return json($m3_result->toArray());
+            return jsonRes(1,'余额不足');
         }
-
-        /*$extractCount = db('extract')
-            ->where('user_id', $this->uid)
-            ->count();
-        if($extractCount){
-            $m3_result->code = 0;
-            $m3_result->msg = '还有提现未处理，请等待';
-            return json($m3_result->toArray());
-        }*/
 
         $data = [
             'user_id' => $this->uid,
@@ -60,28 +46,25 @@ class Extract extends Base
             'created_date' => time()
         ];
 
-        $res = db('extract')
+        $res = Db::name('extract')
             ->insert($data);
 
         if($res){
-            $updateAmount = db('users')
+            $updateAmount = Db::name('users')
                 ->where('id',$this->uid)
                 ->setInc('frozen_money',$ext_money);
             if($updateAmount){
-                $m3_result->code = 1;
-                $m3_result->msg = '提交成功';
-                return json($m3_result->toArray());
+                return jsonRes(0,'提交成功');
             }
         }
 
-        $m3_result->code = 0;
-        $m3_result->msg = '提现失败';
-        return json($m3_result->toArray());
+        return jsonRes(1,'提交失败');
     }
 
     //提现记录
-    public function record(){
-        $info = db('extract')
+    public function record()
+    {
+        $info = Db::name('extract')
             ->where('user_id',$this->uid)
             ->where('status',1)
             ->field('created_date,amount,refuse_reason')
@@ -93,34 +76,29 @@ class Extract extends Base
 
 
     //金币换钱
-    public function goldToMoney(){
+    public function goldToMoney()
+    {
         $goldNum = $this->getsurplus('gold-frozen_gold as surplus_gold');
         $this->assign('gold',$goldNum);
         return $this->fetch();
     }
 
     //执行金币兑换
-    public function doGoldToMoney(){
-        $m3_result = new M3result();
-        $ext_gold = input('ext_gold',0);
+    public function doGoldToMoney(Request $request)
+    {
+        $ext_gold = $request::param('ext_gold',0);
         if(empty($ext_gold)){
-            $m3_result->code = 0;
-            $m3_result->msg = '兑换金币不能为0';
-            return json($m3_result->toArray());
+            return jsonRes(1,'兑换金币不能为0');
         }
 
         $alipayId = $this->checkAlipay($this->uid);
         if(!$alipayId){
-            $m3_result->code = 0;
-            $m3_result->msg = '未绑定支付宝';
-            return json($m3_result->toArray());
+            return jsonRes(1,'未绑定支付宝');
         }
 
         $userGold = $this->getSurplus('gold-frozen_gold');
         if($userGold < $ext_gold){
-            $m3_result->code = 0;
-            $m3_result->msg = '金币不足';
-            return json($m3_result->toArray());
+            return jsonRes(1,'金币不足');
         }
 
         $data=[
@@ -131,28 +109,25 @@ class Extract extends Base
             'gold' => $ext_gold
         ];
 
-        $res = db('apply')
+        $res = Db::name('apply')
             ->insert($data);
         if($res){
-            $updateGold = db('users')
+            $updateGold = Db::name('users')
                 ->where('id',$this->uid)
                 ->setInc('frozen_gold',$ext_gold);
             if($updateGold){
-                $m3_result->code = 1;
-                $m3_result->msg = '提交成功';
-                return json($m3_result->toArray());
+                return jsonRes(0,'提交成功');
             }
         }
 
-        $m3_result->code = 0;
-        $m3_result->msg = '兑换失败';
-        return json($m3_result->toArray());
+        return jsonRes(1,'兑换失败');
     }
 
 
     //兑换记录
-    public function goldRecord(){
-        $info = db('apply')
+    public function goldRecord()
+    {
+        $info = Db::name('apply')
             ->where('user_id',$this->uid)
             ->where('status',1)
             ->field('created_date,gold')
@@ -163,8 +138,9 @@ class Extract extends Base
     }
 
     //检查是否绑定支付宝
-    public static function checkAlipay($user_id){
-        $alipayId = db('alipay')
+    public static function checkAlipay($user_id)
+    {
+        $alipayId = Db::name('alipay')
             ->where('user_id',$user_id)
             ->value('id');
 
@@ -173,8 +149,9 @@ class Extract extends Base
     }
 
     //获取剩余金币或者金额
-    public function getSurplus($field){
-        $num = db('users')
+    public function getSurplus($field)
+    {
+        $num = Db::name('users')
             ->where('id',$this->uid)
             ->value($field);
         return $num;

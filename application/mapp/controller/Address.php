@@ -1,16 +1,17 @@
 <?php
-
 namespace app\mapp\controller;
 
-use app\tools\M3result;
+use think\facade\Request;
+use think\Db;
 
 class Address extends Base
 {
-    public function index(){
+    public function index()
+    {
 
-        $addressInfo = db('address')
+        $addressInfo = Db::name('address')
             ->where('user_id',session('user_id'))
-            ->field('name,phone,details,postal_code')
+            ->field('name,phone,details')
             ->find();
         if(!empty($addressInfo)){
             $this->assign([
@@ -25,17 +26,15 @@ class Address extends Base
     }
 
     //添加地址
-    public function add(){
-        $name = input('reci_name','');
-        $tel = input('tel','');
-        $address_detail = input('address_detail','');
-        $postal_code = input('postal_code','');
+    public function add(Request $request)
+    {
+        $name = $request::param('reci_name','');
+        $tel = $request::param('tel','');
+        $address_detail = $request::param('address_detail','');
+        $postal_code = $request::param('postal_code','');
 
-        $m3_result = new M3result();
         if(empty($name) || empty($tel) || empty($address_detail) || empty($postal_code)){
-            $m3_result->code = 0;
-            $m3_result->msg = '信息内容不能为空';
-            return json($m3_result->toArray());
+            return jsonRes(1,'信息内容不能为空');
         }
 
         $data=[
@@ -46,23 +45,19 @@ class Address extends Base
             'postal_code' => $postal_code
         ];
 
-        $oldInfo = db('address')->where('user_id',$this->uid)->find();
+        $oldInfo = Db::name('address')->where('user_id',$this->uid)->find();
         if(empty($oldInfo)){
-            $res = db('address')
+            $res = Db::name('address')
                 ->insert($data);
         }else{
-            $res = db('address')
+            $res = Db::name('address')
                 ->where('user_id', $this->uid)
                 ->update($data);
         }
         if($res){
-            $m3_result->code = 1;
-            $m3_result->msg = '保存成功';
-            return json($m3_result->toArray());
+            return jsonRes(0,'保存成功');
         }
 
-        $m3_result->code = 0;
-        $m3_result->msg = '保存失败，请重试';
-        return json($m3_result->toArray());
+        return jsonRes(1,'保存失败，请重试');
     }
 }

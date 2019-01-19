@@ -4,7 +4,8 @@ namespace app\mapp\controller;
 
 class News extends Base
 {
-    public function index(){
+    public function index()
+    {
         $orderInfo = controller('order')->getOrderInfo($this->uid);
 
         $this->assign([

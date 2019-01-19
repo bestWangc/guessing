@@ -8,9 +8,7 @@
 
 namespace app\mapp\controller;
 
-use think\App;
 use think\Controller;
-use think\Request;
 
 class Base extends Controller
 {

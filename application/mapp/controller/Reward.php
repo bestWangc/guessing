@@ -1,7 +1,7 @@
 <?php
-
 namespace app\mapp\controller;
 
+use think\Db;
 
 class Reward extends Base
 {
@@ -22,8 +22,9 @@ class Reward extends Base
     }
 
     //获取开奖信息
-    public function getAwardInfo($limit){
-        $award = db('award_info')
+    public function getAwardInfo($limit)
+    {
+        $award = Db::name('award_info')
             ->field('id,term_num,result,created_date,win')
             ->order('id desc')
             ->limit($limit)

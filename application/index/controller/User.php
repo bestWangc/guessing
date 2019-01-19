@@ -2,11 +2,8 @@
 
 namespace app\index\controller;
 
-use app\tools\M3result;
 use think\Db;
 use think\Exception;
-use think\facade\Log;
-use think\facade\Session;
 use think\facade\Request;
 
 class User extends Base
@@ -54,20 +51,16 @@ class User extends Base
     // 保存用户信息
     public function saveUserInfo(Request $request)
     {
-        $m3_result = new M3result();
         $tel = $request::post('tel');
         $pattern = '/^1[34578]\d{9}$/';
         if(!preg_match($pattern,$tel)){
-            $m3_result->code = 0;
-            $m3_result->msg = '请填写正确的手机号';
-            return json($m3_result->toArray());
+            return jsonRes(1,'请填写正确的手机号');
         }
         $email = $request::post('email');
         if(empty($email) || !strpos($email,'@')){
-            $m3_result->code = 0;
-            $m3_result->msg = '请填写正确的邮箱';
-            return json($m3_result->toArray());
+            return jsonRes(1,'请填写正确的邮箱');
         }
+
         $alipayAccount = $request::post('alipayAccount');
         $alipayName = $request::post('alipayName');
         $expressName = $request::post('expressName');
@@ -76,29 +69,21 @@ class User extends Base
         $alipayPic = $request::file('alipayPic');
 
         if(empty($alipayAccount) || empty($alipayName)){
-            $m3_result->code = 0;
-            $m3_result->msg = '请填写支付宝收款信息';
-            return json($m3_result->toArray());
+            return jsonRes(1,'请填写支付宝收款信息');
         }
 
         if(is_null($alipayPic)){
             $alipayPic = $request::post('alipayPic');
             if(empty($alipayPic)){
-                $m3_result->code = 0;
-                $m3_result->msg = '请选择支付宝收款二维码';
-                return json($m3_result->toArray());
+                return jsonRes(1,'请选择支付宝收款二维码');
             }
         }
 
         if(empty($expressAddress) || empty($expressName)){
-            $m3_result->code = 0;
-            $m3_result->msg = '请填写收货人信息';
-            return json($m3_result->toArray());
+            return jsonRes(1,'请填写收货人信息');
         }
         if(!preg_match($pattern,$expressPhone)){
-            $m3_result->code = 0;
-            $m3_result->msg = '请填写正确的收货人手机号';
-            return json($m3_result->toArray());
+            return jsonRes(1,'请填写正确的收货人手机号');
         }
         Db::startTrans();
         try {
@@ -146,15 +131,12 @@ class User extends Base
             unset($data);
             // 提交事务
             Db::commit();
-            $m3_result->code = 1;
-            $m3_result->msg = '保存成功';
-            return json($m3_result->toArray());
+
+            return jsonRes(0,'保存成功');
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
-            $m3_result->code = 0;
-            $m3_result->msg = '错误，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(1,'错误，请重试');
         }
     }
 

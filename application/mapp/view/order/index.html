@@ -103,13 +103,13 @@
                     type:1
                 },
                 success : function(data){
+                    layer.closeAll('loading');
                     var callingBack = '';
                     if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };
                     }
-                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
@@ -139,13 +139,13 @@
                     type:1
                 },
                 success : function(data){
+                    layer.closeAll('loading');
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };
                     }
-                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){
@@ -175,13 +175,13 @@
                     type:1
                 },
                 success : function(data){
+                    layer.closeAll('loading');
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };
                     }
-                    layer.closeAll('loading');
                     layer.msg(data.msg,{time: 1000},callingBack);
                 },
                 error : function(data){

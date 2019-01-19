@@ -9,29 +9,27 @@
 namespace app\service\controller;
 
 use app\tools\M3result;
+use think\facade\Request;
+use think\Db;
 
 class Register extends Base
 {
-    public function index(){
-        $userName = input('username', "");
-        $userPwd = input('userpwd', "");
-        $email = input('email', "");
-        $parent_id = input('parent', 1);
+    public function index(Request $request)
+    {
+        $userName = $request::param('username', "");
+        $userPwd = $request::param('userpwd', "");
+        $email = $request::param('email', "");
+        $parent_id = $request::param('parent', 1);
 
-        $m3_result = new M3result();
         if(empty($userName) || empty($userPwd) || empty($email)){
-            $m3_result->code = 0;
-            $m3_result->msg = '信息填写不全，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(1,'信息填写不全，请重试');
         }
-        $oldUserInfo = db('users')
+        $oldUserInfo = Db::name('users')
             ->where('name',$userName)
             ->count('id');
 
         if(!!$oldUserInfo){
-            $m3_result->code = 0;
-            $m3_result->msg = '帐号已存在，请重试';
-            return json($m3_result->toArray());
+            return jsonRes(1,'帐号已存在，请重新填写');
         }
 
         $data = [
@@ -43,16 +41,12 @@ class Register extends Base
             'parent_id' => $parent_id,
             'created_date' => time()
         ];
-        $creatUser = db('users')->insert($data);
+        $creatUser = Db::name('users')->insert($data);
 
         if($creatUser){
-            $m3_result->code = 1;
-            $m3_result->msg = '注册成功';
-            return json($m3_result->toArray());
+            return jsonRes(0,'注册成功');
         }
 
-        $m3_result->code = 0;
-        $m3_result->msg = '注册失败，请重试';
-        return json($m3_result->toArray());
+        return jsonRes(1,'注册失败，请重试');
     }
 }

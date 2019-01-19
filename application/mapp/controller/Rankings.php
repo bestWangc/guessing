@@ -1,11 +1,12 @@
 <?php
-
 namespace app\mapp\controller;
 
+use think\Db;
 
 class Rankings extends Base
 {
-    public function index(){
+    public function index()
+    {
         $day = strtotime(date("Y-m-d"),time());
         $dayRank = $this->getRankings($day);
 
@@ -24,8 +25,9 @@ class Rankings extends Base
     }
 
     //获取日订单，周订单，月订单最多的人信息
-    public function getRankings($time){
-        $data = db('order')
+    public function getRankings($time)
+    {
+        $data = Db::name('order')
             ->alias('o')
             ->leftJoin('users u','u.id = o.user_id')
             ->where('o.created_date','>', $time)

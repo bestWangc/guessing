@@ -1,6 +1,8 @@
 <?php
 namespace app\mapp\controller;
 
+use think\Db;
+
 class Index extends Base
 {
     public function index()
@@ -18,12 +20,12 @@ class Index extends Base
         }
 
         //获取商品信息
-        $goodsInfo = db('goods')
+        $goodsInfo = Db::name('goods')
             ->field('id,name,price,success_price,pic_url')
             ->select();
 
         //最近的购买
-        $orderInfo = db('order')
+        $orderInfo = Db::name('order')
             ->alias('o')
             ->leftJoin('goods g','g.id = o.goods_id')
             ->where('user_id', $this->uid)
@@ -42,7 +44,6 @@ class Index extends Base
             'goodsInfo' => $goodsInfo,
             'orderInfo' => $orderInfo,
             'award' => $award
-
         ]);
         return $this->fetch();
     }

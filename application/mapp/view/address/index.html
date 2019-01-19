@@ -27,12 +27,6 @@
                 <input type="text" name="address_detail" placeholder="请输入详细地址" value="{if (isset($address) && !empty($address))}{$address}{/if}">
             </div>
         </label>
-        <label>
-            <div>
-                <span>邮政编码：</span>
-                <input type="text" name="postal_code" placeholder="请输入邮政编码" value="{if (isset($code) && !empty($code))}{$code}{/if}">
-            </div>
-        </label>
     </form>
 </div>
 <div class="tijiao">
@@ -46,32 +40,26 @@
 <script>
     $(function () {
         $('.tijiao').click(function(){
-            var tel = $('input[name="reci_tel"]').val();
-            var reci_name = $('input[name="reci_name"]').val();
-            var address_detail = $('input[name="address_detail"]').val();
-            var postal_code = $('input[name="postal_code"]').val();
+            let tel = $('input[name="reci_tel"]').val();
+            let reci_name = $('input[name="reci_name"]').val();
+            let address_detail = $('input[name="address_detail"]').val();
+
             if(tel == ''){
                 layer.msg('请填写手机号',{time:1500});
                 return false;
             }
+            let pattern = /^1[34578]\d{9}$/;
+            if(!pattern.test(tel)){
+                layer.msg('请填写正确的手机号',{time:1500});
+                return false;
+            }
+
             if(reci_name == ''){
                 layer.msg('请填写收货人',{time:1500});
                 return false;
             }
             if(address_detail == ''){
                 layer.msg('请填写详细收货地址',{time:1500});
-                return false;
-            }
-            if(postal_code == ''){
-                layer.msg('请填写邮政编码',{time:1500});
-                return false;
-            }
-            if(isNaN(parseInt(tel)) || tel.length != 11) {
-                layer.msg('手机号填写不正确',{time:1500});
-                return false;
-            }
-            if(isNaN(parseInt(postal_code))){
-                layer.msg('邮编填写不正确',{time:1500});
                 return false;
             }
 
@@ -83,12 +71,11 @@
                 data : {
                     reci_name : reci_name,
                     tel : tel,
-                    address_detail : address_detail,
-                    postal_code : postal_code
+                    address_detail : address_detail
                 },
                 success : function(data){
                     var callingBack = '';
-                    if(data.code == 1){
+                    if(data.code == 0){
                         callingBack = function(){
                             location.href='/mapp/user';
                         };

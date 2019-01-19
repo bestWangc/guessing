@@ -35,6 +35,16 @@ function jsonRes($code,$msg,$data=[]){
     return json($m3_result->toArray());
 }
 
+//返回layui json
+function jsonLayRes($code,$msg,$total,$data=[]){
+    $m3_result = new M3result();
+    $m3_result->code = $code;
+    $m3_result->count = $total;
+    $m3_result->msg = $msg;
+    $m3_result->data = $data;
+    return json($m3_result->toArray());
+}
+
 //上传图片
 function uploadPic($file,$name)
 {
