@@ -15,7 +15,6 @@ class Pay extends Base
         Log::error('11111111111111');
         Log::error($allParams);
         Log::error('2222222222222');
-        Log::error($request::get());
 
         return 'SUCCESS';
     }
@@ -27,7 +26,6 @@ class Pay extends Base
         Log::error('11111111111111');
         Log::error($allParams);
         Log::error('2222222222222');
-        Log::error($request::get());
 
         return 'SUCCESS';
     }
