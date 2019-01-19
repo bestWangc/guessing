@@ -59,10 +59,10 @@
                                                     <br>
                                                     <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;
                                                     支付宝：
-                                                    {if(empty($alipayAccount))}
+                                                    {if(empty($userInfo.alipay_account))}
                                                     <i class="fa fa-times" style="color: red" aria-hidden="true"></i>
                                                     {else /}
-                                                    <span class="text-muted">{$alipayAccount}</span>
+                                                    <span class="text-muted">{$userInfo.alipay_account}</span>
                                                     {/if}
                                                 </p>
                                             </div>

@@ -1,10 +1,7 @@
 <?php
 namespace shpay;
 
-
 use think\Controller;
-use think\facade\Config;
-use think\facade\Env;
 
 class Shpay extends Controller
 {

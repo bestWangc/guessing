@@ -9,7 +9,6 @@ class Recharge extends Base
 {
     public static function createRecharge($uid,$rMoney,$rWay)
     {
-        // return jsonRes(0,'success',['url' => "https://qr.alipay.com/bax08125jckhnx0bl0lo20f6",'way' => $rWay]);
         if($rMoney == 0){
             return jsonRes(1,'请输入正确的金额');
         }
