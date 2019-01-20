@@ -48,7 +48,7 @@
                                                 <tbody>
                                                 {volist name="rankData" id="vo"}
                                                 <tr>
-                                                    <td><a href="javascript:;"><img src="{$vo.photo}" alt="" style="width: 3.5rem;" title="photo">{$vo.name}</a></td>
+                                                    <td><a href="javascript:;"><img src="{$vo.photo}" alt="" style="width: 3.5rem;" title="photo">{:substr_replace($vo.name,"*****",-3)}</a></td>
                                                     <td>{$vo.orderNum}</td>
                                                     <td>{$vo.goods_num}</td>
                                                     <td>{$vo.amounts}</td>
