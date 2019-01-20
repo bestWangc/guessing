@@ -349,10 +349,10 @@ $(function () {
             return false;
         }
         recharge_money = parseInt(recharge_money);
-        /*if(recharge_money < 10){
+        if(recharge_money < 10){
             layer.msg('最少充值10元',{time:1000});
             return false;
-        }*/
+        }
 
         let recharge_way = $('.rechargeWay div.active').children('span').data('val');
         if(recharge_way == undefined){
