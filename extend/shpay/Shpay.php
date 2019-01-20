@@ -68,7 +68,7 @@ class Shpay extends Controller
      * @param unknown $input
      * @return bool
      */
-    public function createOrder_H5($orderNum,$needPay,$attach='') {
+    public function createOrder_H5($orderNum,$needPay,$way,$attach='') {
 
         $postData['attach']=$attach;//附加数据原样返回
         $postData['orderNum']=$orderNum;
@@ -76,7 +76,8 @@ class Shpay extends Controller
 
         //$postData['txndir']="Q";
         $postData['busicd']='WPAY';//H5支付
-        $postData['chcd']='WXP';//ALP：支付宝，WXP：微信
+        //$postData['chcd']='WXP';//ALP：支付宝，WXP：微信
+        $postData['chcd']=$way;//ALP：支付宝，WXP：微信
 
         $postData['backUrl']=static::$conf['backUrl'];
         $postData['frontUrl']=static::$conf['frontUrl'];

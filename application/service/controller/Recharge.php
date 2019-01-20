@@ -7,7 +7,7 @@ use shpay\Shpay;
 
 class Recharge extends Base
 {
-    public static function createRecharge($uid,$rMoney,$rWay)
+    public static function createRecharge($uid,$rMoney,$rWay,$isH5 = 0)
     {
         if($rMoney == 0){
             return jsonRes(1,'请输入正确的金额');
@@ -15,7 +15,6 @@ class Recharge extends Base
         if(is_null($rWay)){
             return jsonRes(1,'请选择充值方式');
         }
-
         //流水编号
         $orderNum = date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
         $data = [
@@ -38,13 +37,22 @@ class Recharge extends Base
                 }else{
                     $way = 'WXP'; //微信
                 }
-                $resUrl = $shpay->createOrder($orderNum,$rMoney,$way);
-                if(!empty($resUrl)){
-                    $resUrl = json_decode($resUrl);
-                    if(property_exists($resUrl,'qrcode') && !empty($resUrl->qrcode)){
-                        $result = ['url' => $resUrl->qrcode,'way' => $rWay];
+                if($isH5){
+                    $resUrl = $shpay->createOrder_H5($orderNum,$rMoney,$way);
+                    if(!empty($resUrl)){
+                        $result = ['url' => $resUrl,'way' => $rWay];
                     }
                 }else{
+                    $resUrl = $shpay->createOrder($orderNum,$rMoney,$way);
+                    if(!empty($resUrl)){
+                        $resUrl = json_decode($resUrl);
+                        if(property_exists($resUrl,'qrcode') && !empty($resUrl->qrcode)){
+                            $result = ['url' => $resUrl->qrcode,'way' => $rWay];
+                        }
+                    }
+                }
+
+                if(empty($result)){
                     throw new Exception('充值失败,请重试');
                 }
             }else{

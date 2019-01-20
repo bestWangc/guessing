@@ -46,9 +46,6 @@
     <span>充值</span>
 </div>
 
-<div id="wxzf" class="hidden">
-    <img src="/static/mapp/images/weixin.png" alt="" style="width: 100%">
-</div>
 <div id="alipay" class="hidden">
     <img src="/static/mapp/images/zhifubao.jpg" alt="" style="width: 100%">
 </div>
@@ -89,31 +86,41 @@
                 return false;
             }
 
-            if(pay_way == 0){
+            /*if(pay_way == 0){
                 title = '微信支付';
                 var content = $('#wxzf');
             }else if(pay_way == 1){
                 title = '支付宝支付';
                 var content = $('#alipay');
-            }
+            }*/
+
             $.ajax({
-                url : 'createRecharge',
+                url : '/mapp/recharge/createRecharge',
                 type : "POST",
                 dataType : "json",
                 cache : false,
                 data : {
-                    moeny_amount : moeny_amount,
-                    pay_way : pay_way
+                    recharge_money : moeny_amount/10,
+                    recharge_way : pay_way
                 },
-                success : function(data){
-                    if(data.code == 0){
-                        layer.open({
+                success : function(res){
+                    if(res.code == 0){
+                        /*if(res.data.way == 0){
+                            title = '微信支付';
+                            var content = $('#wxzf');
+                        }else if(pay_way == 1){
+                            title = '支付宝支付';
+                            var content = $('#alipay');
+                        }*/
+                        let activeA = $('<a href="'+res.data.url+'"></a>');
+                        activeA[0].click();
+                        /*layer.open({
                             type: 1,
                             title: title,
                             content: content
-                        });
+                        });*/
                     }else if(data.code == 1){
-                        layer.msg(data.msg,{time: 1000});
+                        layer.msg(res.msg,{time: 1500});
                     }
                 },
                 error : function(data){
