@@ -100,19 +100,13 @@
                 dataType : "json",
                 cache : false,
                 data : {
-                    recharge_money : moeny_amount/10,
+                    recharge_money : moeny_amount,
                     recharge_way : pay_way
                 },
                 success : function(res){
                     if(res.code == 0){
                         let activeA = $('<a href="'+res.data.url+'"></a>');
                         activeA[0].click();
-
-                        layer.msg('支付完成？', {
-                            btn: ['已完成']
-                        },function(){
-                            window.location.reload();
-                        });
                     }else if(data.code == 1){
                         layer.msg(res.msg,{time: 1500});
                     }
