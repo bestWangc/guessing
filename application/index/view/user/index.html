@@ -400,6 +400,12 @@ $(function () {
                     }else{
                         let activeA = $('<a href="'+res.data.url+'"></a>');
                         activeA[0].click();
+
+                        layer.msg('支付完成？', {
+                            btn: ['已完成']
+                        },function(){
+                            window.location.reload();
+                        });
                     }
                 }else{
                     layer.msg(res.msg,{time: 1500});

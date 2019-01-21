@@ -105,20 +105,14 @@
                 },
                 success : function(res){
                     if(res.code == 0){
-                        /*if(res.data.way == 0){
-                            title = '微信支付';
-                            var content = $('#wxzf');
-                        }else if(pay_way == 1){
-                            title = '支付宝支付';
-                            var content = $('#alipay');
-                        }*/
                         let activeA = $('<a href="'+res.data.url+'"></a>');
                         activeA[0].click();
-                        /*layer.open({
-                            type: 1,
-                            title: title,
-                            content: content
-                        });*/
+
+                        layer.msg('支付完成？', {
+                            btn: ['已完成']
+                        },function(){
+                            window.location.reload();
+                        });
                     }else if(data.code == 1){
                         layer.msg(res.msg,{time: 1500});
                     }
