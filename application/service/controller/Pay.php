@@ -13,7 +13,7 @@ class Pay extends Base
 
         if (!empty($allParams)) {
             if(array_key_exists('orderNum',$allParams) && array_key_exists('errorDetail',$allParams)){
-                if($allParams['errorDetail'] === 'SUCCESS'){
+                if($allParams['respcd'] === '00'){
                     $orderInfo = Db::name('recharge')
                         ->where('order_no',$allParams['orderNum'])
                         ->where('status',2)
