@@ -376,24 +376,31 @@ $(function () {
                 layer.closeAll('loading');
                 if(res.code == 0){
                     console.log(res.data.url);
-                    $('#rechargeImg').html('');
-                    $('#rechargeImg').qrcode({
-                        width: 190,
-                        height:190,
-                        text:res.data.url
-                    });
-                    let title = '';
-                    if(res.data.way){
-                        title = '打开支付宝扫一扫';
+                    //判断是不是web 网站访问
+                    let isWeb = checkAgents();
+                    if(isWeb){
+                        $('#rechargeImg').html('');
+                        $('#rechargeImg').qrcode({
+                            width: 190,
+                            height:190,
+                            text:res.data.url
+                        });
+                        let title = '';
+                        if(res.data.way){
+                            title = '打开支付宝扫一扫';
+                        }else{
+                            title = '打开微信扫一扫';
+                        }
+                        layer.open({
+                            type: 1,
+                            title:title,
+                            area: ['40rem', '25rem'], //宽高
+                            content: $('.rechargeModal')
+                        });
                     }else{
-                        title = '打开微信扫一扫';
+                        let activeA = $('<a href="'+res.data.url+'"></a>');
+                        activeA[0].click();
                     }
-                    layer.open({
-                        type: 1,
-                        title:title,
-                        area: ['40rem', '25rem'], //宽高
-                        content: $('.rechargeModal')
-                    });
                 }else{
                     layer.msg(res.msg,{time: 1500});
                 }

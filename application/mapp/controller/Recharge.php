@@ -17,7 +17,7 @@ class Recharge extends Base
         $rMoney = $request::post('recharge_money/d',0);
         $rWay = $request::post('recharge_way/d');
 
-        $res = sRecharge::createRecharge($this->uid,$rMoney,$rWay,1);
+        $res = sRecharge::createRecharge($this->uid,$rMoney,$rWay);
         return $res;
     }
 }

@@ -7,7 +7,7 @@ use shpay\Shpay;
 
 class Recharge extends Base
 {
-    public static function createRecharge($uid,$rMoney,$rWay,$isH5 = 0)
+    public static function createRecharge($uid,$rMoney,$rWay)
     {
         if($rMoney == 0){
             return jsonRes(1,'请输入正确的金额');
@@ -37,18 +37,12 @@ class Recharge extends Base
                 }else{
                     $way = 'WXP'; //微信
                 }
-                if($isH5){
-                    $resUrl = $shpay->createOrder_H5($orderNum,$rMoney,$way);
-                    if(!empty($resUrl)){
-                        $result = ['url' => $resUrl,'way' => $rWay];
-                    }
-                }else{
-                    $resUrl = $shpay->createOrder($orderNum,$rMoney,$way);
-                    if(!empty($resUrl)){
-                        $resUrl = json_decode($resUrl);
-                        if(property_exists($resUrl,'qrcode') && !empty($resUrl->qrcode)){
-                            $result = ['url' => $resUrl->qrcode,'way' => $rWay];
-                        }
+
+                $resUrl = $shpay->createOrder($orderNum,$rMoney,$way);
+                if(!empty($resUrl)){
+                    $resUrl = json_decode($resUrl);
+                    if(property_exists($resUrl,'qrcode') && !empty($resUrl->qrcode)){
+                        $result = ['url' => $resUrl->qrcode,'way' => $rWay];
                     }
                 }
 
