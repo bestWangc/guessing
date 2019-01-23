@@ -45,7 +45,7 @@ class Term extends Command
         $count = count($table_tr);
         foreach ($table_tr as $key => $value) {
             // if($key == ($count-2) || $key == ($count-1)){
-            if($key >= ($count-20)){
+            if($key >= ($count-5)){
                 $term_num = $value->children(0)->plaintext;
 
                 $result = $value->children(2)->plaintext;
