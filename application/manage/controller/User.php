@@ -3,6 +3,7 @@ namespace app\manage\controller;
 
 use think\Db;
 use think\facade\Session;
+use think\facade\Request;
 
 class User extends Base
 {
@@ -15,9 +16,13 @@ class User extends Base
     //用户详细信息
     public function userDetails()
     {
-
+        $userRole = Session::get('user_role');
+        $where = '';
+        if($userRole != 1){
+            $where = ['parent_id'=>$this->uid];
+        }
         $userInfo = Db::name('users')
-            ->where('parent_id',$this->uid)
+            ->where($where)
             ->field('id as uid,name,tel,email,status,created_date')
             ->order('created_date desc')
             ->select();
