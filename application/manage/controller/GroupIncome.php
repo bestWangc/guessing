@@ -6,7 +6,8 @@ use think\Controller;
 
 class GroupIncome extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return $this->fetch();
     }
 }

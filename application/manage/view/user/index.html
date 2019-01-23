@@ -36,7 +36,7 @@
             dataType: 'json',
             cache: false,
             success: function (res) {
-                if (res.code) {
+                if (res.code == 0) {
                     var btt_data = res.data;
 
                     $('#usersTableFromData').bootstrapTable({

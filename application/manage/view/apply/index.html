@@ -65,7 +65,7 @@
                 },
                 cache : false,
                 success : function(data){
-                    if(data.code == 1){
+                    if(data.code == 0){
                         $("#exchargeAlipayTableFromData").bootstrapTable('load', data);
                     }else if(data.status == 0){
                         layer.msg(data.message,{time: 1000});

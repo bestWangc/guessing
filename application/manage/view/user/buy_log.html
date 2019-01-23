@@ -39,7 +39,7 @@
             cache: false,
             success: function (res) {
                 console.log(res);
-                if (res.code) {
+                if (res.code == 0) {
                     var btt_data = res.data;
 
                     $('#buyLog').bootstrapTable({

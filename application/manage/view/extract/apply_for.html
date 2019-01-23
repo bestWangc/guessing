@@ -34,7 +34,7 @@
             dataType: 'json',
             cache: false,
             success: function (res) {
-                if (res.code) {
+                if (res.code == 0) {
                     var btt_data = res.data;
 
                     $('#extractApply').bootstrapTable({
@@ -125,7 +125,7 @@
                 success: function (res) {
                     console.log(res);
                     var callBack = '';
-                    if(res.code == 1){
+                    if(res.code == 0){
                         callBack = function () {
                             parent.refreshIframe();
                         };

@@ -1,17 +1,19 @@
 <?php
-
 namespace app\manage\controller;
 
 use app\manage\model\UserRole;
+use think\facade\Session;
+use think\Db;
 
 class Index extends Base
 {
 
-    public function index(){
-        $user_role = session('user_role');
+    public function index()
+    {
+        $user_role = Session::get('user_role');
         $role_name = $this->getUserRole($user_role);
         $this->assign([
-            'uname' => session('user_name'),
+            'uname' => Session::get('user_name'),
             'roleName' => $role_name,
             'urole' => $user_role
         ]);
@@ -19,11 +21,12 @@ class Index extends Base
     }
 
 
-    public function indexMain(){
-        $userName = session('user_name');
+    public function indexMain()
+    {
+        $userName = Session::get('user_name');
 
         $field = 'su.created_date,su.email,sa.alipay_name,alipay_account,sad.`name`,sad.phone,sad.details';
-        $info = db('users')
+        $info = Db::name('users')
             ->alias('su')
             ->join('alipay sa','sa.user_id = su.id','left')
             ->join('address sad','sad.user_id = su.id','left')
@@ -56,13 +59,15 @@ class Index extends Base
     }
 
     //获取角色权限名称
-    public function getUserRole($user_role){
+    public function getUserRole($user_role)
+    {
         $roleName = UserRole::where('id',$user_role)->field('role_name')->find();
         return $roleName['role_name'];
     }
 
     //计算团队成员数量
-    public function getTeamInfo($uid){
+    public function getTeamInfo($uid)
+    {
         //今日凌晨时间戳
         $time = strtotime(date('Ymd'));
         //今日新增成员
@@ -71,7 +76,7 @@ class Index extends Base
         $sql2 = 'SELECT count(DISTINCT su.id) AS count3 FROM ssc_users su
                 INNER JOIN ssc_order so ON so.user_id = su.id AND so.created_date > '.$time.'
                 WHERE su.parent_id = '.$uid;
-        $result = db('users')
+        $result = Db::name('users')
             ->field('count(id) as count')
             ->where('parent_id',$uid)
             ->unionAll($sql1)
@@ -82,10 +87,11 @@ class Index extends Base
     }
 
     //获取简单收益信息
-    public function getTeamOrderCount($uid){
+    public function getTeamOrderCount($uid)
+    {
         //今日凌晨时间戳
         $time = strtotime(date('Ymd'));
-        $result = db('order')
+        $result = Db::name('order')
             ->alias('so')
             ->join('users su','su.id = so.user_id')
             ->field('COUNT(so.id) AS total,COALESCE(SUM(so.amount),0) AS amount')

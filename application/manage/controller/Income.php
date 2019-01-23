@@ -1,19 +1,20 @@
 <?php
-
 namespace app\manage\controller;
 
-use app\tools\M3result;
+use think\Db;
+use think\facade\Request;
 
 class Income extends Base
 {
-
-    public function index(){
+    public function index()
+    {
         return $this->fetch();
     }
 
     //获取平台收益图表数据
-    public function getDetailChartsInfo(){
-        $choseDate = input('post.choseDate');
+    public function getDetailChartsInfo(Request $request)
+    {
+        $choseDate = $request::post('choseDate');
         if(empty($choseDate)){
             //本月1号
             $beginDate = mktime(0,0,0,date('m'),1,date('Y'));
@@ -25,7 +26,7 @@ class Income extends Base
             }
         }
 
-        $result = db('group_income')
+        $result = Db::name('group_income')
             ->where('created_date','>',$beginDate)
             ->field('income,`out`,(income-bonus-`out`) as net_income,created_date')
             ->order('created_date asc')
@@ -47,14 +48,15 @@ class Income extends Base
             }
             $finalData['xAxisData'] = $xAxisData;
         }
-        return jsonRes(1,'成功',$finalData);
+        return jsonRes(0,'成功',$finalData);
     }
     //获取首页图表数据
-    public function getChartsInfo(){
+    public function getChartsInfo()
+    {
 
         //本月1号
         $monFirst = mktime(0,0,0,date('m'),1,date('Y'));
-        $result = db('group_income')
+        $result = Db::name('group_income')
             ->where('user_id',$this->uid)
             ->where('created_date','>',$monFirst)
             ->field('bonus,created_date')
@@ -74,7 +76,7 @@ class Income extends Base
         if(!empty($finalData)){
             $finalData['monthBonus'] = array_sum($finalData['countAll']);
         }
-        return jsonRes(1,'成功',$finalData);
+        return jsonRes(0,'成功',$finalData);
     }
 
     //结算分红
