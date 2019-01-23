@@ -38,7 +38,7 @@ class Register extends Base
             'role' => 0,
             'email' => $email,
             'photo' => '/uploads/photo_1.jpg',
-            'parent_id' => $parent_id,
+            'parent_id' => $parent_id ? $parent_id : 1,
             'created_date' => time()
         ];
         $creatUser = Db::name('users')->insert($data);
