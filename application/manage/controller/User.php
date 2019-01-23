@@ -16,13 +16,9 @@ class User extends Base
     //用户详细信息
     public function userDetails()
     {
-        $userRole = Session::get('user_role');
-        $where = '';
-        if($userRole != 1){
-            $where = ['parent_id'=>$this->uid];
-        }
+
         $userInfo = Db::name('users')
-            ->where($where)
+            ->where('parent_id',$this->uid)
             ->field('id as uid,name,tel,email,status,created_date')
             ->order('created_date desc')
             ->select();

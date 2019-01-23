@@ -2,6 +2,7 @@
 namespace app\service\controller;
 
 use think\Db;
+use think\Exception;
 use think\facade\Request;
 
 class Goods extends Base
@@ -50,10 +51,7 @@ class Goods extends Base
                 ->find();
 
             if($userMoney['dprice'] < $amount){
-                $m3_result->code = 0;
-                $m3_result->msg = '余额不足，请充值';
-                $return = json($m3_result->toArray());
-                throw new Exception('error');
+                throw new Exception('余额不足，请充值');
             }
 
             unset($userMoney);
@@ -79,6 +77,7 @@ class Goods extends Base
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
+            return jsonRes(1,$e->getMessage());
         }
         return jsonRes(1,'失败，请重试');
     }
