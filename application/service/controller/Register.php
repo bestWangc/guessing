@@ -35,7 +35,7 @@ class Register extends Base
         $data = [
             'name' => $userName,
             'passwd' => md5($userPwd.'jfn'),
-            'role' => 0,
+            'role' => 2,
             'email' => $email,
             'photo' => '/uploads/photo_1.jpg',
             'parent_id' => $parent_id ? $parent_id : 1,
@@ -44,6 +44,27 @@ class Register extends Base
         $creatUser = Db::name('users')->insert($data);
 
         if($creatUser){
+            if(!empty($parent_id) && $parent_id != 1){
+                $role = 0;
+                $parentCount = Db::name('users')
+                    ->where('parent_id',$parent_id)
+                    ->count('id');
+                if($parentCount > 5 && $parentCount <= 15){
+                    $role = 3;
+                }
+                if($parentCount > 15 && $parentCount <= 30){
+                    $role = 4;
+                }
+                if($parentCount > 30 && $parentCount <= 50){
+                    $role = 5;
+                }
+                if($role){
+                    Db::name('users')
+                        ->where('id',$parent_id)
+                        ->update(['role'=>$role]);
+                }
+            }
+
             return jsonRes(0,'注册成功');
         }
 
