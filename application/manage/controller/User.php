@@ -17,8 +17,13 @@ class User extends Base
     public function userDetails()
     {
 
+        $useRole = Session::get('user_role');
+        $where = ['parent_id' => $this->uid];
+        if($useRole == 1){
+            $where = '';
+        }
         $userInfo = Db::name('users')
-            ->where('parent_id',$this->uid)
+            ->where($where)
             ->field('id as uid,name,tel,email,status,created_date')
             ->order('created_date desc')
             ->select();
@@ -30,7 +35,7 @@ class User extends Base
             }
             return jsonRes(0,'成功',$userInfo);
         }
-        return jsonRes(1,'错误,请重试');
+        return jsonRes(0,'成功',$userInfo);
     }
 
     //修改密码

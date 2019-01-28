@@ -44,6 +44,7 @@
                             <li>
                                 <a class="J_menuItem" href="{:url('user/index')}">成员列表</a>
                             </li>
+                            {if ($urole === 1)}
                             <li>
                                 <a class="J_menuItem" href="{:url('user/buyLog')}">抢购记录</a>
                             </li>
@@ -53,6 +54,7 @@
                             <li>
                                 <a class="J_menuItem" href="{:url('recharge/index')}">充值记录</a>
                             </li>
+                            {/if}
                         </ul>
                     </li>
 
@@ -80,13 +82,6 @@
                             </a>
                         </li>
                     {/if}
-
-                    <!--<li>
-                        <a class="J_menuItem" href="">
-                            <i class="fa fa-magic"></i>
-                            <span class="nav-label">操作日志</span>
-                        </a>
-                    </li>-->
                 </ul>
             </div>
         </nav>
