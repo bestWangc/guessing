@@ -14,6 +14,9 @@ Route::get('/download', 'index/download/download');
 Route::get('/index/extract/record/:type','index/extract/record');
 
 Route::get('/index/goods/index/:id','index/goods/index');
+
+Route::get('/register/:pid','index/login/register');
+
 return [
 
 ];

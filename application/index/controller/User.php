@@ -17,9 +17,12 @@ class User extends Base
         if($orderInfo['code'] == 0){
             $orderListInfo = $orderInfo['data'];
         }
+        $link = $request::server('HTTP_HOST');
+        $link .= '/register';
         $this->assign([
             'userInfo' => $userInfo,
-            'orderInfo' => $orderListInfo
+            'orderInfo' => $orderListInfo,
+            'link' => $link
         ]);
         return $this->fetch();
     }
@@ -27,7 +30,7 @@ class User extends Base
     //获取简单用户信息
     public function getSimpleInfo()
     {
-        $fieldList = 'u.name as account,u.parent_id,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ali.alipay_pic,ul.role_name,a.name as express_name,a.phone,a.details';
+        $fieldList = 'u.id,u.name as account,u.parent_id,u.money-u.frozen_money as money,u.gold-u.frozen_gold as gold,u.tel,u.email,ali.alipay_account,ali.alipay_name,ali.alipay_pic,ul.role_name,a.name as express_name,a.phone,a.details';
         $res = Db::name('users')
             ->alias('u')
             ->join('address a','a.user_id = u.id','left')
