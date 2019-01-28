@@ -1,0 +1,213 @@
+{extend name="base/base" /}
+
+{block name="title"}金丰年{/block}
+
+{block name="header"}
+{include file="base/nav"}
+{/block}
+
+{block name="main"}
+<div id="whole" class="whole-site-wrapper color-scheme-three">
+    {include file="base/header"}
+
+    <!-- Start of Breadcrumbs -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12">
+                    <nav class="breadcrumb">
+                        <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
+                        <span class="breadcrumb-item active">商品详情</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Breadcrumbs -->
+
+    <div id="content" class="main-content-wrapper">
+        <div class="main-product-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <main id="primary" class="site-main">
+                            <div class="single-product-wrapper">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <img src="{$goodsInfo.pic_url}" alt="Product Image">
+                                    </div>
+                                    <input type="hidden" id="goods_id" value="{$goodsInfo.id}">
+                                    <div class="col-12 col-md-6 col-lg-6">
+                                        <div class="product-details">
+                                            <h3 class="product-name">{$goodsInfo.name}</h3>
+                                            <div class="product-ratings d-flex">
+                                                <ul class="rating d-flex mr-4">
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product-price">
+                                                <p class="d-flex align-items-center">
+                                                    <span class="price-old"><i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.success_price}</span>
+                                                    <span class="price-new"><i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.price}</span>
+                                                    <span class="price-discount">- <i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.dprice}</span>
+                                                </p>
+                                            </div>
+                                            <div class="product-actions">
+                                                <h3>基本信息</h3>
+                                                <div class="product-size clearfix">
+                                                    <label>升级选择</label>
+                                                    <select class="nice-select">
+                                                        <option value="">选择升级选项</option>
+                                                        <option value="0">瑞雪</option>
+                                                        <option value="1">丰年</option>
+                                                    </select>
+                                                </div>
+                                                <div class="product-color clearfix">
+                                                    <ul class="color-list">
+                                                        <li>
+                                                            <label>距离本期结束</label>
+                                                            <p class="text-info" style="font-size: 1.5rem">
+                                                                <span id="minute_show">00分</span>
+                                                                <span id="second_show">00秒</span>
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product-stock">
+                                                    <label>数量</label>
+                                                    <ul class="d-flex flex-wrap align-items-center">
+                                                        <li class="box-quantity">
+                                                            <form action="#">
+                                                                <input class="quantity" type="number" min="1" value="1">
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <button type="button" class="default-btn submitBuy">立即购买</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="social-sharing d-flex align-items-center mt-half">
+                                                <span>其他</span>
+                                                <ul class="list-inline">
+                                                    <li><a href="{:url('/index/user')}" class="bg-twitter" data-toggle="tooltip" data-original-title="充值"><i class="fa fa-jpy"></i><span>充值</span></a></li>
+                                                    <li><a href="{:url('/index/order/record')}" class="bg-gplus" data-toggle="tooltip" data-position="top" data-original-title="购买记录"><i class="fa fa-list"></i><span>购买记录</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        <div class="product-info mt-full">
+                                            <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                                                <li class="nav-item mr-4">
+                                                    <a class="nav-link active" id="nav_desctiption" data-toggle="pill" href="#tab_description" role="tab" aria-controls="tab_description" aria-selected="true">简要说明</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="nav_review" data-toggle="pill" href="#tab_review" role="tab" aria-controls="tab_review" aria-selected="false">重要提示</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="tab_description" role="tabpanel" aria-labelledby="nav_desctiption">
+                                                    <ul class="text-center">
+                                                        <li class="text-muted">1) &nbsp;每10分钟开奖一次</li>
+                                                        <li class="text-muted">2) &nbsp;购买时间为每天10点至22点</li>
+                                                        <li class="text-muted">2) &nbsp;购买请等待开奖，开奖时间可能延迟1-2分钟</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tab-pane fade" id="tab_review" role="tabpanel" aria-labelledby="nav_review">
+                                                    <ul class="text-center">
+                                                        <li class="text-muted">1) &nbsp;开奖前2分钟不允许购买下单。</li>
+                                                        <li class="text-muted">2) &nbsp;根据时时彩结果判定升级，公平公正。</li>
+                                                        <li class="text-muted">3) &nbsp;购买后升级成功可退款，否则只能提货或转为金币提现。</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p style="margin: 3rem 2rem;" class="text-danger">温馨提示：网络高峰期可能出现堵塞延迟，耐心等待即可，敬请谅解</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {include file="base/footer"}
+</div>
+
+<script src="/static/index/js/timeCount.js"></script>
+{/block}
+
+{block name="my-js"}
+<script>
+    $(function () {
+        $('.submitBuy').click(function() {
+            let currentHour = (new Date()).getHours();
+            if(currentHour >= 22 || currentHour < 10){
+                layer.msg('购买时间为10点-22点，请稍候',{time:1500});
+                return false;
+            }
+            if($('#minute_show')[0].innerText.substring(1,2) < 2){
+                layer.msg('现在不允许购买，请稍候',{time:1500});
+                return false;
+            }
+            let buy_num = $('.quantity').val();
+            let goods_id = $('#goods_id').val();
+            let award_num = $('.nice-select').val();
+            if(award_num == ''){
+                layer.msg('请选择升级选项',{time:1500});
+                return false;
+            }
+            if(buy_num == ''){
+                layer.msg('请选择抢购数量',{time:1500});
+                return false;
+            }
+            //加载遮罩层
+            layer.load(1, {
+                shade: [0.5,'#fff']
+            });
+
+            $.ajax({
+                url : '/service/goods/buyGoods',
+                type : "POST",
+                dataType : "json",
+                cache : false,
+                data : {
+                    buy_num : buy_num,
+                    award_num : award_num,
+                    goods_id : goods_id,
+                    type:2
+                },
+                success : function(data){
+                    var callingBack = '';
+                    if(data.code == 0){
+                        callingBack = function () {
+                            window.location.reload();
+                        };
+                    }else if(data.code == 3){
+                        callingBack = function () {
+                            location.href='/index/login';
+                        };
+                    }
+                    layer.closeAll('loading');
+                    layer.msg(data.msg,{time: 1000},callingBack);
+                },
+                error : function(data){
+                    layer.closeAll('loading');
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+{/block}

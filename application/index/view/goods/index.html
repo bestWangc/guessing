@@ -17,7 +17,7 @@
                 <div class="col-12 col-sm-12 col-md-12">
                     <nav class="breadcrumb">
                         <a class="breadcrumb-item" href="{:url('index/index')}">首页</a>
-                        <span class="breadcrumb-item active">商品详情</span>
+                        <span class="breadcrumb-item active">商品列表</span>
                     </nav>
                 </div>
             </div>
@@ -26,120 +26,932 @@
     <!-- End of Breadcrumbs -->
 
     <div id="content" class="main-content-wrapper">
-        <div class="main-product-wrapper">
+
+        <!-- Start of Shop Products Wrapper -->
+        <div class="shop-products-wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-12 col-sm-12 col-md-12">
                         <main id="primary" class="site-main">
-                            <div class="single-product-wrapper">
+                            <div class="shop-wrapper">
                                 <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                        <img src="{$goodsInfo.pic_url}" alt="Product Image">
-                                    </div>
-                                    <input type="hidden" id="goods_id" value="{$goodsInfo.id}">
-                                    <div class="col-12 col-md-6 col-lg-6">
-                                        <div class="product-details">
-                                            <h3 class="product-name">{$goodsInfo.name}</h3>
-                                            <div class="product-ratings d-flex">
-                                                <ul class="rating d-flex mr-4">
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
+                                    <div class="col-12 col-sm-12 col-md-12">
+                                        <div class="shop-toolbar">
+                                            <div class="toolbar-inner">
+                                                <div class="product-view-mode">
+                                                    <ul role="tablist" class="nav shop-item-filter-list">
+                                                        <li role="presentation" class="active"><a href="#grid" aria-controls="grid" role="tab" data-toggle="tab" class="active show" aria-selected="true"><i class="ion-md-grid"></i></a></li>
+                                                        <li role="presentation"><a href="#list" aria-controls="list" role="tab" data-toggle="tab"><i class="ion-md-list"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="toolbar-amount">
+                                                    <span>Showing 10 to 18 of 27</span>
+                                                </div>
                                             </div>
-                                            <div class="product-price">
-                                                <p class="d-flex align-items-center">
-                                                    <span class="price-old"><i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.success_price}</span>
-                                                    <span class="price-new"><i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.price}</span>
-                                                    <span class="price-discount">- <i class="fa fa-jpy"></i>&nbsp;{$goodsInfo.dprice}</span>
-                                                </p>
-                                            </div>
-                                            <div class="product-actions">
-                                                <h3>基本信息</h3>
-                                                <div class="product-size clearfix">
-                                                    <label>升级选择</label>
-                                                    <select class="nice-select">
-                                                        <option value="">选择升级选项</option>
-                                                        <option value="0">瑞雪</option>
-                                                        <option value="1">丰年</option>
+                                            <div class="product-select-box">
+                                                <div class="product-show">
+                                                    <p>Show:</p>
+                                                    <select class="nice-select" name="showing">
+                                                        <option value="1">8</option>
+                                                        <option value="2">12</option>
+                                                        <option value="3">16</option>
+                                                        <option value="4">20</option>
+                                                        <option value="5">24</option>
                                                     </select>
                                                 </div>
-                                                <div class="product-color clearfix">
-                                                    <ul class="color-list">
-                                                        <li>
-                                                            <label>距离本期结束</label>
-                                                            <p class="text-info" style="font-size: 1.5rem">
-                                                                <span id="minute_show">00分</span>
-                                                                <span id="second_show">00秒</span>
-                                                            </p>
-                                                        </li>
-                                                    </ul>
+                                                <div class="product-sort">
+                                                    <p>Sort By:</p>
+                                                    <select class="nice-select" name="sortby">
+                                                        <option value="trending">Default</option>
+                                                        <option value="sales">Name (A - Z)</option>
+                                                        <option value="sales">Name (Z - A)</option>
+                                                        <option value="rating">Price (Low > High)</option>
+                                                        <option value="date">Rating (Lowest)</option>
+                                                        <option value="price-asc">Model (A - Z)</option>
+                                                        <option value="price-asc">Model (Z - A)</option>
+                                                    </select>
                                                 </div>
-                                                <div class="product-stock">
-                                                    <label>数量</label>
-                                                    <ul class="d-flex flex-wrap align-items-center">
-                                                        <li class="box-quantity">
-                                                            <form action="#">
-                                                                <input class="quantity" type="number" min="1" value="1">
-                                                            </form>
-                                                        </li>
-                                                        <li>
-                                                            <button type="button" class="default-btn submitBuy">立即购买</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="social-sharing d-flex align-items-center mt-half">
-                                                <span>其他</span>
-                                                <ul class="list-inline">
-                                                    <li><a href="{:url('/index/user')}" class="bg-twitter" data-toggle="tooltip" data-original-title="充值"><i class="fa fa-jpy"></i><span>充值</span></a></li>
-                                                    <li><a href="{:url('/index/order/record')}" class="bg-gplus" data-toggle="tooltip" data-position="top" data-original-title="购买记录"><i class="fa fa-list"></i><span>购买记录</span></a></li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> <!-- end of row -->
 
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12">
-                                        <div class="product-info mt-full">
-                                            <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
-                                                <li class="nav-item mr-4">
-                                                    <a class="nav-link active" id="nav_desctiption" data-toggle="pill" href="#tab_description" role="tab" aria-controls="tab_description" aria-selected="true">简要说明</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="nav_review" data-toggle="pill" href="#tab_review" role="tab" aria-controls="tab_review" aria-selected="false">重要提示</a>
-                                                </li>
-                                            </ul>
+                                        <div class="shop-products-wrapper">
                                             <div class="tab-content">
-                                                <div class="tab-pane fade show active" id="tab_description" role="tabpanel" aria-labelledby="nav_desctiption">
-                                                    <ul class="text-center">
-                                                        <li class="text-muted">1) &nbsp;每10分钟开奖一次</li>
-                                                        <li class="text-muted">2) &nbsp;购买时间为每天10点至22点</li>
-                                                        <li class="text-muted">2) &nbsp;购买请等待开奖，开奖时间可能延迟1-2分钟</li>
-                                                    </ul>
+                                                <div id="grid" class="tab-pane fade active show" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-new">New</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-1-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-1-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Accumsan Elit</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-old">$330.00</span>
+                                                                            <span class="price-new">$120.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-sale">-64%</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-1-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-1-2.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Aliquam Consequat</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-old">$420.00</span>
+                                                                            <span class="price-new">$150.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-sale">-44%</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-2-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Cas Meque Metus</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-old">$320.00</span>
+                                                                            <span class="price-new">$180.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-sale">-67%</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Donec Ac Tempus</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-old">$430.00</span>
+                                                                            <span class="price-new">$100.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-2-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-3-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Donec Non Est</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$280.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-4-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-4-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Etiam Gravida</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$100.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-new">New</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-5-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-5-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Fusce Aliquam</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$240.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-new">New</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-6-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-6-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Fusce Sheam</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$180.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-new">New</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-4-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-4-2.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Letraset Sheets</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$260.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <div class="label-product label-sale">-67%</div>
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Donec Ac Tempus</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-old">$430.00</span>
+                                                                            <span class="price-new">$100.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-2-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-3-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Donec Non Est</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$280.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+
+                                                        <div class="product-layout product-grid col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            <div class="product-thumb">
+                                                                <div class="product-inner">
+                                                                    <div class="product-image">
+                                                                        <a href="single-product.html">
+                                                                            <img src="assets/images/products/single/product-shop-4-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                            <img src="assets/images/products/single/product-shop-4-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                        </a>
+                                                                        <div class="action-links">
+                                                                            <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                            <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                            <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                            <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                        </div>
+                                                                    </div> <!-- end of product-image -->
+
+                                                                    <div class="product-caption">
+                                                                        <div class="product-ratings">
+                                                                            <div class="rating-box">
+                                                                                <ul class="rating d-flex">
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                    <li><i class="fa fa-star"></i></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h4 class="product-name"><a href="single-product.html">Etiam Gravida</a></h4>
+                                                                        <p class="product-price">
+                                                                            <span class="price-new">$100.00</span>
+                                                                        </p>
+                                                                    </div><!-- end of product-caption -->
+                                                                </div><!-- end of product-inner -->
+                                                            </div><!-- end of product-thumb -->
+                                                        </div> <!-- end of product-layout -->
+                                                    </div>
                                                 </div>
-                                                <div class="tab-pane fade" id="tab_review" role="tabpanel" aria-labelledby="nav_review">
-                                                    <ul class="text-center">
-                                                        <li class="text-muted">1) &nbsp;开奖前2分钟不允许购买下单。</li>
-                                                        <li class="text-muted">2) &nbsp;根据时时彩结果判定升级，公平公正。</li>
-                                                        <li class="text-muted">3) &nbsp;购买后升级成功可退款，否则只能提货或转为金币提现。</li>
-                                                    </ul>
+                                                <div id="list" class="tab-pane fade" role="tabpanel">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-12 col-md-12">
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-new">New</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-1-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-1-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Accumsan Elit</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-old">$330.00</span>
+                                                                                <span class="price-new">$120.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-sale">-64%</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-1-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-1-2.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Aliquam Consequat</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-old">$420.00</span>
+                                                                                <span class="price-new">$150.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-sale">-44%</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-2-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Cas Meque Metus</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-old">$320.00</span>
+                                                                                <span class="price-new">$180.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-sale">-67%</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-2-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Donec Ac Tempus</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-old">$430.00</span>
+                                                                                <span class="price-new">$100.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <a href="#">
+                                                                                <img src="assets/images/products/single/product-shop-2-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-3-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Donec Non Est</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-new">$280.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <a href="#">
+                                                                                <img src="assets/images/products/single/product-shop-4-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-4-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Etiam Gravida</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-new">$100.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-new">New</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-5-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-5-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Fusce Aliquam</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-new">$240.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-new">New</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-6-2.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-6-1.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                        <li><i class="fa fa-star-o"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Fusce Sheam</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-new">$180.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+
+                                                            <div class="product-layout product-list">
+                                                                <div class="product-thumb">
+                                                                    <div class="product-inner media align-items-center">
+                                                                        <div class="product-image mb-4 mb-md-0 mr-md-4 mr-xl-5">
+                                                                            <div class="label-product label-new">New</div>
+                                                                            <a href="single-product.html">
+                                                                                <img src="assets/images/products/single/product-shop-4-1.jpg" alt="Proin Lectus Ipsum" class="hover-image">
+                                                                                <img src="assets/images/products/single/product-shop-4-2.jpg" alt="Proin Lectus Ipsum" title="Proin Lectus Ipsum">
+                                                                            </a>
+                                                                            <div class="action-links">
+                                                                                <a class="action-btn btn-cart" href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                                                                <a class="action-btn btn-wishlist" href="#" title="Add to Wishlist"><i class="pe-7s-like"></i></a>
+                                                                                <a class="action-btn btn-compare" href="#" title="Add to Compare"><i class="pe-7s-refresh-2"></i></a>
+                                                                                <a class="action-btn btn-quickview" data-toggle="modal" data-target="#product_quick_view" href="#" title="Quick View"><i class="pe-7s-search"></i></a>
+                                                                            </div>
+                                                                        </div> <!-- end of product-image -->
+
+                                                                        <div class="product-caption media-body">
+                                                                            <div class="product-ratings">
+                                                                                <div class="rating-box">
+                                                                                    <ul class="rating d-flex justify-content-md-start">
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                        <li><i class="fa fa-star"></i></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <h4 class="product-name"><a href="single-product.html">Letraset Sheets</a></h4>
+                                                                            <p class="product-price">
+                                                                                <span class="price-new">$260.00</span>
+                                                                            </p>
+                                                                            <p class="product-des">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend ..</p>
+                                                                        </div><!-- end of product-caption -->
+                                                                    </div><!-- end of product-inner -->
+                                                                </div><!-- end of product-thumb -->
+                                                            </div> <!-- end of product-layout -->
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <p style="margin: 3rem 2rem;" class="text-danger">温馨提示：网络高峰期可能出现堵塞延迟，耐心等待即可，敬请谅解</p>
+                                        </div> <!-- end of shop-products-wrapper -->
+
+                                        <div class="pagination-area">
+                                            <div class="row align-items-center">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <ul class="pagination">
+                                                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-left"></i></a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                        <li class="page-item active"><span class="page-link">2</span></li>
+                                                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-right"></i></a></li>
+                                                        <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i>|</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="page-amount d-flex">
+                                                        <p>Showing 10 to 18 of 27 (3 Pages)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end of pagination-area -->
                                     </div>
-                                </div>
-                            </div>
-                        </main>
+                                </div> <!-- end of row -->
+                            </div> <!-- end of shop-wrapper -->
+                        </main> <!-- end of #primary -->
                     </div>
-                </div>
-            </div>
+                </div> <!-- end of row -->
+            </div> <!-- end of container -->
         </div>
+        <!-- End of Shop Products Wrapper -->
+
+        <!-- Start of Newsletter Section -->
+        <section class="newsletter-section vpadding bgc-offset">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-7">
+                        <div class="newsletter-title d-lg-flex justify-content-lg-start">
+                            <h6>Subscribe to our Newsletter</h6>
+                            <h3>Subscribe to our newsletter and know first about all the promotions and discounts. Be always trendy.</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+                        <div class="newsletter-form-wrapper">
+                            <form action="index.html" method="post">
+                                <input type="email" name="email" placeholder="Enter you email address here..." value="" required>
+                                <input type="submit" class="default-btn" name="contact" value="Subscribe">
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- end of row -->
+            </div> <!-- end of container -->
+        </section>
+        <!-- End of Newsletter Section -->
     </div>
 
     {include file="base/footer"}
