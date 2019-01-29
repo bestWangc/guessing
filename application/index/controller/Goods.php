@@ -7,7 +7,15 @@ use think\facade\Request;
 
 class Goods extends Controller
 {
-    public function index(Request $request)
+    public function index()
+    {
+        $goodsInfo = $this->getGoodsInfo();
+        $this->assign('goodsInfo',$goodsInfo);
+        return $this->fetch();
+    }
+
+    //单页商品详情
+    public function singleProd(Request $request)
     {
         $goodsId = $request::param('id',1);
         $goodsInfo = [];
@@ -16,7 +24,7 @@ class Goods extends Controller
             $goodsInfo = $goodsInfo[0];
         }
         $this->assign('goodsInfo',$goodsInfo);
-        return $this->fetch();
+        return $this->fetch('single');
     }
 
     //获取商品信息
