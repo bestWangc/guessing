@@ -16,9 +16,9 @@
             <li>
                 <p>{:date('Y-m-d',$vo.created_date)}
                     {if(empty($vo.refuse_reason))}
-                    <span>+金额：{$vo.amount}</span>
+                    <span>成功：+{$vo.amount}</span>
                     {else /}
-                    <span style="color: #ff6951">{$vo.refuse_reason ? ' 拒绝：'.$vo.refuse_reason :''}</span>
+                    <span style="color: #ff6951">{$vo.refuse_reason ? ' 失败：'.$vo.refuse_reason :''}</span>
                     {/if}
                 </p>
             </li>
