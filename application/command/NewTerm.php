@@ -25,7 +25,7 @@ class NewTerm extends Command
         }
         if($nowTime == '10:00' || $nowTime == '10:01'){
             $data = [
-                'term_num' => date('ymd').'-024',
+                'term_num' => date('ymd').'-025',
                 'created_date' => time()
             ];
         }else{
