@@ -66,7 +66,7 @@ class Extract extends Base
     {
         $info = Db::name('extract')
             ->where('user_id',$this->uid)
-            ->where('status',1)
+            ->whereOr('status','1,0')
             ->field('created_date,amount,refuse_reason')
             ->select();
 
