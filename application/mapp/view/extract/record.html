@@ -14,8 +14,13 @@
     <ul>
         {volist name="amount_record" id="vo"}
             <li>
-                <p>{:date('Y-m-d',$vo.created_date)}<span>+金额：{$vo.amount}</span> <sapn style="color: #ff6951">{$vo.refuse_reason ? ' 拒绝：'.$vo.refuse_reason :''}</sapn></p>
-
+                <p>{:date('Y-m-d',$vo.created_date)}
+                    {if(empty($vo.refuse_reason))}
+                    <span>+金额：{$vo.amount}</span>
+                    {else /}
+                    <sapn style="color: #ff6951">{$vo.refuse_reason ? ' 拒绝：'.$vo.refuse_reason :''}</sapn>
+                    {/if}
+                </p>
             </li>
         {/volist}
     </ul>
