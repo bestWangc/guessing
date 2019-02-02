@@ -50,7 +50,7 @@ class Apply extends Base
     //申请详细信息
     public function applyGoodsDetails(Request $request)
     {
-        $purpose = $request::param('post.purpose/d');
+        $purpose = $request::param('purpose/d');
 
         $field = 'sa.id,sa.user_id,su.name,so.id as order_id,sg.name as goods_name,so.goods_num,so.amount,so.goods_num*sg.success_price as success_amonut,so.guessing,sai.term_num,sai.result,sa.status,sa.created_date';
         $result = Db::name('apply')
