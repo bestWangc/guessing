@@ -154,12 +154,12 @@
         $('.submitBuy').click(function() {
             let myDate = new Date();
             let currentHour = myDate.getHours();
-            let currentMonth = myDate.getMonth() +1;
+            /*let currentMonth = myDate.getMonth() +1;
             let currentDay = myDate.getDate();
             if(currentMonth == 2 && currentDay < 11) {
                 layer.msg('春节放假期间暂停销售， 11号开售', {time: 1500});
                 return false;
-            }
+            }*/
 
             if(currentHour >= 22 || currentHour < 10){
                 layer.msg('购买时间为10点-22点， 请稍候',{time:1500});
