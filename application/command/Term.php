@@ -23,32 +23,70 @@ class Term extends Command
         $endTime = strtotime($endTime);
         if(time() > $endTime) return false;
 
-        //$url = 'https://www.km28.com/gp_chart/cqssc/0.html';
-        $url = 'https://chart.cp.360.cn/zst/ssccq';
+        $nowTime = date('Y-m-d/H:i',time());
+        var_dump($nowTime);
+        $nowTimeArr = explode('/',$nowTime);
+        var_dump($nowTimeArr);
+        $currentDate = explode('-',$nowTimeArr[0]);
+        $currentTime = explode(':',$nowTimeArr[1]);
+        $currentMinute = 0;
+        if((int)$currentTime[1] > 30) $currentMinute = 30;
+
+        $postData = [
+            "txtYear" => (int)$currentDate[0],
+            "txtMonth" => (int)$currentDate[1],
+            "txtDay" => (int)$currentDate[2],
+            "txtFromHH" => (int)$currentTime[0],
+            "txtFromMinute" => $currentMinute,
+            "txtToHH" => (int)$currentTime[0],
+            "txtToMinute" => $currentMinute
+        ];
+
+        /*{
+            "txtYear": 2019,
+	"txtMonth": 2,
+	"txtDay": 12,
+	"txtFromHH": 16,
+	"txtFromMinute": 8,
+	"txtToHH": 17,
+	"txtToMinute": 0
+}*/
+        $postData = json_encode($postData);
+        echo $postData;
+
+        // $url = 'https://chart.cp.360.cn/zst/ssccq';
+        $url = 'http://www.cndgv.com/';
 
         $output->writeln('term start.');
         $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL, $url);
-        curl_setopt ($ch, CURLOPT_POST, FALSE);
+        curl_setopt ($ch, CURLOPT_POST, TRUE);
         curl_setopt ($ch, CURLOPT_HEADER, 0);
         curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt ($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)");
         curl_setopt ($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $postData);
         $response = curl_exec($ch);
         curl_close($ch);
 
         $html_dom = new simple_html_dom(); //new simple_html_dom对象
         $html_dom->load($response, true); //加载html
-        //$table_tr = $html_dom->find('.t_tr2'); //获取tr
-        $table_tr = $html_dom->find('#data-tab tr'); //获取tr
-        $count = count($table_tr);
+        $table_tr = $html_dom->find('.main_detail_word td'); //获取tr
+        // $count = count($table_tr);
+        var_dump($table_tr[0]->plaintext);
+        var_dump($table_tr[1]->plaintext);
+        var_dump($table_tr[2]->plaintext);
+        die;
 
         foreach ($table_tr as $key => $value) {
+            $output->writeln($value);
             // if($key == ($count-2) || $key == ($count-1)){
-            if($key >= ($count-5)){
-                $term_num = $value->children(0)->plaintext;
+            // if($key >= ($count-5)){
+            //     $term_num = $value->children(0)->plaintext;
+                $term_num = $value->plaintext;
 
+                var_dump($term_num);
                 $result = $value->children(2)->plaintext;
                 $result = explode(' ',$result)[0];
 
@@ -77,7 +115,7 @@ class Term extends Command
 
                 if($update) trace(date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n');
             }
-        }
+        // }
         $output->writeln('term end.');
         $html_dom->clear();
         return true;
