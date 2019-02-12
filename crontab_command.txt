@@ -1,5 +1,5 @@
-#每5分钟获取一次时时彩开奖结果
-*/5 * * * * /usr/bin/php /var/www/html/guessing/think term
+#每4分钟获取一次时时彩开奖结果
+*/4 * * * * /usr/bin/php /var/www/html/guessing/think term
 
 #每天晚上11点统计今日平台收入
 0 23 * * * /usr/bin/php /var/www/html/guessing/think counter
