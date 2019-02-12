@@ -18,15 +18,10 @@ class Term extends Command
 
     protected function execute(Input $input, Output $output)
     {
-    	//截止运行时间
-        $endTime = date('Y-m-d',time()).' 22:10';
-        $endTime = strtotime($endTime);
-        if(time() > $endTime) return false;
-
         $nowTime = date('Y-m-d/H:i',time());
-        var_dump($nowTime);
+
         $nowTimeArr = explode('/',$nowTime);
-        var_dump($nowTimeArr);
+
         $currentDate = explode('-',$nowTimeArr[0]);
         $currentTime = explode(':',$nowTimeArr[1]);
 
@@ -40,7 +35,7 @@ class Term extends Command
         }elseif ($currentMinute >= 30 && $currentMinute<40){
             $currentMinute = 30;
         }elseif ($currentMinute >= 40 && $currentMinute<50){
-            $currentMinute = 50;
+            $currentMinute = 40;
         }elseif ($currentMinute >= 50 && $currentMinute<60){
             $currentMinute = 50;
         }
@@ -55,6 +50,7 @@ class Term extends Command
             "txtToMinute" => $currentMinute
         ];
 
+        var_dump($postData);
         $url = 'http://www.cndgv.com/';
 
         $output->writeln('term start.');
