@@ -1,8 +1,8 @@
-#每10分钟获取一次时时彩开奖结果
-*/3 10-23 * * * /usr/bin/php /var/www/html/guessing/think term
+#每5分钟获取一次时时彩开奖结果
+*/5 * * * * /usr/bin/php /var/www/html/guessing/think term
 
 #每天晚上11点统计今日平台收入
 0 23 * * * /usr/bin/php /var/www/html/guessing/think counter
 
-#每天10-22点 每10分钟往warad_info表里插条数据
-*/10 10-22 * * * /usr/bin/php /var/www/html/guessing/think new_term
+#每天每10分钟往warad_info表里插条数据
+*/10 * * * * /usr/bin/php /var/www/html/guessing/think new_term
