@@ -29,8 +29,21 @@ class Term extends Command
         var_dump($nowTimeArr);
         $currentDate = explode('-',$nowTimeArr[0]);
         $currentTime = explode(':',$nowTimeArr[1]);
-        $currentMinute = 0;
-        if((int)$currentTime[1] > 30) $currentMinute = 30;
+
+        $currentMinute = (int)$currentTime[1];
+        if($currentMinute < 10){
+            $currentMinute = 0;
+        } elseif ($currentMinute >= 10 && $currentMinute<20){
+            $currentMinute = 10;
+        } elseif ($currentMinute >= 20 && $currentMinute<30){
+            $currentMinute = 20;
+        }elseif ($currentMinute >= 30 && $currentMinute<40){
+            $currentMinute = 30;
+        }elseif ($currentMinute >= 40 && $currentMinute<50){
+            $currentMinute = 50;
+        }elseif ($currentMinute >= 50 && $currentMinute<60){
+            $currentMinute = 50;
+        }
 
         $postData = [
             "txtYear" => (int)$currentDate[0],
@@ -42,19 +55,6 @@ class Term extends Command
             "txtToMinute" => $currentMinute
         ];
 
-        /*{
-            "txtYear": 2019,
-	"txtMonth": 2,
-	"txtDay": 12,
-	"txtFromHH": 16,
-	"txtFromMinute": 8,
-	"txtToHH": 17,
-	"txtToMinute": 0
-}*/
-        $postData = json_encode($postData);
-        echo $postData;
-
-        // $url = 'https://chart.cp.360.cn/zst/ssccq';
         $url = 'http://www.cndgv.com/';
 
         $output->writeln('term start.');
