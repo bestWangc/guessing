@@ -19,28 +19,12 @@ class NewTerm extends Command
     {
 
         $output->writeln('new term start.');
-        $nowTime = date('H:i',time());
-        if($nowTime >= '22:00'){
-            return false;
-        }
-        if($nowTime == '10:00' || $nowTime == '10:01'){
-            $data = [
-                'term_num' => date('ymd').'-025',
-                'created_date' => time()
-            ];
-        }else{
-            $termInfo = Db::name('award_info')
-                ->order('id desc')
-                ->field('term_num')
-                ->find();
 
-            $termInfo['term_num']++;
-            $term_num = $termInfo['term_num'];
-            $data = [
-                'term_num' => $term_num,
-                'created_date' => time()
-            ];
-        }
+        $term_num = date('ymdHi',time());
+        $data = [
+            'term_num' => $term_num,
+            'created_date' => time()
+        ];
 
         $status = false;
         while (!$status){

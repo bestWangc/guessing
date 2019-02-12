@@ -74,48 +74,32 @@ class Term extends Command
         $html_dom->load($response, true); //加载html
         $table_tr = $html_dom->find('.main_detail_word td'); //获取tr
         // $count = count($table_tr);
-        var_dump($table_tr[0]->plaintext);
-        var_dump($table_tr[1]->plaintext);
-        var_dump($table_tr[2]->plaintext);
-        die;
+        $term_num = $table_tr[0]->plaintext;
+        $result = $table_tr[2]->plaintext;
+        if(empty($term_num) || empty($result)) return false;
 
-        foreach ($table_tr as $key => $value) {
-            $output->writeln($value);
-            // if($key == ($count-2) || $key == ($count-1)){
-            // if($key >= ($count-5)){
-            //     $term_num = $value->children(0)->plaintext;
-                $term_num = $value->plaintext;
+        $isHasTerm = Db::name('award_info')
+            ->where('term_num',$term_num)
+            ->value('result');
+        if(!empty($isHasTerm)) return false;
 
-                var_dump($term_num);
-                $result = $value->children(2)->plaintext;
-                $result = explode(' ',$result)[0];
+        $result = str_replace(",","",$result);
+        $result = substr($result,-6);
+        $win = substr($result,-1);
+        $win = $win%2 ==1 ? 1 : 0;
 
-                $output->writeln($term_num);
+        $data = [
+            'result' => $result,
+            'win' => $win,
+            'updated_date' => time()
+        ];
 
-                if(empty($term_num) || empty($result)){
-                    continue;
-                }
-                $isHasTerm = db('award_info')
-                    ->where('term_num',$term_num)
-                    ->value('result');
-                if(!empty($isHasTerm)) continue;
+        $update = Db::name('award_info')
+            ->where('term_num',$term_num)
+            ->update($data);
 
-                $win = substr($result,-1);
-                $win = $win%2 ==1 ? 1 : 0;
+        if($update) trace(date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n');
 
-                $data = [
-                    'result' => $result,
-                    'win' => $win,
-                    'updated_date' => time()
-                ];
-
-                $update = db('award_info')
-                    ->where('term_num',$term_num)
-                    ->update($data);
-
-                if($update) trace(date('Y-m-d H:i:s',time()).'   '.$term_num.'\r\n');
-            }
-        // }
         $output->writeln('term end.');
         $html_dom->clear();
         return true;
