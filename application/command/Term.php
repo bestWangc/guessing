@@ -84,7 +84,7 @@ class Term extends Command
         if(!empty($isHasTerm)) return false;
 
         $result = str_replace(",","",$result);
-        $result = substr($result,-6);
+        $result = substr($result,-5);
         $win = substr($result,-1);
         $win = $win%2 ==1 ? 1 : 0;
 
