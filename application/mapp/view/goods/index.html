@@ -178,10 +178,10 @@
                 layer.msg('春节放假期间暂停销售， 11号开售', {time: 1500});
                 return false;
             }*/
-            if(currentHour >= 22 || currentHour < 10){
+            /*if(currentHour >= 22 || currentHour < 10){
                 layer.msg('竞猜时间为10点-22点，请稍候',{time:1500});
                 return false;
-            }
+            }*/
             if($('#minute_show1')[0].innerText.substring(1,2) < 2){
                 layer.msg('现在不允许购买，请稍候',{time:1500});
                 return false;

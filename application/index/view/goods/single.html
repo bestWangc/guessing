@@ -161,10 +161,10 @@
                 return false;
             }*/
 
-            if(currentHour >= 22 || currentHour < 10){
+            /*if(currentHour >= 22 || currentHour < 10){
                 layer.msg('购买时间为10点-22点， 请稍候',{time:1500});
                 return false;
-            }
+            }*/
             if($('#minute_show')[0].innerText.substring(1,2) < 2){
                 layer.msg('现在不允许购买，请稍候',{time:1500});
                 return false;
