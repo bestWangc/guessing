@@ -28,10 +28,10 @@ class Goods extends Base
         if(empty($buy_num) || empty($goods_id) || is_null($choose)){
             return jsonRes(1,'请选择购买数量或者选择升级选项');
         }
-        $hours = (int)date('H',time());
+        /*$hours = (int)date('H',time());
         if($hours >= 22 || $hours < 10){
             return jsonRes(1,'抢购时间为10点-22点，请稍候');
-        }
+        }*/
 
         Db::startTrans();
         try {
